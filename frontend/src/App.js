@@ -1,6 +1,6 @@
 function App() {
   return (
-    <div className="App">안녕하세요</div>
+    <div className="App">반갑습니다</div>
   );
 }
 
