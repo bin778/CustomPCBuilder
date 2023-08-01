@@ -1,6 +1,19 @@
+import { Route, BrowserRouter, Routes, Link } from "react-router-dom";
+
+import Main from "./view/Main.jsx";
+
 function App() {
   return (
-    <div className="App">반갑습니다</div>
+    <BrowserRouter>
+      <header>
+        <Link to="/"></Link>
+      </header>
+      <main>
+        <Routes>
+          <Route path="/" element={<Main />} />
+        </Routes>
+      </main>
+    </BrowserRouter>
   );
 }
 
