@@ -63,3 +63,36 @@ body {
     cursor: pointer;
   }
 }
+
+// 메인 페이지
+.body {
+  display: inline-block;
+  // 컴퓨터 이미지
+  .computer {
+    position: absolute;
+    width: 750px;
+    top: 150px;
+    left: 100px;
+  }
+
+  // 메인 제목과 내용
+  .main-title {
+    position: absolute;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.3rem;
+    font-weight: bold;
+    width: 1000px;
+    left: 860px;
+    top: 350px;
+  }
+
+  .main-context {
+    position: absolute;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.6rem;
+    font-weight: bold;
+    width: 1000px;
+    left: 860px;
+    top: 400px;
+  }
+}
