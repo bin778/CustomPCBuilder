@@ -15,12 +15,14 @@ export default function Login() {
     <div className="login-layer">
       <div className="login-form">
         <div className="login-logo">CUSTOMPCBUILDER</div>
-        <div className="container">
-          <input type="text" placeholder="아이디" id="id" className="login-input" />
-          <input type="password" placeholder="비밀번호" id="password" className="login-input" />
-          <button id="login" className="login-button">로그인</button>
-          <span>계정이 없으세요?</span>
-          <span onClick={goToSignUp}>회원가입</span>
+        <div>
+          <div><input type="text" placeholder="아이디" id="id" className="login-input" /></div>
+          <div><input type="password" placeholder="비밀번호" id="password" className="login-input" /></div>
+          <div><button id="login" className="login-button">로그인</button></div>
+          <div>
+            <span>계정이 없으세요? </span>
+            <span className="signup-button" onClick={goToSignUp}>회원가입</span>
+          </div>
         </div>
       </div>
     </div>
