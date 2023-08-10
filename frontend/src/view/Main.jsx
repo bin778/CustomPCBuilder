@@ -5,7 +5,7 @@ import COMPUTER from "../images/computer.png";
 import "../css/Main.scss"
 
 // 컴포넌트 파일
-import Header from "./Component/Header";
+import Header from "./Component/Header.jsx";
 
 export default function Main() {
   return (
