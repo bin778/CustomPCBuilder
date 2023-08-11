@@ -30,12 +30,12 @@ export default function Login() {
         <div className="login-logo">CUSTOMPCBUILDER</div>
         <div>
           <div>
-            <input type="text" placeholder="E-Mail" id="id" className="login-input" onChange={e => {
+            <input type="text" placeholder="아이디" id="id" className="login-input" onChange={e => {
               setId(e.target.value);
             }}/>
           </div>
           <div>
-            <input type="password" placeholder="Password" id="password" className="login-input" onChange={e => {
+            <input type="password" placeholder="비밀번호" id="password" className="login-input" onChange={e => {
               setPw(e.target.value);
             }}/>
           </div>
