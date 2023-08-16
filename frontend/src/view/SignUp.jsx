@@ -1,8 +1,12 @@
+// SCSS 파일
+import "../css/SignUp.scss"
+
 export default function SignUp() {
   return (
     <div className="signup-layer">
       <div className="signup-form">
         <div className="signup-logo">회원가입</div>
+        <div className="signup-line"></div>
         {/* 입력 폼 */}
         <div>
           <input type="text" placeholder="아이디 (이메일 입력)" id="id" className="signup-input" />
@@ -19,9 +23,9 @@ export default function SignUp() {
         <div>
           <input type="text" placeholder="생년월일 (8자리 입력)" id="birthday" className="signup-input" />
         </div>
-        {/* 버튼 */}
+        {/* 회원가입 버튼 */}
         <div>
-          <button  type="button" className="signup-button">가입하기</button>
+          <button type="button" className="signup-button">가입하기</button>
         </div>
       </div>
     </div>

@@ -5,39 +5,40 @@ body {
   overflow-y: scroll;
 }
 
-.login-layer {
+.signup-layer {
   margin: 0 auto;
   width: 1920px;
 }
 
-.login-form {
+.signup-form {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  text-align: center;
+  text-align: left;
   width: 300px;
-  height: 270px;
+  height: 350px;
   padding: 20px;
   border: 1px solid #dadce0;
   border-radius: 15px;
   box-shadow: 0 0 0 1px #dadce0;
 
-  .login-logo {
+  .signup-logo {
     position: relative;
-    margin: 20px auto;
+    margin: 10px auto;
     color: #000000;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 1.7rem;
+    font-weight: bold;
   }
 
-  .login-line {
+  .signup-line {
     border: 1px solid #000000;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 
   // 로그인 폼
-  .login-input {
+  .signup-input {
     width: calc(100%);
     height: 35px;
     border: 1px solid #9C94D0;
@@ -56,7 +57,7 @@ body {
   }
 
   // 로그인 버튼
-  .login-button {
+  .signup-button {
     width: calc(100%);
     height: 35px;
     border: none;
@@ -68,13 +69,6 @@ body {
     color: #ffffff;
     font-weight: bold;
     margin-bottom: 30px;
-    cursor: pointer;
-  }
-
-  // 회원가입 버튼
-  .signup-button {
-    color: #2677e0;
-    font-weight: bold;
     cursor: pointer;
   }
 }

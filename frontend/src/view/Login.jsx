@@ -28,6 +28,7 @@ export default function Login() {
     <div className="login-layer">
       <div className="login-form">
         <div className="login-logo">CUSTOMPCBUILDER</div>
+        <div className="login-line"></div>
         <div>
           <div>
             <input type="text" placeholder="아이디" id="id" className="login-input" onChange={e => {
