@@ -42,11 +42,11 @@ export default function Login() {
           </div>
           <div><button type="button" className="login-button" onClick={e => {
             if (realId === id && realPw === pw) {
-              alert(realName + '님 환영합니다.');
+              alert(realName + '님 안녕하세요!');
               e.stopPropagation();
               goToMain();
             } else {
-              alert('이메일 혹은 패스워드가 일치하지 않습니다.');
+              alert('아이디 혹은 패스워드가 일치하지 않습니다!');
             }
           }}>로그인</button></div>
           <div>
