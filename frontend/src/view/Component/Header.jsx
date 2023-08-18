@@ -26,7 +26,6 @@ function Header() {
       {/* 메인 메뉴 */}
       <span className="main-menu">온라인 견적</span>
       <span className="main-menu">맞춤 견적</span>
-      <span className="main-menu">PC부품 검색</span>
       <span className="main-menu">질문 게시판</span>
       {/* 로그인 메뉴 */}
       <span className="login-menu" onClick={goToLogin}>로그인</span>
