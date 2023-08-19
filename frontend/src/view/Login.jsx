@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 // SCSS 파일
 import "../css/Login.scss"
@@ -7,12 +8,32 @@ import "../css/Login.scss"
 export default function Login() {
   let [id, setId] = useState('');
   let [pw, setPw] = useState('');
-
   const navigate = useNavigate();
 
-  const realName = "최영빈"; 
-  const realId = "bin778@naver.com";
-  const realPw = "12345678";
+  const onClickLogin = (e) => {
+    console.log(id, pw);
+
+    if(!id) {
+      alert("아이디(이메일)를 입력해주세요!");
+      return;
+    }
+
+    if(!pw) {
+      alert("비밀번호를 입력해주세요!");
+      return;
+    }
+
+    axios.post("/api/login", {id: id, pw: pw}).then((res) => {
+      console.log(res.data);
+      const {result} = res.data
+      if (result === "success") {
+        e.stopPropagation();
+        goToMain();
+      } else {
+        alert("아이디 혹은 패스워드가 일치하지 않습니다!");
+      }
+    });
+  }
 
   // 회원 가입 페이지 이동
   const goToSignUp = () => {
@@ -40,15 +61,7 @@ export default function Login() {
               setPw(e.target.value);
             }}/>
           </div>
-          <div><button type="button" className="login-button" onClick={e => {
-            if (realId === id && realPw === pw) {
-              alert(realName + '님 안녕하세요!');
-              e.stopPropagation();
-              goToMain();
-            } else {
-              alert('아이디 혹은 패스워드가 일치하지 않습니다!');
-            }
-          }}>로그인</button></div>
+          <div><button type="button" className="login-button" onClick={onClickLogin}>로그인</button></div>
           <div>
             <span>계정이 없으세요? </span>
             <span className="signup-button" onClick={goToSignUp}>회원가입</span>
