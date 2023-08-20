@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -26,10 +27,8 @@ export default function SignUp() {
 
     if(!idRegExp.test(currentId)) {
       setIsId(false);
-      console.log(isId);
     } else {
       setIsId(true);
-      console.log(isId);
     }
   };
 
@@ -39,10 +38,8 @@ export default function SignUp() {
 
     if (currentName.length < 2 || currentName.length > 5) {
       setIsName(false);
-      console.log(isName);
     } else {
       setIsName(true);
-      console.log(isName);
     }
   };
 
@@ -52,10 +49,8 @@ export default function SignUp() {
     const passwordRegExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
     if (!passwordRegExp.test(currentPassword)) {
       setIsPassword(false);
-      console.log(isPassword);
     } else {
       setIsPassword(true);
-      console.log(isPassword);
     }
   };
 
@@ -65,10 +60,8 @@ export default function SignUp() {
 
     if (password !== currentPasswordConfirm) {
       setIsPasswordConfirm(false);
-      console.log(isPasswordConfirm);
     } else {
       setIsPasswordConfirm(true);
-      console.log(isPasswordConfirm);
     }
   };
 
@@ -78,12 +71,54 @@ export default function SignUp() {
 
     if (currentBirth.length !== 8) {
       setIsBirth(false);
-      console.log(isBirth);
     } else {
       setIsBirth(true);
-      console.log(isBirth);
     }
   }
+
+  // 사용자의 회원정보 체크
+  const onClickRegist = (e) => {
+    console.log(id, name, password, passwordConfirm, birth);
+    console.log(isId, isName, isPassword, isPasswordConfirm, isBirth);
+
+    if (isId === false) {
+      alert("아이디(이메일) 형식에 맞게 입력해주세요!");
+      return;
+    }
+
+    if (isName === false) {
+      alert("이름은 2~5글자 사이로 입력해주세요!");
+      return;
+    }
+
+    if (isPassword === false) {
+      alert("비밀번호는 영문자, 숫자, 특수문자를 섞어서 8자리 이상이여야 합니다!");
+      return;
+    }
+
+    if (isPasswordConfirm === false) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
+    if (isBirth === false) {
+      alert("생년월일을 제대로 입력해주세요!");
+      return;
+    }
+
+    const params = {id, name, password, passwordConfirm, birth};
+
+    axios.post("/api/signup",params).then((res) => {
+      const {result} = res.data;
+      if (result === "success") {
+        alert(params.name + "님 환영합니다. 회원가입을 완료하였습니다.");
+        e.stopPropagation();
+        goToMain();
+      } else {
+        alert("죄송하지만 회원가입을 할 수 없습니다.");
+      }
+    });
+  };
 
   // 메인 페이지로 이동
   const navigate = useNavigate();
@@ -115,23 +150,7 @@ export default function SignUp() {
         </div>
         {/* 회원가입 버튼 */}
         <div>
-          <button type="button" className="signup-button" onClick={e => {
-            if(isId === true && isName === true && isPassword === true && isPasswordConfirm === true && isBirth === true) {
-              alert(name + '님의 회원가입을 진심으로 환영합니다!');
-              e.stopPropagation();
-              goToMain();
-            } else if (isId === false) {
-              alert("아이디(이메일)의 형식이 일치하지 않습니다!"); return;
-            } else if (isName === false) {
-              alert("이름은 2~5글자 사이로 입력하세요!"); return;
-            } else if (isPassword === false) {
-              alert("비밀번호는 숫자, 영문자, 특수문자를 섞어서 8글자 이상으로 입력하세요!"); return;
-            } else if (isPasswordConfirm === false) {
-              alert("비밀번호가 일치하지 않습니다!"); return;
-            } else if (isBirth === false) {
-              alert("생년월일은 8글자로 입력하세요!"); return;
-            }
-          }}>가입하기</button>
+          <button type="button" className="signup-button" onClick={onClickRegist}>가입하기</button>
         </div>
       </div>
     </div>
