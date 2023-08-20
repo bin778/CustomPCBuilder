@@ -24,7 +24,6 @@ export default function Login() {
     }
 
     axios.post("/api/login", {id: id, pw: pw}).then((res) => {
-      console.log(res.data);
       const {result} = res.data
       if (result === "success") {
         e.stopPropagation();
