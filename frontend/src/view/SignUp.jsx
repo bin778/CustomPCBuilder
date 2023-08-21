@@ -115,7 +115,7 @@ export default function SignUp() {
         e.stopPropagation();
         goToMain();
       } else {
-        alert("죄송하지만 회원가입을 할 수 없습니다.");
+        alert("회원가입 진행에 문제가 발생되었습니다.");
       }
     });
   };
