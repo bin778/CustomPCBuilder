@@ -15,6 +15,9 @@ app.get("/", (req, res) => {
 const api = require("./src/api/index");
 app.use("/api", api);
 
+const db = require("./src/api/db");
+app.use("/api", db);
+
 const http = require("http").createServer(app);
 http.listen(7000, () => {
   console.log("server listen start : 7000");
