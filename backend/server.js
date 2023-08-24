@@ -15,8 +15,8 @@ app.get("/", (req, res) => {
 const api = require("./src/api/index");
 app.use("/api", api);
 
+// MySQL 연동하기
 const db = require("./src/api/db");
-app.use("/api", db);
 
 const http = require("http").createServer(app);
 http.listen(7000, () => {
