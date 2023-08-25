@@ -1,23 +1,43 @@
 const mysql = require('mysql2');  // mysql 모듈 로드
 
 const conn = {  // mysql 접속 설정
-    host: '127.0.0.1',
-    port: '3306',
-    user: 'root',
-    password: '1234',
-    database: 'USER'
+  host: '127.0.0.1',
+  port: '3306',
+  user: 'root',
+  password: '1234',
+  database: 'USER'
 }
 
-let connection = mysql.createConnection(conn); // DB 커넥션 생성
-connection.connect();   // DB 접속
+const db = {};
 
-let sql = "SELECT * FROM USER_INFO";
+const queryFunc = (sql) => {
+  return new Promise((resolve, reject) => {
+    const connection = mysql.createConnection(conn);
+    connection.connect();
 
-connection.query(sql, function(err, results, fields) {
-    if (err) {
-        console.log(err);
-    }
-    console.log(results);
-});
+    connection.query(sql, (err, results) => {
+      if (err) {
+        console.trace(err);
+        reject(err);
+      } else {
+        connection.end();
+        console.log(results);
+        resolve(results);
+      }
+    });
+  });
+}
 
-module.exports = mysql;
+db.findUser = (params) => {
+  return new Promise(async (resolve) => {
+    const { id, pw } = params;
+
+    const sql = 
+      " select * from user_info where " +
+      ` user_id = "${id}" and user_password="${pw}"; `;
+    const result = await queryFunc(sql);
+    resolve(result);
+  });
+}
+
+module.exports = db;

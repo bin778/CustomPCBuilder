@@ -1,12 +1,15 @@
 const express = require("express")
 const router = express.Router()
+const db = require("./db");
 
 // /api/login POST 데이터를 전달 받는다.
-router.post("/login", (req, res) => {
-  console.log(req.body)
+router.post("/login", async (req, res) => {
+  console.log(req.body);
+  
+  const results = await db.findUser(req.body);
+  console.log(results);
 
-  const {id, pw} = req.body
-  if(id === "bin778@naver.com" && pw === "chlb017587!") {
+  if(results && results.length > 0) {
     res.send({result: "success"})
   } else {
     res.send({result: "fail"})
