@@ -24,7 +24,7 @@ export default function Login() {
     }
 
     axios.post("/api/login", {id: id, pw: pw}).then((res) => {
-      const {result} = res.data
+      const {result} = res.data;
       if (result === "success") {
         e.stopPropagation();
         goToMain();

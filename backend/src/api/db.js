@@ -40,4 +40,26 @@ db.findUser = (params) => {
   });
 }
 
+db.checkUser = (params) => {
+  return new Promise(async (resolve, reject) => {
+    const { id } = params;
+    const sql = `select * from user_info where user_id='${id}';`;
+
+    const result = await queryFunc(sql);
+    resolve(result);
+  });
+};
+
+db.insertUser = (params) => {
+  return new Promise(async (resolve, reject) => {
+    const { id, name, password, birth } = params;
+
+    const sql = `insert into user_info (user_id, user_name, user_password, user_birth)
+            values ('${id}', '${name}', '${password}', '${birth}');`;
+
+    const result = await queryFunc(sql);
+    resolve(result);
+  });
+};
+
 module.exports = db;

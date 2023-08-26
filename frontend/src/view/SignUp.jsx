@@ -106,7 +106,7 @@ export default function SignUp() {
       return;
     }
 
-    const params = {id, name, password, passwordConfirm, birth};
+    const params = {id, name, password, birth};
 
     axios.post("/api/signup",params).then((res) => {
       const {result} = res.data;
@@ -114,6 +114,8 @@ export default function SignUp() {
         alert(params.name + "님 환영합니다. 회원가입을 완료하였습니다.");
         e.stopPropagation();
         goToMain();
+      } else if (result === "dup-userid") {
+        alert("이미 사용중인 아이디(이메일)입니다.");
       } else {
         alert("문제가 생겨 회원가입을 진행할 수 없습니다.");
       }
