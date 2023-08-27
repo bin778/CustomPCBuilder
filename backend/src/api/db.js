@@ -28,6 +28,7 @@ const queryFunc = (sql) => {
   });
 }
 
+// 로그인 아이디, 비밀번호 확인
 db.findUser = (params) => {
   return new Promise(async (resolve) => {
     const { id, pw } = params;
@@ -40,6 +41,7 @@ db.findUser = (params) => {
   });
 }
 
+// 회원가입 중복 체크
 db.checkUser = (params) => {
   return new Promise(async (resolve, reject) => {
     const { id } = params;
@@ -50,6 +52,7 @@ db.checkUser = (params) => {
   });
 };
 
+// 회원가입 등록 및 추가
 db.insertUser = (params) => {
   return new Promise(async (resolve, reject) => {
     const { id, name, password, birth } = params;
