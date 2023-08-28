@@ -5,7 +5,7 @@ const conn = {  // mysql 접속 설정
   port: '3306',
   user: 'root',
   password: '1234',
-  database: 'USER'
+  database: 'custompcbilder'
 }
 
 const db = {};
