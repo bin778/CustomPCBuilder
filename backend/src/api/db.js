@@ -1,11 +1,11 @@
 const mysql = require('mysql2');  // mysql 모듈 로드
 
 const conn = {  // mysql 접속 설정
-  host: '127.0.0.1',
-  port: '3306',
-  user: 'root',
-  password: '1234',
-  database: 'custompcbilder'
+  host: '127.0.0.1', // DB 호스트 설정
+  port: '3306', // DB 포트번호 설정
+  user: 'root', // DB 유저 설정
+  password: '1234', // DB 비밀번호 설정
+  database: 'custompcbilder' // DB 스키마 설정
 }
 
 const db = {};
