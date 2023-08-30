@@ -92,7 +92,7 @@ export default function SignUp() {
     }
 
     if (isPassword === false) {
-      alert("비밀번호는 영문자, 숫자, 특수문자를 섞어서 8자리 이상이여야 합니다!");
+      alert("비밀번호는 영문자, 숫자, 특수문자를 섞어서 8자리 이상이여야 합니다.");
       return;
     }
 
