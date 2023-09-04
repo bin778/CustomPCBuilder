@@ -21,7 +21,6 @@ const queryFunc = (sql) => {
         reject(err);
       } else {
         connection.end();
-        console.log(results);
         resolve(results);
       }
     });
