@@ -24,15 +24,8 @@ export default function Login() {
     }
 
     axios.defaults.withCredentials = true; // withCredentials 전역 설정
-    axios.post("/api/login", {id: id, pw: pw},
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem("token")}`
-      }
-    }).then((res) => {
+    axios.post("/api/login", {id: id, pw: pw}).then((res) => {
       const {result} = res.data;
-      console.log(res.config);
       if (result === "success") {
         // localStorage.setItem("token", res.data.token);
         e.stopPropagation();
