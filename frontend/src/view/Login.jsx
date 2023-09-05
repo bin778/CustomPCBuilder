@@ -24,14 +24,15 @@ export default function Login() {
     }
 
     axios.defaults.withCredentials = true; // withCredentials 전역 설정
-    axios.post("/api/login", {id: id, pw: pw}).then((res) => {
-      const {result} = res.data;
-      if (res.status === 200) {
-        let accessToken = res.headers['authorization']; // 응답헤더에서 토큰 받기
-        let refreshToken = res.headers['refresh']; // 응답헤더에서 토큰 받기
-        console.log('access 토큰 :', accessToken);
-        console.log('refresh 토큰 :', refreshToken);
+    axios.post("/api/login", {id: id, pw: pw},
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem("token")}`
       }
+    }).then((res) => {
+      const {result} = res.data;
+      console.log(res.config);
       if (result === "success") {
         // localStorage.setItem("token", res.data.token);
         e.stopPropagation();
