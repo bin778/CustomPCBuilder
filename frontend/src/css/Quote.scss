@@ -1,0 +1,128 @@
+* { padding: 0; margin: 0; }
+
+body {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: #f1f1f1;
+}
+
+.quote-layer {
+  margin: 0 auto;
+  width: 1920px;
+}
+
+// 온라인 견적 페이지
+.quote-form {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 930px;
+  height: 610px;
+  padding: 10px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 5px 5px 5px 1px #dadce0;
+
+  // 링크 복사 버튼
+  .copy {
+    position: relative;
+    width: 16px;
+    padding: 9px;
+    border: black 1px solid;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  // 링크 복사 입력 폼
+  .copy-link {
+    position: relative;
+    bottom: 13px;
+    left: 2px;
+    width: 690px;
+    height: 23px;
+    padding: 5px;
+    border: black 1px solid;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+
+    &:focus {
+      outline: none !important;
+    }
+  }
+
+  // 버튼
+  .quote-button {
+    display: inline-block;
+    position: relative;
+    bottom: 7px;
+    left: 2px;
+    width: 70px;
+    height: 18px;
+    margin-left: 5px;
+    padding: 10px;
+    border: none;
+    background-color: #4BA59C;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+  // 바
+  .compatible, .wattage, .price {
+    display: inline-block;
+    position: relative;
+    bottom: 3px;
+    width: 300px;
+    height: 30px;
+    padding: 5px;
+    border: none;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+
+  // 바 이미지
+  .bar-image {
+    position: relative;
+    width: 16px;
+    left: 10px;
+    color: #FFFFFF;
+    filter: invert(100%);
+  }
+
+  // 호환성 바
+  .compatible {
+    background-color: #00b16a;
+    .text-bar {
+      position: relative;
+      left: 20px;
+    }
+  }
+
+  // 전력량 바
+  .wattage {
+    background-color: #2c87c3;
+    .text-bar {
+      position: relative;
+      left: 20px;
+    }
+  }
+
+  // 가격 바
+  .price {
+    background-color: #000000;
+    .text-bar {
+      position: relative;
+      left: 250px;
+    }
+  }
+}

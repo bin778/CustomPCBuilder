@@ -23,11 +23,10 @@ export default function Login() {
       return;
     }
 
-    axios.defaults.withCredentials = true; // withCredentials 전역 설정
     axios.post("/api/login", {id: id, pw: pw}).then((res) => {
       const {result} = res.data;
+      
       if (result === "success") {
-        // localStorage.setItem("token", res.data.token);
         e.stopPropagation();
         goToMain();
       } else {
@@ -43,7 +42,7 @@ export default function Login() {
 
   // 메인 페이지로 이동
   const goToMain = () => {
-    navigate("/");
+    navigate("/main");
   }
 
   return (

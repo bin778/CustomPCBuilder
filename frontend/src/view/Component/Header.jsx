@@ -9,27 +9,31 @@ import "../../css/Header.scss"
 function Header() {
   const navigate = useNavigate();
 
-  // 회원 가입 페이지 이동
-  const goToSignUp = () => {
-    navigate("/sign_up");
-  }
-
   // 로그인 페이지 이동
   const goToLogin = () => {
-    navigate("/login");
+    navigate("/");
+  }
+
+  // 메인 페이지 이동
+  const goToMain = () => {
+    navigate("/main");
+  }
+
+  // 온라인 견적 페이지 이동
+  const goToQuote = () => {
+    navigate("/quote");
   }
 
   return (
     <div className="main-header">
       {/* 메인 로고 */}
-      <span className="main-logo">CUSTOMPCBUILDER</span>
+      <span className="main-logo" onClick={goToMain}>CUSTOMPCBUILDER</span>
       {/* 메인 메뉴 */}
-      <span className="main-menu">온라인 견적</span>
+      <span className="main-menu" onClick={goToQuote}>온라인 견적</span>
       <span className="main-menu">맞춤 견적</span>
       <span className="main-menu">질문 게시판</span>
-      {/* 로그인 메뉴 */}
-      <span className="login-menu" onClick={goToLogin}>로그인</span>
-      <span className="login-menu" onClick={goToSignUp}>회원가입</span>
+      {/* 로그 아웃 메뉴 */}
+      <span className="login-menu" onClick={goToLogin}>로그아웃</span>
       <img src={LOGIN_LOGO} className="login-logo" alt="" />
     </div>
   )

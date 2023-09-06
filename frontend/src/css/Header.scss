@@ -12,7 +12,7 @@
     color: #FFFFFF;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 2.5rem;
-    margin-right: 50px
+    margin-right: 50px;
   }
 
   // 메인 메뉴 디자인
@@ -28,7 +28,7 @@
   // 로그인 메뉴 디자인
   .login-menu {
     position: relative;
-    left: 570px;
+    left: 670px;
     color: #FFFFFF;
     margin-left: 30px;
     font-family: Arial, Helvetica, sans-serif;
@@ -41,12 +41,12 @@
     width: 70px;
     margin: auto;
     top: 25px;
-    left: 600px;
+    left: 700px;
     color: #FFFFFF;
     filter: invert(100%);
   }
 
-  .main-menu:hover, .login-menu:hover {
+  .main-logo:hover, .main-menu:hover, .login-menu:hover {
     color: #DBE76D;
     cursor: pointer;
   }

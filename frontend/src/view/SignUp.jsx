@@ -113,7 +113,7 @@ export default function SignUp() {
       if (result === "success") {
         alert(params.name + "님 환영합니다. 회원가입을 완료하였습니다.");
         e.stopPropagation();
-        goToMain();
+        goToLogin();
       } else if (result === "dup-userid") {
         alert("이미 사용중인 아이디(이메일)입니다.");
       } else {
@@ -125,7 +125,7 @@ export default function SignUp() {
   // 메인 페이지로 이동
   const navigate = useNavigate();
   
-  const goToMain = () => {
+  const goToLogin = () => {
     navigate("/");
   }
 
