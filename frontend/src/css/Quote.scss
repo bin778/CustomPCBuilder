@@ -102,6 +102,7 @@ body {
   // 호환성 바
   .compatible {
     background-color: #00b16a;
+    border-radius: 10px 0 0 0;
     .text-bar {
       position: relative;
       left: 20px;
@@ -120,9 +121,55 @@ body {
   // 가격 바
   .price {
     background-color: #000000;
+    border-radius: 0 10px 0 0;
     .text-bar {
       position: relative;
       left: 250px;
     }
+  }
+
+  // 리스트
+  .option-list, .product-list, .cart-list {
+    display: inline-block;
+    position: relative;
+    bottom: 3px;
+    width: 290px;
+    height: 510px;
+    padding: 5px 10px;
+    background-color: #f1f1f1;
+    border: none;
+    overflow-y: scroll;
+  }
+
+  // 리스트 구분 선
+  .list-line {
+    border: 1px solid #000000;
+    margin: 10px auto;
+  }
+
+  // 옵션 리스트
+  .option-list {
+    .option-title {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .option-content {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.0rem;
+      font-weight: bold;
+      margin-left: 5px;
+    }
+  }
+
+  // 상품 리스트
+  .product-list {
+    
+  }
+
+  // 장바구니 리스트
+  .cart-list {
+
   }
 }

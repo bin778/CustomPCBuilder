@@ -35,7 +35,26 @@ export default function Quote() {
             <span className="text-bar">원</span>
           </span>
         </div>
+        <div>
+          <span className="option-list">
+            <div className="list-line"></div>
+            <div className="option-title">제조사</div>
+            <div><input type="checkbox"></input><span className="option-content">인텔</span></div>
+            <div><input type="checkbox"></input><span className="option-content">AMD</span></div>
+            <div className="list-line"></div>
+            <div className="option-title">소켓</div>
+            <div><input type="checkbox"></input><span className="option-content">AM4</span></div>
+            <div><input type="checkbox"></input><span className="option-content">AM5</span></div>
+            <div><input type="checkbox"></input><span className="option-content">LGA1700</span></div>
+            <div className="list-line"></div>
+          </span>
+          <span className="product-list">
 
+          </span>
+          <span className="cart-list">
+
+          </span>
+        </div>
       </div>
     </div>
   )
