@@ -4,6 +4,13 @@ import COMPATIBLE from "../images/compatible.png";
 import WATTAGE from "../images/wattage.png";
 import PRICE from "../images/price.png";
 
+// CPU 이미지
+import RYZEN9 from "../images/CPU/ryzen9.jpg"
+import RYZEN5 from "../images/CPU/ryzen5.jpg"
+import I7 from "../images/CPU/i7.jpg"
+import I5 from "../images/CPU/i5.jpg"
+import I3 from "../images/CPU/i3.jpg"
+
 // SCSS 파일
 import "../css/Quote.scss"
 
@@ -49,10 +56,33 @@ export default function Quote() {
             <div className="list-line"></div>
           </span>
           <span className="product-list">
-
+            <div className="list-line"></div>
+              <div className="product">
+                <img src={RYZEN9} className="product-image" />
+                <span className="product-name">AMD 라이젠9-5900X</span>
+                <span className="product-spec">12코어 / 24쓰레드 / 3.7Ghz / AM4 / 105W</span>
+                <span className="product-price">499,900원</span>
+              </div>
+            <div className="list-line"></div>
+            <div className="list-line"></div>
+              <div className="product">
+                <img src={RYZEN5} className="product-image" />
+                <span className="product-name">AMD 라이젠5-7600X</span>
+                <span className="product-spec">6코어 / 12쓰레드 / 3.8Ghz / AM5 / 105W</span>
+                <span className="product-price">378,000원</span>
+              </div>
+            <div className="list-line"></div>
+            <div className="list-line"></div>
+              <div className="product">
+                <img src={I5} className="product-image" />
+                <span className="product-name">인텔 i5-12400</span>
+                <span className="product-spec">6코어 / 12쓰레드 / 2.5Ghz / LGA1700 / 65W</span>
+                <span className="product-price">229,500원</span>
+              </div>
+            <div className="list-line"></div>
           </span>
           <span className="cart-list">
-
+            
           </span>
         </div>
       </div>

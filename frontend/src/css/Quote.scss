@@ -149,23 +149,52 @@ body {
 
   // 옵션 리스트
   .option-list {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+
     .option-title {
-      font-family: Arial, Helvetica, sans-serif;
       font-size: 1.3rem;
-      font-weight: bold;
     }
 
     .option-content {
-      font-family: Arial, Helvetica, sans-serif;
       font-size: 1.0rem;
-      font-weight: bold;
       margin-left: 5px;
     }
   }
 
   // 상품 리스트
   .product-list {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
     
+    .product {
+      position: relative;
+      .product-image {
+        width: 80px;
+        height: 80px;
+      }
+  
+      .product-name {
+        position: absolute;
+        font-size: 1.1rem;
+        margin-left: 5px;
+      }
+  
+      .product-spec {
+        position: absolute;
+        top: 25px;
+        font-size: 1.0rem;
+        margin-left: 5px;
+      }
+  
+      .product-price {
+        position: absolute;
+        top: 65px;
+        font-size: 1.1rem;
+        color: #ff0000;
+        margin-left: 5px;
+      }
+    }
   }
 
   // 장바구니 리스트
