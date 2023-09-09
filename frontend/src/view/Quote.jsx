@@ -56,33 +56,39 @@ export default function Quote() {
             <div className="list-line"></div>
           </span>
           <span className="product-list">
-            <div className="list-line"></div>
               <div className="product">
-                <img src={RYZEN9} className="product-image" />
+                <div className="list-line"></div>
+                <img src={RYZEN9} className="product-image" alt="" />
                 <span className="product-name">AMD 라이젠9-5900X</span>
                 <span className="product-spec">12코어 / 24쓰레드 / 3.7Ghz / AM4 / 105W</span>
                 <span className="product-price">499,900원</span>
+                <div className="list-line"></div>
               </div>
-            <div className="list-line"></div>
-            <div className="list-line"></div>
               <div className="product">
-                <img src={RYZEN5} className="product-image" />
+                <div className="list-line"></div>
+                <img src={RYZEN5} className="product-image" alt="" />
                 <span className="product-name">AMD 라이젠5-7600X</span>
                 <span className="product-spec">6코어 / 12쓰레드 / 3.8Ghz / AM5 / 105W</span>
                 <span className="product-price">378,000원</span>
+                <div className="list-line"></div>
               </div>
-            <div className="list-line"></div>
-            <div className="list-line"></div>
               <div className="product">
-                <img src={I5} className="product-image" />
+                <div className="list-line"></div>
+                <img src={I5} className="product-image" alt="" />
                 <span className="product-name">인텔 i5-12400</span>
                 <span className="product-spec">6코어 / 12쓰레드 / 2.5Ghz / LGA1700 / 65W</span>
                 <span className="product-price">229,500원</span>
+                <div className="list-line"></div>
               </div>
-            <div className="list-line"></div>
           </span>
           <span className="cart-list">
-            
+            <div className="cart cart-selected">CPU</div>
+            <div className="cart">메인보드</div>
+            <div className="cart">메모리</div>
+            <div className="cart">그래픽카드</div>
+            <div className="cart">저장공간</div>
+            <div className="cart">파워</div>
+            <div className="cart">케이스</div>
           </span>
         </div>
       </div>
