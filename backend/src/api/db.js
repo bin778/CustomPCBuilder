@@ -27,7 +27,7 @@ const queryFunc = (sql) => {
   });
 }
 
-// 로그인 아이디, 비밀번호 확인
+// 사용자 아이디, 비밀번호 확인
 db.findUser = (params) => {
   return new Promise(async (resolve) => {
     const { id, pw } = params;
@@ -35,6 +35,18 @@ db.findUser = (params) => {
     const sql = 
       " select * from user_info where " +
       ` user_id = "${id}" and user_password="${pw}"; `;
+    const result = await queryFunc(sql);
+    resolve(result);
+  });
+}
+
+// 사용자 아이디, 비밀번호 삭제
+db.deleteUser = (params) => {
+  return new Promise(async (resolve) => {
+    const { id, name, pw } = params;
+
+    const sql = `delete from user_info where user_id='${id}' and user_name='${name}' and user_password='${pw}'`;
+
     const result = await queryFunc(sql);
     resolve(result);
   });

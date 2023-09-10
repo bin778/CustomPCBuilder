@@ -40,4 +40,17 @@ router.post("/signup", async (req, res) => {
   }
 });
 
+router.delete("/accountdelete", async (req, res) => {
+  const { user, name, pw } = req.query;
+
+  const result = await db.deleteUser(req.query);
+  console.log(result);
+
+  if (result) {
+    res.send({ result: "success" });
+  } else {
+    res.send({ result: "fail" });
+  }
+});
+
 module.exports = router;
