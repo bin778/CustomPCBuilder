@@ -4,6 +4,7 @@ import Login from "./view/Login.jsx";
 import Main from "./view/Main.jsx";
 import SignUp from "./view/SignUp.jsx";
 import Quote from "./view/Quote.jsx";
+import AccountDelete from "./view/AccountDelete.jsx";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Link to="/main"></Link>
         <Link to="/sign_up"></Link>
         <link to="/quote"></link>
+        <link to="/account_delete"></link>
       </header>
       <main>
         <Routes>
@@ -20,6 +22,7 @@ function App() {
           <Route path="/main" element={<Main />} />
           <Route path="/sign_up" element={<SignUp />} />
           <Route path="/quote" element={<Quote />} />
+          <Route path="/account_delete" element={<AccountDelete />} />
         </Routes>
       </main>
     </BrowserRouter>
