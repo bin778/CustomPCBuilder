@@ -83,6 +83,7 @@ export default function Quote() {
           </span>
           <span className="cart-list">
             <div className="cart cart-selected">CPU</div>
+            <div className="cart">쿨러</div>
             <div className="cart">메인보드</div>
             <div className="cart">메모리</div>
             <div className="cart">그래픽카드</div>
