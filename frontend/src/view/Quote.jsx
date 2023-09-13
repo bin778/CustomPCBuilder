@@ -5,8 +5,8 @@ import WATTAGE from "../images/wattage.png";
 import PRICE from "../images/price.png";
 
 // CPU 이미지
-import RYZEN9 from "../images/CPU/ryzen9.jpg"
-import RYZEN5 from "../images/CPU/ryzen5.jpg"
+import RYZEN9 from "../images/CPU/RYZEN9.jpg"
+import RYZEN5 from "../images/CPU/RYZEN5.jpg"
 import I7 from "../images/CPU/i7.jpg"
 import I5 from "../images/CPU/i5.jpg"
 import I3 from "../images/CPU/i3.jpg"
