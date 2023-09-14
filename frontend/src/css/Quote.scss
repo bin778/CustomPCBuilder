@@ -215,9 +215,14 @@ body {
       cursor: pointer;
     }
 
-    .cart-selected {
+    .active {
       background-color: #9C94D0;
       color: #ffffff;
     }
+  }
+
+  // 메뉴 숨기기
+  .hidden {
+    display: none;
   }
 }
