@@ -80,6 +80,118 @@ export default function Quote() {
               <div><input type="checkbox"></input><span className="option-content">수랭</span></div>
               <div className="list-line"></div>
             </span>
+            {/* 메인보드 옵션 필터 */}
+            <span className={(btnActive === 'mainboard' ? '' : 'hidden')}>
+              <div className="list-line"></div>
+              <div className="option-title">제조사</div>
+              <div><input type="checkbox"></input><span className="option-content">ASRock</span></div>
+              <div><input type="checkbox"></input><span className="option-content">ASUS</span></div>
+              <div><input type="checkbox"></input><span className="option-content">MSI</span></div> 
+              <div className="list-line"></div>
+              <div className="option-title">CPU</div>
+              <div><input type="checkbox"></input><span className="option-content">AMD</span></div>
+              <div><input type="checkbox"></input><span className="option-content">인텔</span></div>
+              <div className="list-line"></div>
+              <div className="option-title">소켓</div>
+              <div><input type="checkbox"></input><span className="option-content">AM4</span></div>
+              <div><input type="checkbox"></input><span className="option-content">AM5</span></div>
+              <div><input type="checkbox"></input><span className="option-content">LGA1700</span></div>
+              <div className="list-line"></div>
+              <div className="option-title">폼팩터</div>
+              <div><input type="checkbox"></input><span className="option-content">ATX</span></div>
+              <div><input type="checkbox"></input><span className="option-content">M-ATX</span></div>
+              <div className="list-line"></div>
+            </span>
+            {/* 메모리 옵션 필터 */}
+            <span className={(btnActive === 'memory' ? '' : 'hidden')}>
+              <div className="list-line"></div>
+              <div className="option-title">제조사</div>
+              <div><input type="checkbox"></input><span className="option-content">G.SKILL</span></div>
+              <div><input type="checkbox"></input><span className="option-content">TeamGroup</span></div>
+              <div><input type="checkbox"></input><span className="option-content">삼성전자</span></div>
+              <div className="list-line"></div>
+              <div className="option-title">메모리용량</div>
+              <div><input type="checkbox"></input><span className="option-content">16GB</span></div>
+              <div><input type="checkbox"></input><span className="option-content">32GB</span></div>
+              <div className="list-line"></div>
+            </span>
+            {/* 비디오카드 옵션 필터 */}
+            <span className={(btnActive === 'videocard' ? '' : 'hidden')}>
+              <div className="list-line"></div>
+              <div className="option-title">제조사</div>
+              <div><input type="checkbox"></input><span className="option-content">MAXSUN</span></div>
+              <div><input type="checkbox"></input><span className="option-content">MSI</span></div>
+              <div><input type="checkbox"></input><span className="option-content">ZOTAC</span></div>
+              <div className="list-line"></div>
+              <div className="option-title">칩셋</div>
+              <div><input type="checkbox"></input><span className="option-content">RTX4070Ti</span></div>
+              <div><input type="checkbox"></input><span className="option-content">RTX4060Ti</span></div>
+              <div><input type="checkbox"></input><span className="option-content">RTX3060</span></div>
+              <div><input type="checkbox"></input><span className="option-content">GTX1660 SUPER</span></div>
+              <div><input type="checkbox"></input><span className="option-content">GTX1650</span></div>
+              <div className="list-line"></div>
+              <div className="option-title">메모리용량</div>
+              <div><input type="checkbox"></input><span className="option-content">4GB</span></div>
+              <div><input type="checkbox"></input><span className="option-content">6GB</span></div>
+              <div><input type="checkbox"></input><span className="option-content">8GB</span></div>
+              <div><input type="checkbox"></input><span className="option-content">12GB</span></div>
+              <div className="list-line"></div>
+            </span>
+            {/* 저장공간 옵션 필터 */}
+            <span className={(btnActive === 'storage' ? '' : 'hidden')}>
+              <div className="list-line"></div>
+              <div className="option-title">제조사</div>
+              <div><input type="checkbox"></input><span className="option-content">삼성전자</span></div>
+              <div><input type="checkbox"></input><span className="option-content">시게이트</span></div>
+              <div className="list-line"></div>
+              <div className="option-title">장치</div>
+              <div><input type="checkbox"></input><span className="option-content">HDD</span></div>
+              <div><input type="checkbox"></input><span className="option-content">SSD</span></div>
+              <div className="list-line"></div>
+              <div className="option-title">용량</div>
+              <div><input type="checkbox"></input><span className="option-content">500GB</span></div>
+              <div><input type="checkbox"></input><span className="option-content">1TB</span></div>
+              <div><input type="checkbox"></input><span className="option-content">2TB</span></div>
+              <div><input type="checkbox"></input><span className="option-content">4TB</span></div>
+              <div className="list-line"></div>
+            </span>
+            {/* 파워 옵션 필터 */}
+            <span className={(btnActive === 'power' ? '' : 'hidden')}>
+              <div className="list-line"></div>
+              <div className="option-title">제조사</div>
+              <div><input type="checkbox"></input><span className="option-content">마이크로닉스</span></div>
+              <div><input type="checkbox"></input><span className="option-content">잘만</span></div>
+              <div><input type="checkbox"></input><span className="option-content">쿨러마스터</span></div>
+              <div className="list-line"></div>
+              <div className="option-title">폼팩터</div>
+              <div><input type="checkbox"></input><span className="option-content">ATX</span></div>
+              <div><input type="checkbox"></input><span className="option-content">M-ATX</span></div>
+              <div className="list-line"></div>
+              <div className="option-title">정격출력</div>
+              <div><input type="checkbox"></input><span className="option-content">600W</span></div>
+              <div><input type="checkbox"></input><span className="option-content">700W</span></div>
+              <div><input type="checkbox"></input><span className="option-content">850W</span></div>
+              <div><input type="checkbox"></input><span className="option-content">1000W</span></div>
+              <div className="list-line"></div>
+            </span>
+            {/* 케이스 옵션 필터 */}
+            <span className={(btnActive === 'comcase' ? '' : 'hidden')}>
+              <div className="list-line"></div>
+              <div className="option-title">제조사</div>
+              <div><input type="checkbox"></input><span className="option-content">3RSYS</span></div>
+              <div><input type="checkbox"></input><span className="option-content">마이크로닉스</span></div>
+              <div><input type="checkbox"></input><span className="option-content">앱코</span></div>
+              <div className="list-line"></div>
+              <div className="option-title">크기</div>
+              <div><input type="checkbox"></input><span className="option-content">미니타워</span></div>
+              <div><input type="checkbox"></input><span className="option-content">미들타워</span></div>
+              <div><input type="checkbox"></input><span className="option-content">빅타워</span></div>
+              <div className="list-line"></div>
+              <div className="option-title">폼팩터</div>
+              <div><input type="checkbox"></input><span className="option-content">ATX</span></div>
+              <div><input type="checkbox"></input><span className="option-content">M-ATX</span></div>
+              <div className="list-line"></div>
+            </span>
           </span>
           <span className="product-list">
             {/* CPU 상품 */}
