@@ -22,6 +22,8 @@ import Header from "./Component/Header.jsx";
 export default function Quote() {
   // 온라인 견적 카테고리 버튼
   let [btnActive, setBtnActive] = useState('cpu');
+  
+// CPU DB 데이터 가져오기
 
   return (
     <div className="quote-layer">
