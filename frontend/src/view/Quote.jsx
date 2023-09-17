@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from 'axios'
 
 // 이미지 파일 목록
 import COPY from "../images/copy.png";
@@ -22,8 +23,14 @@ import Header from "./Component/Header.jsx";
 export default function Quote() {
   // 온라인 견적 카테고리 버튼
   let [btnActive, setBtnActive] = useState('cpu');
+
+  // 부품 목록 State
+  let [CPU, setCPU] = useState([]);
   
-// CPU DB 데이터 가져오기
+  // CPU DB 목록 불러오기
+  axios.get("/api/cpu", {}).then((res) => {
+    setCPU(res.data.cpu);
+  });
 
   return (
     <div className="quote-layer">

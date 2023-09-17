@@ -1,4 +1,6 @@
 const mysql = require('mysql2');  // mysql 모듈 로드
+const express = require("express");
+const app = express();
 
 const conn = {  // mysql 접속 설정
   host: '127.0.0.1', // DB 호스트 설정
@@ -75,5 +77,15 @@ db.insertUser = (params) => {
     resolve(result);
   });
 };
+
+// CPU DB 목록 가져오기
+db.selectCPU = () => {
+  return new Promise(async (resolve, reject) => {
+    const sql = `select * from cpu;`;
+
+    const result = await queryFunc(sql);
+    resolve(result);
+  })
+}
 
 module.exports = db;

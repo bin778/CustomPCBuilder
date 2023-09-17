@@ -40,6 +40,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
+// /api/accountdelete POST 데이터를 전달 받는다.
 router.delete("/accountdelete", async (req, res) => {
   const { user, name, pw } = req.query;
 
@@ -52,5 +53,13 @@ router.delete("/accountdelete", async (req, res) => {
     res.send({ result: "fail" });
   }
 });
+
+// /api/cpu GET 데이터를 전달 받는다.
+router.get("/cpu", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+
+  const cpu = await db.selectCPU(req.query);
+  res.send({ result: cpu });
+})
 
 module.exports = router;
