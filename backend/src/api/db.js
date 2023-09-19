@@ -7,7 +7,7 @@ const conn = {  // mysql 접속 설정
   port: '3306', // DB 포트번호 설정
   user: 'root', // DB 유저 설정
   password: '1234', // DB 비밀번호 설정
-  database: 'custompcbilder' // DB 스키마 설정
+  database: 'custompcbuilder' // DB 스키마 설정
 }
 
 const db = {};
