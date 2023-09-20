@@ -153,7 +153,7 @@ body {
     font-weight: bold;
 
     .option-title {
-      font-size: 1.3rem;
+      font-size: 1.1rem;
     }
 
     .option-content {
@@ -177,21 +177,22 @@ body {
   
       .product-name {
         position: absolute;
-        font-size: 1.1rem;
+        font-size: 1.0rem;
         margin-left: 5px;
+        top: 10px;
       }
   
       .product-spec {
         position: absolute;
-        top: 35px;
-        font-size: 1.0rem;
+        top: 30px;
+        font-size: 0.9rem;
         margin-left: 5px;
       }
   
       .product-price {
         position: absolute;
-        top: 75px;
-        font-size: 1.1rem;
+        top: 80px;
+        font-size: 0.9rem;
         color: #ff0000;
         margin-left: 5px;
       }

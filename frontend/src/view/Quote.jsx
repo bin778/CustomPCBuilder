@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios'
 
 // 이미지 파일 목록
@@ -6,13 +6,6 @@ import COPY from "../images/copy.png";
 import COMPATIBLE from "../images/compatible.png";
 import WATTAGE from "../images/wattage.png";
 import PRICE from "../images/price.png";
-
-// CPU 이미지
-import RYZEN9 from "../images/CPU/RYZEN9.jpg"
-import RYZEN5 from "../images/CPU/RYZEN5.jpg"
-// import I7 from "../images/CPU/i7.jpg"
-import I5 from "../images/CPU/i5.jpg"
-// import I3 from "../images/CPU/i3.jpg"
 
 // SCSS 파일
 import "../css/Quote.scss"
@@ -27,10 +20,15 @@ export default function Quote() {
   // 부품 목록 State
   let [CPU, setCPU] = useState([]);
   
-  // CPU DB 목록 불러오기
-  axios.get("/api/cpu", {}).then((res) => {
-    setCPU(res.data.cpu);
-  });
+  useEffect(() => {
+    // CPU DB 목록 불러오기
+    axios.get("/api/cpu").then((res) => {
+      const cpuData = res.data.result;
+      setCPU(cpuData);
+    }).catch((error) => {
+      console.error('데이터를 가져오는 중 오류 발생: ', error);
+    });
+  }, []);
 
   return (
     <div className="quote-layer">
@@ -204,30 +202,18 @@ export default function Quote() {
           </span>
           <span className="product-list">
             {/* CPU 상품 */}
-            <div className={(btnActive === 'cpu' ? 'product' : 'hidden')}>
-              <div className="list-line"></div>
-              <img src={RYZEN9} className="product-image" alt="" />
-              <span className="product-name">AMD 라이젠9-5900X</span>
-              <span className="product-spec">12코어 / 24쓰레드 / 3.7Ghz / AM4 / 105W</span>
-              <span className="product-price">499,900원</span>
-              <div className="list-line"></div>
-            </div>
-            <div className={(btnActive === 'cpu' ? 'product' : 'hidden')}>
-              <div className="list-line"></div>
-              <img src={RYZEN5} className="product-image" alt="" />
-              <span className="product-name">AMD 라이젠5-7600X</span>
-              <span className="product-spec">6코어 / 12쓰레드 / 3.8Ghz / AM5 / 105W</span>
-              <span className="product-price">378,000원</span>
-              <div className="list-line"></div>
-            </div>
-            <div className={(btnActive === 'cpu' ? 'product' : 'hidden')}>
-              <div className="list-line"></div>
-              <img src={I5} className="product-image" alt="" />
-              <span className="product-name">인텔 i5-12400</span>
-              <span className="product-spec">6코어 / 12쓰레드 / 2.5Ghz / LGA1700 / 65W</span>
-              <span className="product-price">229,500원</span>
-              <div className="list-line"></div>
-            </div>
+            <ul>
+              {CPU.map((cpuItem) => (
+                <li key={cpuItem.cpu_id} className={(btnActive === 'cpu' ? 'product' : 'hidden')}>
+                  <div className="list-line"></div>
+                  <img src={process.env.PUBLIC_URL + cpuItem.cpu_image} className="product-image" alt="" />
+                  <span className="product-name">{cpuItem.cpu_manufacturer} {cpuItem.cpu_title}</span>
+                  <span className="product-spec">{cpuItem.cpu_core}코어 / {cpuItem.cpu_thread}쓰레드 / {cpuItem.cpu_clock}Ghz / {cpuItem.cpu_socket} / {cpuItem.cpu_wattage}W</span>
+                  <span className="product-price">{cpuItem.cpu_price.toLocaleString('ko-KR')}원</span>
+                  <div className="list-line"></div>
+                </li>
+              ))}
+            </ul>
           </span>
           <span className="cart-list">
             <div className={"cart" + (btnActive === 'cpu' ? ' active' : '')} onClick={() => { setBtnActive('cpu'); }}>CPU</div>
