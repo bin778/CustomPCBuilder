@@ -141,6 +141,10 @@ body {
     overflow-y: scroll;
   }
 
+  .option-list {
+    overflow-y: hidden;
+  }
+
   // 리스트 구분 선
   .list-line {
     border: 1px solid #000000;
@@ -184,7 +188,7 @@ body {
   
       .product-spec {
         position: absolute;
-        top: 30px;
+        top: 48px;
         font-size: 0.9rem;
         margin-left: 5px;
       }

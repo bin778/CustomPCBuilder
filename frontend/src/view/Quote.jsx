@@ -19,12 +19,75 @@ export default function Quote() {
 
   // 부품 목록 State
   let [CPU, setCPU] = useState([]);
+  let [Cooler, setCooler] = useState([]);
+  let [Mainboard, setMainboard] = useState([]);
+  let [Memory, setMemory] = useState([]);
+  let [VideoCard, setVideoCard] = useState([]);
+  let [Storage, setStorage] = useState([]);
+  let [Power, setPower] = useState([]);
+  let [ComCase, setComCase] = useState([]);
   
   useEffect(() => {
     // CPU DB 목록 불러오기
     axios.get("/api/cpu").then((res) => {
       const cpuData = res.data.result;
       setCPU(cpuData);
+    }).catch((error) => {
+      console.error('데이터를 가져오는 중 오류 발생: ', error);
+    });
+
+    // Cooler DB 목록 불러오기
+    axios.get("/api/cooler").then((res) => {
+      const coolerData = res.data.result;
+      setCooler(coolerData);
+    }).catch((error) => {
+      console.error('데이터를 가져오는 중 오류 발생: ', error);
+    });
+
+    // Mainboard DB 목록 불러오기
+    axios.get("/api/mainboard").then((res) => {
+      const mainboardData = res.data.result;
+      setMainboard(mainboardData);
+    }).catch((error) => {
+      console.error('데이터를 가져오는 중 오류 발생: ', error);
+    });
+
+    // Memory DB 목록 불러오기
+    axios.get("/api/memory").then((res) => {
+      const memoryData = res.data.result;
+      setMemory(memoryData);
+    }).catch((error) => {
+      console.error('데이터를 가져오는 중 오류 발생: ', error);
+    });
+
+    // VideoCard DB 목록 불러오기
+    axios.get("/api/videocard").then((res) => {
+      const videocardData = res.data.result;
+      setVideoCard(videocardData);
+    }).catch((error) => {
+      console.error('데이터를 가져오는 중 오류 발생: ', error);
+    });
+
+    // Storage DB 목록 불러오기
+    axios.get("/api/storage").then((res) => {
+      const storageData = res.data.result;
+      setStorage(storageData);
+    }).catch((error) => {
+      console.error('데이터를 가져오는 중 오류 발생: ', error);
+    });
+
+    // Power DB 목록 불러오기
+    axios.get("/api/power").then((res) => {
+      const powerData = res.data.result;
+      setPower(powerData);
+    }).catch((error) => {
+      console.error('데이터를 가져오는 중 오류 발생: ', error);
+    });
+
+    // ComCase DB 목록 불러오기
+    axios.get("/api/comcase").then((res) => {
+      const comcaseData = res.data.result;
+      setComCase(comcaseData);
     }).catch((error) => {
       console.error('데이터를 가져오는 중 오류 발생: ', error);
     });
@@ -126,11 +189,13 @@ export default function Quote() {
             <span className={(btnActive === 'videocard' ? '' : 'hidden')}>
               <div className="list-line"></div>
               <div className="option-title">제조사</div>
+              <div><input type="checkbox"></input><span className="option-content">ASUS</span></div>
               <div><input type="checkbox"></input><span className="option-content">MAXSUN</span></div>
               <div><input type="checkbox"></input><span className="option-content">MSI</span></div>
               <div><input type="checkbox"></input><span className="option-content">ZOTAC</span></div>
               <div className="list-line"></div>
               <div className="option-title">칩셋</div>
+              <div><input type="checkbox"></input><span className="option-content">RTX4080</span></div>
               <div><input type="checkbox"></input><span className="option-content">RTX4070Ti</span></div>
               <div><input type="checkbox"></input><span className="option-content">RTX4060Ti</span></div>
               <div><input type="checkbox"></input><span className="option-content">RTX3060</span></div>
@@ -142,6 +207,7 @@ export default function Quote() {
               <div><input type="checkbox"></input><span className="option-content">6GB</span></div>
               <div><input type="checkbox"></input><span className="option-content">8GB</span></div>
               <div><input type="checkbox"></input><span className="option-content">12GB</span></div>
+              <div><input type="checkbox"></input><span className="option-content">16GB</span></div>
               <div className="list-line"></div>
             </span>
             {/* 저장공간 옵션 필터 */}
@@ -201,8 +267,8 @@ export default function Quote() {
             </span>
           </span>
           <span className="product-list">
-            {/* CPU 상품 */}
             <ul>
+              {/* CPU 상품 */}
               {CPU.map((cpuItem) => (
                 <li key={cpuItem.cpu_id} className={(btnActive === 'cpu' ? 'product' : 'hidden')}>
                   <div className="list-line"></div>
@@ -210,6 +276,90 @@ export default function Quote() {
                   <span className="product-name">{cpuItem.cpu_manufacturer} {cpuItem.cpu_title}</span>
                   <span className="product-spec">{cpuItem.cpu_core}코어 / {cpuItem.cpu_thread}쓰레드 / {cpuItem.cpu_clock}Ghz / {cpuItem.cpu_socket} / {cpuItem.cpu_wattage}W</span>
                   <span className="product-price">{cpuItem.cpu_price.toLocaleString('ko-KR')}원</span>
+                  <div className="list-line"></div>
+                </li>
+              ))}
+
+              {/* 쿨러 상품 */}
+              {Cooler.map((coolerItem) => (
+                <li key={coolerItem.cooler_id} className={(btnActive === 'cooler' ? 'product' : 'hidden')}>
+                  <div className="list-line"></div>
+                  <img src={process.env.PUBLIC_URL + coolerItem.cooler_image} className="product-image" alt="" />
+                  <span className="product-name">{coolerItem.cooler_manufacturer} {coolerItem.cooler_title}</span>
+                  <span className="product-spec">{coolerItem.cooler_cooling} / {coolerItem.cooler_wattage}W</span>
+                  <span className="product-price">{coolerItem.cooler_price.toLocaleString('ko-KR')}원</span>
+                  <div className="list-line"></div>
+                </li>
+              ))}
+
+              {/* 메인보드 상품 */}
+              {Mainboard.map((mainboardItem) => (
+                <li key={mainboardItem.mainboard_id} className={(btnActive === 'mainboard' ? 'product' : 'hidden')}>
+                  <div className="list-line"></div>
+                  <img src={process.env.PUBLIC_URL + mainboardItem.mainboard_image} className="product-image" alt="" />
+                  <span className="product-name">{mainboardItem.mainboard_manufacturer} {mainboardItem.mainboard_title}</span>
+                  <span className="product-spec">{mainboardItem.mainboard_cpu} / {mainboardItem.mainboard_socket} / {mainboardItem.mainboard_chipset} / {mainboardItem.mainboard_formfactors} / {mainboardItem.mainboard_wattage}W</span>
+                  <span className="product-price">{mainboardItem.mainboard_price.toLocaleString('ko-KR')}원</span>
+                  <div className="list-line"></div>
+                </li>
+              ))}
+
+              {/* 메모리 상품 */}
+              {Memory.map((memoryItem) => (
+                <li key={memoryItem.memory_id} className={(btnActive === 'memory' ? 'product' : 'hidden')}>
+                  <div className="list-line"></div>
+                  <img src={process.env.PUBLIC_URL + memoryItem.memory_image} className="product-image" alt="" />
+                  <span className="product-name">{memoryItem.memory_manufacturer} {memoryItem.memory_title}</span>
+                  <span className="product-spec">{memoryItem.memory_capacity}GB / {memoryItem.memory_clock}Mhz / {memoryItem.memory_wattage}W</span>
+                  <span className="product-price">{memoryItem.memory_price.toLocaleString('ko-KR')}원</span>
+                  <div className="list-line"></div>
+                </li>
+              ))}
+
+              {/* 비디오카드 상품 */}
+              {VideoCard.map((videocardItem) => (
+                <li key={videocardItem.videocard_id} className={(btnActive === 'videocard' ? 'product' : 'hidden')}>
+                  <div className="list-line"></div>
+                  <img src={process.env.PUBLIC_URL + videocardItem.videocard_image} className="product-image" alt="" />
+                  <span className="product-name">{videocardItem.videocard_manufacturer} {videocardItem.videocard_title}</span>
+                  <span className="product-spec">{videocardItem.videocard_chipset} / {videocardItem.videocard_capacity}GB / {videocardItem.videocard_clock}Mhz / {videocardItem.videocard_wattage}W</span>
+                  <span className="product-price">{videocardItem.videocard_price.toLocaleString('ko-KR')}원</span>
+                  <div className="list-line"></div>
+                </li>
+              ))}
+
+              {/* 저장공간 상품 */}
+              {Storage.map((storageItem) => (
+                <li key={storageItem.storage_id} className={(btnActive === 'storage' ? 'product' : 'hidden')}>
+                  <div className="list-line"></div>
+                  <img src={process.env.PUBLIC_URL + storageItem.storage_image} className="product-image" alt="" />
+                  <span className="product-name">{storageItem.storage_manufacturer} {storageItem.storage_title}</span>
+                  <span className="product-spec">{storageItem.storage_device} / {storageItem.storage_capacity} / {storageItem.storage_wattage}W</span>
+                  <span className="product-price">{storageItem.storage_price.toLocaleString('ko-KR')}원</span>
+                  <div className="list-line"></div>
+                </li>
+              ))}
+
+              {/* 파워 상품 */}
+              {Power.map((powerItem) => (
+                <li key={powerItem.power_id} className={(btnActive === 'power' ? 'product' : 'hidden')}>
+                  <div className="list-line"></div>
+                  <img src={process.env.PUBLIC_URL + powerItem.power_image} className="product-image" alt="" />
+                  <span className="product-name">{powerItem.power_manufacturer} {powerItem.power_title}</span>
+                  <span className="product-spec">{powerItem.power_formfactors} / {powerItem.power_output}W</span>
+                  <span className="product-price">{powerItem.power_price.toLocaleString('ko-KR')}원</span>
+                  <div className="list-line"></div>
+                </li>
+              ))}
+
+              {/* 케이스 상품 */}
+              {ComCase.map((comcaseItem) => (
+                <li key={comcaseItem.comcase_id} className={(btnActive === 'comcase' ? 'product' : 'hidden')}>
+                  <div className="list-line"></div>
+                  <img src={process.env.PUBLIC_URL + comcaseItem.comcase_image} className="product-image" alt="" />
+                  <span className="product-name">{comcaseItem.comcase_manufacturer} {comcaseItem.comcase_title}</span>
+                  <span className="product-spec">{comcaseItem.comcase_size} / {comcaseItem.comcase_formfactors}</span>
+                  <span className="product-price">{comcaseItem.comcase_price.toLocaleString('ko-KR')}원</span>
                   <div className="list-line"></div>
                 </li>
               ))}

@@ -88,4 +88,74 @@ db.selectCPU = () => {
   })
 }
 
+// 쿨러 DB 목록 가져오기
+db.selectCooler = () => {
+  return new Promise(async (resolve, reject) => {
+    const sql = `select * from cooler;`;
+    
+    const result = await queryFunc(sql);
+    resolve(result);
+  })
+}
+
+// 메인보드 DB 목록 가져오기
+db.selectMainboard = () => {
+  return new Promise(async (resolve, reject) => {
+    const sql = `select * from mainboard`;
+
+    const result = await queryFunc(sql);
+    resolve(result);
+  })
+}
+
+// 메모리 DB 목록 가져오기
+db.selectMemory = () => {
+  return new Promise(async (resolve, reject) => {
+    const sql = `select * from memory`;
+
+    const result = await queryFunc(sql);
+    resolve(result);
+  })
+}
+
+// 그래픽카드 DB 목록 가져오기
+db.selectVideoCard = () => {
+  return new Promise(async (resolve, reject) => {
+    const sql = `select * from videocard`;
+
+    const result = await queryFunc(sql);
+    resolve(result);
+  })
+}
+
+// 저장공간 DB 목록 가져오기
+db.selectStorage = () => {
+  return new Promise(async (resolve, reject) => {
+    const sql = `select * from storage`;
+
+    const result = await queryFunc(sql);
+    resolve(result);
+  })
+}
+
+// 파워 DB 목록 가져오기
+db.selectPower = () => {
+  return new Promise(async (resolve, reject) => {
+    const sql = `select * from power`;
+
+    const result = await queryFunc(sql);
+    resolve(result);
+  })
+}
+
+// 케이스 DB 목록 가져오기
+db.selectComCase = () => {
+  return new Promise(async (resolve, reject) => {
+    const sql = `select * from comcase`;
+
+    const result = await queryFunc(sql);
+    resolve(result);
+  })
+}
+
 module.exports = db;

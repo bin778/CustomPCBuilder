@@ -62,4 +62,60 @@ router.get("/cpu", async (req, res) => {
   res.send({ result: cpu });
 })
 
+// /api/cooler GET 데이터를 전달 받는다.
+router.get("/cooler", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+
+  const cooler = await db.selectCooler(req.query);
+  res.send({ result: cooler });
+})
+
+// /api/mainboard GET 데이터를 전달 받는다.
+router.get("/mainboard", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+
+  const mainboard = await db.selectMainboard(req.query);
+  res.send({ result: mainboard });
+})
+
+// /api/memory GET 데이터를 전달 받는다.
+router.get("/memory", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+
+  const memory = await db.selectMemory(req.query);
+  res.send({ result: memory });
+})
+
+// /api/videocard GET 데이터를 전달 받는다.
+router.get("/videocard", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+
+  const videocard = await db.selectVideoCard(req.query);
+  res.send({ result: videocard });
+})
+
+// /api/storage GET 데이터를 전달 받는다.
+router.get("/storage", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+
+  const storage = await db.selectStorage(req.query);
+  res.send({ result: storage });
+})
+
+// /api/power GET 데이터를 전달 받는다.
+router.get("/power", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+
+  const power = await db.selectPower(req.query);
+  res.send({ result: power });
+})
+
+// /api/comcase GET 데이터를 전달 받는다.
+router.get("/comcase", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+
+  const comcase = await db.selectComCase(req.query);
+  res.send({ result: comcase });
+})
+
 module.exports = router;
