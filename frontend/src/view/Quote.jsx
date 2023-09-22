@@ -123,31 +123,31 @@ export default function Quote() {
             <span className={(btnActive === 'cpu' ? '' : 'hidden')}>
               <div className="list-line"></div>
               <div className="option-title">제조사</div>
-              <div><input type="checkbox"></input><span className="option-content">AMD</span></div>
-              <div><input type="checkbox"></input><span className="option-content">인텔</span></div>
+              <div><input type="checkbox" id="cpu-amd"></input><span className="option-content">AMD</span></div>
+              <div><input type="checkbox" id="cpu-intel"></input><span className="option-content">인텔</span></div>
               <div className="list-line"></div>
               <div className="option-title">코어 수</div>
-              <div><input type="checkbox"></input><span className="option-content">4</span></div>
-              <div><input type="checkbox"></input><span className="option-content">6</span></div>
-              <div><input type="checkbox"></input><span className="option-content">12</span></div>
+              <div><input type="checkbox" id="cpu-4core"></input><span className="option-content">4</span></div>
+              <div><input type="checkbox" id="cpu-6core"></input><span className="option-content">6</span></div>
+              <div><input type="checkbox" id="cpu-12core"></input><span className="option-content">12</span></div>
               <div className="list-line"></div>
               <div className="option-title">소켓</div>
-              <div><input type="checkbox"></input><span className="option-content">AM4</span></div>
-              <div><input type="checkbox"></input><span className="option-content">AM5</span></div>
-              <div><input type="checkbox"></input><span className="option-content">LGA1700</span></div>
+              <div><input type="checkbox" id="cpu-am4"></input><span className="option-content">AM4</span></div>
+              <div><input type="checkbox" id="cpu-am5"></input><span className="option-content">AM5</span></div>
+              <div><input type="checkbox" id="cpu-lga1700"></input><span className="option-content">LGA1700</span></div>
               <div className="list-line"></div>
             </span>
             {/* 쿨러 옵션 필터 */}
             <span className={(btnActive === 'cooler' ? '' : 'hidden')}>
               <div className="list-line"></div>
               <div className="option-title">제조사</div>
-              <div><input type="checkbox"></input><span className="option-content">3RSYS</span></div>
-              <div><input type="checkbox"></input><span className="option-content">NZXT</span></div>
-              <div><input type="checkbox"></input><span className="option-content">쿨러마스터</span></div>
+              <div><input type="checkbox" id="cooler-3rsys"></input><span className="option-content">3RSYS</span></div>
+              <div><input type="checkbox" id="cooler-nzxt"></input><span className="option-content">NZXT</span></div>
+              <div><input type="checkbox" id="cooler-coolermaster"></input><span className="option-content">쿨러마스터</span></div>
               <div className="list-line"></div>
               <div className="option-title">냉각 방식</div>
-              <div><input type="checkbox"></input><span className="option-content">공랭</span></div>
-              <div><input type="checkbox"></input><span className="option-content">수랭</span></div>
+              <div><input type="checkbox" id="cooler-air"></input><span className="option-content">공랭</span></div>
+              <div><input type="checkbox" id="cooler-water"></input><span className="option-content">수랭</span></div>
               <div className="list-line"></div>
             </span>
             {/* 메인보드 옵션 필터 */}
