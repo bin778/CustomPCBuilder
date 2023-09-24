@@ -351,6 +351,7 @@ export default function Quote() {
               ))}
             </ul>
           </span>
+          {/* 부품 목록 선택 */}
           <span className="cart-list">
             <div className={"cart" + (btnActive === 'cpu' ? ' active' : '')} onClick={() => { setBtnActive('cpu'); }}>CPU</div>
             <div className={"cart" + (btnActive === 'cooler' ? ' active' : '')} onClick={() => { setBtnActive('cooler'); }}>쿨러</div>
