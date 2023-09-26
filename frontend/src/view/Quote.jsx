@@ -353,14 +353,38 @@ export default function Quote() {
           </span>
           {/* 부품 목록 선택 */}
           <span className="cart-list">
-            <div className={"cart" + (btnActive === 'cpu' ? ' active' : '')} onClick={() => { setBtnActive('cpu'); }}>CPU</div>
-            <div className={"cart" + (btnActive === 'cooler' ? ' active' : '')} onClick={() => { setBtnActive('cooler'); }}>쿨러</div>
-            <div className={"cart" + (btnActive === 'mainboard' ? ' active' : '')} onClick={() => { setBtnActive('mainboard'); }}>메인보드</div>
-            <div className={"cart" + (btnActive === 'memory' ? ' active' : '')} onClick={() => { setBtnActive('memory'); }}>메모리</div>
-            <div className={"cart" + (btnActive === 'videocard' ? ' active' : '')} onClick={() => { setBtnActive('videocard'); }}>비디오카드</div>
-            <div className={"cart" + (btnActive === 'storage' ? ' active' : '')} onClick={() => { setBtnActive('storage'); }}>저장공간</div>
-            <div className={"cart" + (btnActive === 'power' ? ' active' : '')} onClick={() => { setBtnActive('power'); }}>파워</div>
-            <div className={"cart" + (btnActive === 'comcase' ? ' active' : '')} onClick={() => { setBtnActive('comcase'); }}>케이스</div>
+            <div>
+              <div className={"cart-catalog" + (btnActive === 'cpu' ? ' active-catalog' : '')} onClick={() => { setBtnActive('cpu'); }}>CPU</div>
+              <div className={"cart-order" + (btnActive === 'cpu' ? ' active-order' : ' hidden')}></div>
+            </div>
+            <div>
+              <div className={"cart-catalog" + (btnActive === 'cooler' ? ' active-catalog' : '')} onClick={() => { setBtnActive('cooler'); }}>쿨러</div>
+              <div className={"cart-order" + (btnActive === 'cooler' ? ' active-order' : ' hidden')}></div>
+            </div>
+            <div>
+              <div className={"cart-catalog" + (btnActive === 'mainboard' ? ' active-catalog' : '')} onClick={() => { setBtnActive('mainboard'); }}>메인보드</div>
+              <div className={"cart-order" + (btnActive === 'mainboard' ? ' active-order' : ' hidden')}></div>
+            </div>
+            <div>
+              <div className={"cart-catalog" + (btnActive === 'memory' ? ' active-catalog' : '')} onClick={() => { setBtnActive('memory'); }}>메모리</div>
+              <div className={"cart-order" + (btnActive === 'memory' ? ' active-order' : ' hidden')}></div>
+            </div>
+            <div>
+              <div className={"cart-catalog" + (btnActive === 'videocard' ? ' active-catalog' : '')} onClick={() => { setBtnActive('videocard'); }}>비디오카드</div>
+              <div className={"cart-order" + (btnActive === 'videocard' ? ' active-order' : ' hidden')}></div>
+            </div>
+            <div>
+              <div className={"cart-catalog" + (btnActive === 'storage' ? ' active-catalog' : '')} onClick={() => { setBtnActive('storage'); }}>저장공간</div>
+              <div className={"cart-order" + (btnActive === 'storage' ? ' active-order' : ' hidden')}></div>
+            </div>
+            <div>
+              <div className={"cart-catalog" + (btnActive === 'power' ? ' active-catalog' : '')} onClick={() => { setBtnActive('power'); }}>파워</div>
+              <div className={"cart-order" + (btnActive === 'power' ? ' active-order' : ' hidden')}></div>
+            </div>
+            <div>
+              <div className={"cart-catalog" + (btnActive === 'comcase' ? ' active-catalog' : '')} onClick={() => { setBtnActive('comcase'); }}>케이스</div>
+              <div className={"cart-order" + (btnActive === 'comcase' ? ' active-order' : ' hidden')}></div>
+            </div>
           </span>
         </div>
       </div>
