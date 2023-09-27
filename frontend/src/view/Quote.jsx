@@ -93,6 +93,11 @@ export default function Quote() {
     });
   }, []);
 
+  // 상품을 장바구니에 추가하기
+  const onClickOrder = () => {
+    console.log("장바구니 추가");
+  }
+
   return (
     <div className="quote-layer">
       <Header />
@@ -256,7 +261,7 @@ export default function Quote() {
             <ul>
               {/* CPU 상품 */}
               {CPU.map((cpuItem) => (
-                <li key={cpuItem.cpu_id} className={(btnActive === 'cpu' ? 'product' : 'hidden')}>
+                <li key={cpuItem.cpu_id} className={(btnActive === 'cpu' ? 'product' : 'hidden')} onClick={onClickOrder}>
                   <div className="list-line"></div>
                   <img src={process.env.PUBLIC_URL + cpuItem.cpu_image} className="product-image" alt="" />
                   <span className="product-name">{cpuItem.cpu_manufacturer} {cpuItem.cpu_title}</span>
