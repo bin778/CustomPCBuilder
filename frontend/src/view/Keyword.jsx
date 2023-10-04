@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import axios from 'axios'
+
 // 컴포넌트 파일
 import Header from "./Component/Header.jsx";
 
