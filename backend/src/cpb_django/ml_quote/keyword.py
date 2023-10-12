@@ -23,20 +23,24 @@ vedit = hannanum.nouns("동영상편집용 영상편집용")
 
 def main(request):
   # 게임용 키워드 출력
-  print(lol)
-  print(fifa4)
-  print(pubg)
-  print(cp)
-  print(gb)
+  # print(lol)
+  # print(fifa4)
+  # print(pubg)
+  # print(cp)
+  # print(gb)
 
   # 가정용 키워드 출력
-  print(web)
-  print(vwatch)
-  print(slim)
+  # print(web)
+  # print(vwatch)
+  # print(slim)
 
   # 작업용 키워드 출력
-  print(office)
-  print(coding)
-  print(vedit)
+  # print(office)
+  # print(coding)
+  # print(vedit)
 
-  return HttpResponse("KoNNPy를 사용한 키워드 추출")
+  return HttpResponse(
+    f"게임용 {lol} {fifa4} {pubg} {cp} {gb}" + 
+    f"가정용 {web} {vwatch} {slim}" +
+    f"작업용 {office} {coding} {vedit}"
+  )

@@ -11,6 +11,10 @@ import "../css/Keyword.scss"
 import Header from "./Component/Header.jsx";
 
 export default function Keyword() {
+  const [text, setText] = useState('');
+
+  axios.get("http://127.0.0.1:8000", {}).then((response) => setText(JSON.stringify(response.data)));
+
   return (
     <div className="keyword-layer">
       <Header />
@@ -21,6 +25,7 @@ export default function Keyword() {
           <input type="text" id="keyword" className="search-input" />
         </div>
         <span className="search-button">검색</span>
+        {/* <h1>{text}</h1> */}
       </div>
     </div>
   )
