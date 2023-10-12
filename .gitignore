@@ -21,4 +21,4 @@ sketch
 __pycache__/
 
 # End of https://www.toptal.com/developers/gitignore/api/react
-backend/src/cpb_django/customized_konlpy/
+backend/src/cpb_django/module
