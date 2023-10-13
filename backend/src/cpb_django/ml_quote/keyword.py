@@ -22,19 +22,19 @@ coding = hannanum.nouns("개발용 개발자용 코딩용")
 vedit = hannanum.nouns("동영상편집용 영상편집용")
 
 def main(request):
-  # 게임용 키워드 출력
+  # 게임용 견적 출력
   # print(lol)
   # print(fifa4)
   # print(pubg)
   # print(cp)
   # print(gb)
 
-  # 가정용 키워드 출력
+  # 가정용 견적 출력
   # print(web)
   # print(vwatch)
   # print(slim)
 
-  # 작업용 키워드 출력
+  # 작업용 견적 출력
   # print(office)
   # print(coding)
   # print(vedit)
