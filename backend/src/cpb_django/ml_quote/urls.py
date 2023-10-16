@@ -4,6 +4,6 @@ from . import views
 from . import keyword
 
 urlpatterns = [
-    path('', keyword.main),
+    # path('', keyword.main),
     path('', views.post_view),
 ]
