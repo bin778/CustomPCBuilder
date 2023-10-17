@@ -40,6 +40,7 @@ class Cpu(models.Model):
     cpu_socket = models.CharField(max_length=20)
     cpu_wattage = models.IntegerField()
     cpu_price = models.IntegerField()
+    cpu_benchmark = models.IntegerField()
 
     class Meta:
         managed = False
@@ -140,6 +141,7 @@ class Videocard(models.Model):
     videocard_clock = models.IntegerField()
     videocard_wattage = models.IntegerField()
     videocard_price = models.IntegerField()
+    videocard_benchmark = models.IntegerField()
 
     class Meta:
         managed = False

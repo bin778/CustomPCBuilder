@@ -7,7 +7,8 @@
     <th>클럭</th>
     <th>소켓</th>
     <th>전력량</th>
-    <th>가격</th>
+    <th>판매가격</th>
+    <th>벤치점수</th>
   </tr>
   {% for cpu in cpu %}
   <tr>
@@ -19,6 +20,7 @@
     <td>{{cpu.cpu_socket}}</td>
     <td>{{cpu.cpu_wattage}}</td>
     <td>{{cpu.cpu_price}}</td>
+    <td>{{cpu.cpu_benchmark}}</td>
   </tr>
   {%endfor%}
   <tr>
@@ -85,6 +87,7 @@
     <th>부스트클럭</th>
     <th>전력</th>
     <th>판매가격</th>
+    <th>벤치점수</th>
   </tr>
   {% for videocard in videocard %}
   <tr>
@@ -95,6 +98,7 @@
     <td>{{videocard.videocard_clock}}</td>
     <td>{{videocard.videocard_wattage}}</td>
     <td>{{videocard.videocard_price}}</td>
+    <td>{{videocard.videocard_benchmark}}</td>
   </tr>
   {%endfor%}
   <tr>
