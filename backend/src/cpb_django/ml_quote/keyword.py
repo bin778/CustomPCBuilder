@@ -24,24 +24,6 @@ slim = hannanum.nouns("슬림형 미니형")
 noise = hannanum.nouns("저소음 무소음")
 
 def main(request):
-  # 게임용 견적 출력
-  # print(lol)
-  # print(fifa4)
-  # print(pubg)
-  # print(gbroad)
-
-  # 가정용 견적 출력
-  # print(web)
-  # print(vwatch)
-  # print(office)
-  
-  # 작업용 견적 출력
-  # print(coding)
-  # print(vedit)
-
-  # 기타 견적 출력
-  # print(slim)
-  # print(noise)
 
   return HttpResponse(
     f"게임용 {lol} {fifa4} {pubg} {gbroad}" + 

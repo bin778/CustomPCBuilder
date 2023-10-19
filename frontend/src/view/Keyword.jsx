@@ -11,9 +11,11 @@ import "../css/Keyword.scss"
 import Header from "./Component/Header.jsx";
 
 export default function Keyword() {
-  const [text, setText] = useState('');
+  const [keyword, setKeyword] = useState('');
 
-  axios.get("http://127.0.0.1:8000", {}).then((response) => setText(JSON.stringify(response.data)));
+  const searchKeyword = (e) => {
+    console.log(keyword);
+  }
 
   return (
     <div className="keyword-layer">
@@ -22,10 +24,11 @@ export default function Keyword() {
         <div>
         <div className="search-title">원하는 용도를 입력하세요!</div>
           <img src={SEARCH} className="search-image" alt="" />
-          <input type="text" id="keyword" className="search-input" />
+          <input type="text" placeholder="용도를 입력해주세요" id="keyword" className="search-input" onChange={e => {
+            setKeyword(e.target.value);
+          }}/>
         </div>
-        <span className="search-button">검색</span>
-        {/* <h1>{text}</h1> */}
+        <span className="search-button" onClick={searchKeyword}>검색</span>
       </div>
     </div>
   )
