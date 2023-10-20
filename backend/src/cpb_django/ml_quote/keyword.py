@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from konlpy.tag import Hannanum
+import json
 
 hannanum = Hannanum()
 
@@ -24,10 +25,8 @@ slim = hannanum.nouns("슬림형 미니형")
 noise = hannanum.nouns("저소음 무소음")
 
 def main(request):
+  if request.method == 'GET':
+      keyword = request.GET.get('keyword')
+      print(keyword)
 
-  return HttpResponse(
-    f"게임용 {lol} {fifa4} {pubg} {gbroad}" + 
-    f"가정용 {web} {vwatch} {office}" +
-    f"작업용 {coding} {vedit}" + 
-    f"기타 {slim} {noise}"
-  )
+  return HttpResponse(json.dumps({'message': 'Success'}), content_type="application/json")

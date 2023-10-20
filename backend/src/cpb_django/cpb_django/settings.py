@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-ll%@s$7-do8hfh3rrl8mgh$2_09w4kfhq8o$dij=cxyx)k0^+_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['django', '127.0.0.1']
 
 # Application definition
 
@@ -32,20 +32,23 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # CORS 추가
-    'django.middleware.common.CommonMiddleware',  # CORS 추가
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # CORS 추가
+    'django.middleware.common.CommonMiddleware',  # CORS 추가
+#   'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 # CORS 추가 => React와 Django끼리 서로 연동
-CORS_ORIGIN_WHITELIST = (
-    'http://127.0.0.1:8000', 'http://localhost:3000')
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # React 애플리케이션의 주소
+]
+
 CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'cpb_django.urls'

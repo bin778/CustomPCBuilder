@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from 'axios'
 
 // 이미지 파일 목록
@@ -13,8 +13,19 @@ import Header from "./Component/Header.jsx";
 export default function Keyword() {
   const [keyword, setKeyword] = useState('');
 
-  const searchKeyword = (e) => {
+  const searchKeyword = async () => {
     console.log(keyword);
+
+    try {
+      const response = await axios.get("http://127.0.0.1:8000", {
+        params: {
+          keyword: keyword,
+        }
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -24,7 +35,7 @@ export default function Keyword() {
         <div>
         <div className="search-title">원하는 용도를 입력하세요!</div>
           <img src={SEARCH} className="search-image" alt="" />
-          <input type="text" placeholder="용도를 입력해주세요" id="keyword" className="search-input" onChange={e => {
+          <input type="text" placeholder="용도를 입력해주세요" id="keyword" className="search-input" value={keyword} onChange={e => {
             setKeyword(e.target.value);
           }}/>
         </div>
