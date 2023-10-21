@@ -24,9 +24,38 @@ vedit = hannanum.nouns("동영상편집용 영상편집용")
 slim = hannanum.nouns("슬림형 미니형")
 noise = hannanum.nouns("저소음 무소음")
 
+def searchKeyword(keyword):
+    if (keyword == lol[0] or keyword == lol[1]):
+      print(lol)
+    elif (keyword == fifa4[0] or keyword == fifa4[1] or keyword == fifa4[2]):
+      print(fifa4)
+    elif (keyword == pubg[0] or keyword == pubg[1]):
+      print(pubg)
+    elif (keyword == gbroad[0] or keyword == gbroad[1]):
+      print(gbroad)
+
+    if (keyword == web[0] or keyword == web[1] or keyword == web[2]):
+      print(web)
+    elif (keyword == vwatch[0] or keyword == vwatch[1] or keyword == vwatch[2]):
+      print(vwatch)
+    elif (keyword == office[0] or keyword == office[1]):
+      print(office)
+
+    if (keyword == coding[0] or keyword == coding[1] or keyword == coding[2]):
+      print(coding)
+    elif (keyword == vedit[0] or keyword == vedit[1]):
+      print(vedit)
+
+    if (keyword == slim[0] or keyword == slim[1]):
+      print(slim)
+    elif (keyword == noise[0] or keyword == noise[1]):
+      print(noise)
+
 def main(request):
   if request.method == 'GET':
       keyword = request.GET.get('keyword')
       print(keyword)
+
+  searchKeyword(keyword)
 
   return HttpResponse(json.dumps({'message': 'Success'}), content_type="application/json")
