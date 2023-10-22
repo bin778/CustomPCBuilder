@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from konlpy.tag import Hannanum
 import json
 
+from .models import Cpu
+
 hannanum = Hannanum()
 
 # 게임용 견적 키워드
@@ -24,6 +26,10 @@ vedit = hannanum.nouns("동영상편집용 영상편집용")
 slim = hannanum.nouns("슬림형 미니형")
 noise = hannanum.nouns("저소음 무소음")
 
+# 키워드 매핑 함수
+# def mappingKeyword():
+
+# 키워드 검색 함수
 def searchKeyword(keyword):
     if (keyword == lol[0] or keyword == lol[1]):
       print(lol)
@@ -51,10 +57,20 @@ def searchKeyword(keyword):
     elif (keyword == noise[0] or keyword == noise[1]):
       print(noise)
 
+# 메인 함수
 def main(request):
   if request.method == 'GET':
       keyword = request.GET.get('keyword')
       print(keyword)
+
+  # MySQL 데이터를 불러오기(필터 사용)
+  intel_cpu = Cpu.objects.filter(cpu_manufacturer="인텔")
+  for intel in intel_cpu:
+    print(intel.cpu_title)
+  
+  core6_cpu = Cpu.objects.filter(cpu_core=6)
+  for core6 in core6_cpu:
+    print(core6.cpu_title)
 
   searchKeyword(keyword)
 
