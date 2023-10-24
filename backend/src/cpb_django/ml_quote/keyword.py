@@ -4,6 +4,13 @@ from konlpy.tag import Hannanum
 import json
 
 from .models import Cpu
+# from .models import Cooler
+from .models import Mainboard
+from .models import Memory
+from .models import Videocard
+from .models import Storage
+# from .models import Power
+# from .models import Comcase
 
 hannanum = Hannanum()
 
@@ -28,48 +35,103 @@ noise = hannanum.nouns("저소음 무소음")
 
 # 키워드 매핑 함수
 def mappingKeyword(keyword):
-  if (keyword == "롤용" or keyword == "웹서핑용" or  keyword == "영상시청용" or  keyword == "사무용"):
-    cpu = Cpu.objects.filter(cpu_title="i3-12100")
-    for cpu in cpu:
-      print(cpu.cpu_title)
+  # 사양 설정하기
+  if (keyword == "피파4용" or keyword == "롤용" or keyword == "웹서핑용" or  keyword == "영상시청용" or  keyword == "사무용"):
+    cpu = Cpu.objects.filter(cpu_manufacturer="인텔", cpu_core=4)
+    if (keyword == "피파4용"):
+      videocard = Videocard.objects.filter(videocard_chipset="GTX1660 SUPER")
+    elif (keyword == "롤용" or keyword == "영상시청용"):
+      videocard = Videocard.objects.filter(videocard_chipset="GTX1650")
+    mainboard = Mainboard.objects.filter(mainboard_chipset="H610")
+    memory = Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=16)
+  elif (keyword == "배그용"):
+    cpu = Cpu.objects.filter(cpu_manufacturer="인텔", cpu_core=6)
+    videocard = Videocard.objects.filter(videocard_chipset="RTX4060Ti")
+    mainboard = Mainboard.objects.filter(mainboard_chipset="H610")
+    memory = Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=32)
+  elif (keyword == "게임방송용"):
+    cpu = Cpu.objects.filter(cpu_manufacturer="AMD", cpu_core=6)
+    videocard = Videocard.objects.filter(videocard_chipset="RTX4070Ti")
+    mainboard = Mainboard.objects.filter(mainboard_manufacturer="MSI", mainboard_chipset="A620")
+    memory = Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=32)
+  elif (keyword == "코딩용" or keyword == "영상편집용"):
+    cpu = Cpu.objects.filter(cpu_manufacturer="인텔", cpu_core=12)
+    if (keyword == "코딩용"):
+      videocard = Videocard.objects.filter(videocard_chipset="GTX1660 SUPER")
+    elif (keyword == "영상편집용"):
+      videocard = Videocard.objects.filter(videocard_chipset="RTX4060Ti")
+    mainboard = Mainboard.objects.filter(mainboard_chipset="B760")
+    memory = Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=32)
   
-  return cpu
+  # 저장공간 설정
+  if (keyword == "웹서핑용" or keyword == "영상시청용" or keyword == "사무용"):
+    storage = Storage.objects.filter(storage_device="HDD", storage_capacity="2TB")
+  else:
+    storage = Storage.objects.filter(storage_device="SSD", storage_capacity="500GB")
+  
+  # 예외 처리
+  if (keyword == "용도"):
+    cpu = Cpu.objects.filter(cpu_manufacturer="용도")
+    videocard = Videocard.objects.filter(videocard_manufacturer="용도")
+    mainboard = Mainboard.objects.filter(mainboard_manufacturer="용도")
+    memory = Memory.objects.filter(memory_manufacturer="용도")
+    storage = Storage.objects.filter(storage_manufacturer="용도")
+  
+  # 사양 출력(임시 테스트)
+  print("\n" + keyword + " 컴퓨터 견적")
+  for cpu in cpu:
+    print("CPU: " + cpu.cpu_title)
+  for mainboard in mainboard:
+    print("메인보드: " + mainboard.mainboard_title)
+  for memory in memory:
+    print("메모리: " + memory.memory_title)
+  for videocard in videocard:
+    print("비디오카드: " + videocard.videocard_title)
+  for storage in storage:
+    print("저장공간: " + storage.storage_title)
+  
+  return cpu, mainboard, memory, videocard, storage
     
 
 # 키워드 검색 함수
 def searchKeyword(keyword):
+  # 예외 처리
+  usage = "용도"
+
+  # 키워드 검색하기
   if (keyword == lol[0] or keyword == lol[1]):
-    mappingKeyword("롤용")
+    usage = "롤용"
   elif (keyword == fifa4[0] or keyword == fifa4[1] or keyword == fifa4[2]):
-    print(fifa4)
+    usage = "피파4용"
   elif (keyword == pubg[0] or keyword == pubg[1]):
-    print(pubg)
+    usage = "배그용"
   elif (keyword == gbroad[0] or keyword == gbroad[1]):
-    print(gbroad)
+    usage = "게임방송용"
 
   if (keyword == web[0] or keyword == web[1] or keyword == web[2]):
-    print(web)
+    usage = "웹서핑용"
   elif (keyword == vwatch[0] or keyword == vwatch[1] or keyword == vwatch[2]):
-    print(vwatch)
+    usage = "영상시청용"
   elif (keyword == office[0] or keyword == office[1]):
-    print(office)
+    usage = "사무용"
 
   if (keyword == coding[0] or keyword == coding[1] or keyword == coding[2]):
-    print(coding)
+    usage = "코딩용"
   elif (keyword == vedit[0] or keyword == vedit[1]):
-    print(vedit)
+    usage = "영상편집용"
 
   if (keyword == slim[0] or keyword == slim[1]):
-    print(slim)
+    usage = "슬림형"
   elif (keyword == noise[0] or keyword == noise[1]):
-    print(noise)
+    usage = "저소음"
+  return usage
 
 # 메인 함수
 def main(request):
   if request.method == 'GET':
-      keyword = request.GET.get('keyword')
-      print(keyword)
+    keyword = request.GET.get('keyword')
 
-  searchKeyword(keyword)
+  usage_keyword = searchKeyword(keyword)
+  print(mappingKeyword(usage_keyword))
 
   return HttpResponse(json.dumps({'message': 'Success'}), content_type="application/json")
