@@ -10,7 +10,7 @@ from .models import Memory
 from .models import Videocard
 from .models import Storage
 # from .models import Power
-# from .models import Comcase
+from .models import Comcase
 
 hannanum = Hannanum()
 
@@ -68,6 +68,12 @@ def mappingKeyword(keyword):
     storage = Storage.objects.filter(storage_device="HDD", storage_capacity="2TB")
   else:
     storage = Storage.objects.filter(storage_device="SSD", storage_capacity="500GB")
+
+  # 케이스 설정
+  if (keyword == "웹서핑용" or keyword == "영상시청용" or keyword == "사무용" or keyword == "롤용" or keyword == "피파4용"):
+    comcase = Comcase.objects.filter(comcase_manufacturer="3RSYS" ,comcase_size="미니타워")
+  else:
+    comcase = Comcase.objects.filter(comcase_manufacturer="마이크로닉스" ,comcase_size="미들타워")
   
   # 예외 처리
   if (keyword == "용도"):
@@ -76,6 +82,7 @@ def mappingKeyword(keyword):
     mainboard = Mainboard.objects.filter(mainboard_manufacturer="용도")
     memory = Memory.objects.filter(memory_manufacturer="용도")
     storage = Storage.objects.filter(storage_manufacturer="용도")
+    comcase = Comcase.objects.filter(comcase_manufacturer="용도")
   
   # 사양 출력(임시 테스트)
   print("\n" + keyword + " 컴퓨터 견적")
@@ -89,8 +96,10 @@ def mappingKeyword(keyword):
     print("비디오카드: " + videocard.videocard_title)
   for storage in storage:
     print("저장공간: " + storage.storage_title)
+  for comcase in comcase:
+    print("케이스: " + comcase.comcase_title)
   
-  return cpu, mainboard, memory, videocard, storage
+  return cpu, mainboard, memory, videocard, storage, comcase
     
 
 # 키워드 검색 함수
