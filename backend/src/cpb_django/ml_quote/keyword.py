@@ -4,12 +4,12 @@ from konlpy.tag import Hannanum
 import json
 
 from .models import Cpu
-# from .models import Cooler
+from .models import Cooler
 from .models import Mainboard
 from .models import Memory
 from .models import Videocard
 from .models import Storage
-# from .models import Power
+from .models import Power
 from .models import Comcase
 
 hannanum = Hannanum()
@@ -37,69 +37,128 @@ noise = hannanum.nouns("저소음 무소음")
 def mappingKeyword(keyword):
   # 사양 설정하기
   if (keyword == "피파4용" or keyword == "롤용" or keyword == "웹서핑용" or  keyword == "영상시청용" or  keyword == "사무용"):
-    cpu = Cpu.objects.filter(cpu_manufacturer="인텔", cpu_core=4)
+    cpus = Cpu.objects.filter(cpu_manufacturer="인텔", cpu_core=4)
     if (keyword == "피파4용"):
-      videocard = Videocard.objects.filter(videocard_chipset="GTX1660 SUPER")
+      videocards = Videocard.objects.filter(videocard_chipset="GTX1660 SUPER")
     elif (keyword == "롤용" or keyword == "영상시청용"):
-      videocard = Videocard.objects.filter(videocard_chipset="GTX1650")
-    mainboard = Mainboard.objects.filter(mainboard_chipset="H610")
-    memory = Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=16)
+      videocards = Videocard.objects.filter(videocard_chipset="GTX1650")
+    mainboards = Mainboard.objects.filter(mainboard_chipset="H610")
+    memories = Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=16)
   elif (keyword == "배그용"):
-    cpu = Cpu.objects.filter(cpu_manufacturer="인텔", cpu_core=6)
-    videocard = Videocard.objects.filter(videocard_chipset="RTX4060Ti")
-    mainboard = Mainboard.objects.filter(mainboard_chipset="H610")
-    memory = Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=32)
+    cpus = Cpu.objects.filter(cpu_manufacturer="인텔", cpu_core=6)
+    videocards = Videocard.objects.filter(videocard_chipset="RTX4060Ti")
+    mainboards = Mainboard.objects.filter(mainboard_chipset="H610")
+    memories = Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=32)
   elif (keyword == "게임방송용"):
-    cpu = Cpu.objects.filter(cpu_manufacturer="AMD", cpu_core=6)
-    videocard = Videocard.objects.filter(videocard_chipset="RTX4070Ti")
-    mainboard = Mainboard.objects.filter(mainboard_manufacturer="MSI", mainboard_chipset="A620")
-    memory = Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=32)
+    cpus = Cpu.objects.filter(cpu_manufacturer="AMD", cpu_core=6)
+    videocards = Videocard.objects.filter(videocard_chipset="RTX4070Ti")
+    mainboards = Mainboard.objects.filter(mainboard_manufacturer="MSI", mainboard_chipset="A620")
+    memories = Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=32)
   elif (keyword == "코딩용" or keyword == "영상편집용"):
-    cpu = Cpu.objects.filter(cpu_manufacturer="인텔", cpu_core=12)
+    cpus = Cpu.objects.filter(cpu_manufacturer="인텔", cpu_core=12)
     if (keyword == "코딩용"):
-      videocard = Videocard.objects.filter(videocard_chipset="GTX1660 SUPER")
+      videocards = Videocard.objects.filter(videocard_chipset="GTX1660 SUPER")
     elif (keyword == "영상편집용"):
-      videocard = Videocard.objects.filter(videocard_chipset="RTX4060Ti")
-    mainboard = Mainboard.objects.filter(mainboard_chipset="B760")
-    memory = Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=32)
+      videocards = Videocard.objects.filter(videocard_chipset="RTX4060Ti")
+    mainboards = Mainboard.objects.filter(mainboard_chipset="B760")
+    memories = Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=32)
   
   # 저장공간 설정
   if (keyword == "웹서핑용" or keyword == "영상시청용" or keyword == "사무용"):
-    storage = Storage.objects.filter(storage_device="HDD", storage_capacity="2TB")
+    storages = Storage.objects.filter(storage_device="HDD", storage_capacity="2TB")
   else:
-    storage = Storage.objects.filter(storage_device="SSD", storage_capacity="500GB")
+    storages = Storage.objects.filter(storage_device="SSD", storage_capacity="500GB")
 
   # 케이스 설정
   if (keyword == "웹서핑용" or keyword == "영상시청용" or keyword == "사무용" or keyword == "롤용" or keyword == "피파4용"):
-    comcase = Comcase.objects.filter(comcase_manufacturer="3RSYS" ,comcase_size="미니타워")
+    comcases = Comcase.objects.filter(comcase_manufacturer="3RSYS", comcase_size="미니타워")
   else:
-    comcase = Comcase.objects.filter(comcase_manufacturer="마이크로닉스" ,comcase_size="미들타워")
+    comcases = Comcase.objects.filter(comcase_manufacturer="마이크로닉스", comcase_size="미들타워")
+  
+  # 쿨러 설정
+  if (keyword == "롤용" or keyword == "피파4용" or keyword == "코딩용" or keyword == "영상편집용"):
+    coolers = Cooler.objects.filter(cooler_manufacturer="쿨러마스터", cooler_cooling="공랭")
+  elif (keyword == "배그용" or keyword == "게임방송용"):
+    coolers = Cooler.objects.filter(cooler_manufacturer="3RSYS", cooler_cooling="수랭")
+
+  # PC 부품 전력량 및 가격 계산
+  wattage = 0
+  price = 0
+  
+  for cpu in cpus:
+    wattage += cpu.cpu_wattage
+    price += cpu.cpu_price
+  if (keyword != "웹서핑용" and keyword != "영상시청용" and keyword != "사무용"):
+    for cooler in coolers:
+      wattage += cooler.cooler_wattage
+      price += cooler.cooler_price
+  for mainboard in mainboards:
+    wattage += mainboard.mainboard_wattage
+    price += mainboard.mainboard_price
+  for memory in memories:
+    wattage += memory.memory_wattage
+    price += memory.memory_price
+  if (keyword != "웹서핑용" and keyword != "사무용"):
+    for videocard in videocards:
+      wattage += videocard.videocard_wattage
+      price += videocard.videocard_price
+  for storage in storages:
+    wattage += storage.storage_wattage
+    price += storage.storage_price
+  for comcase in comcases:
+    price += comcase.comcase_price
+
+  # 파워 설정 및 가격 계산
+  if (wattage < 300):
+    powers = Power.objects.filter(power_formfactors="ATX", power_output=600)
+  elif (wattage >= 300 and wattage < 400):
+    powers = Power.objects.filter(power_formfactors="ATX", power_output=700)
+  elif (wattage >= 400):
+    powers = Power.objects.filter(power_formfactors="ATX", power_output=850)
+  
+  for power in powers:
+    price += power.power_price
   
   # 예외 처리
   if (keyword == "용도"):
-    cpu = Cpu.objects.filter(cpu_manufacturer="용도")
-    videocard = Videocard.objects.filter(videocard_manufacturer="용도")
-    mainboard = Mainboard.objects.filter(mainboard_manufacturer="용도")
-    memory = Memory.objects.filter(memory_manufacturer="용도")
-    storage = Storage.objects.filter(storage_manufacturer="용도")
-    comcase = Comcase.objects.filter(comcase_manufacturer="용도")
+    cpus = Cpu.objects.filter(cpu_manufacturer="용도")
+    videocards = Videocard.objects.filter(videocard_manufacturer="용도")
+    mainboards = Mainboard.objects.filter(mainboard_manufacturer="용도")
+    memories = Memory.objects.filter(memory_manufacturer="용도")
+    storages = Storage.objects.filter(storage_manufacturer="용도")
+    comcases = Comcase.objects.filter(comcase_manufacturer="용도")
+    coolers = Cooler.objects.filter(cooler_manufacturer="용도")
+    powers = Cooler.objects.filter(cooler_manufacturer="용도")
   
   # 사양 출력(임시 테스트)
   print("\n" + keyword + " 컴퓨터 견적")
-  for cpu in cpu:
+  for cpu in cpus:
     print("CPU: " + cpu.cpu_title)
-  for mainboard in mainboard:
+  if (keyword != "웹서핑용" and keyword != "영상시청용" and keyword != "사무용"):
+    for cooler in coolers:
+      print("쿨러: " + cooler.cooler_title)
+  for mainboard in mainboards:
     print("메인보드: " + mainboard.mainboard_title)
-  for memory in memory:
+  for memory in memories:
     print("메모리: " + memory.memory_title)
-  for videocard in videocard:
-    print("비디오카드: " + videocard.videocard_title)
-  for storage in storage:
+  if (keyword != "웹서핑용" and keyword != "사무용"):
+    for videocard in videocards:
+      print("비디오카드: " + videocard.videocard_title)
+  for storage in storages:
     print("저장공간: " + storage.storage_title)
-  for comcase in comcase:
+  for power in powers:
+    print("파워: " + power.power_title)
+  for comcase in comcases:
     print("케이스: " + comcase.comcase_title)
+  print("총 합계금액: " + str(price) + "원")
   
-  return cpu, mainboard, memory, videocard, storage, comcase
+  # 부품 반환
+  if(keyword == "웹서핑용" or keyword == "사무용"):
+    return cpus, mainboards, memories, storages, comcases
+  elif(keyword == "영상편집용"):
+    return cpus, mainboards, memories, videocards, storages, comcases
+  
+  return cpus, mainboards, memories, videocards, storages, comcases
     
 
 # 키워드 검색 함수
