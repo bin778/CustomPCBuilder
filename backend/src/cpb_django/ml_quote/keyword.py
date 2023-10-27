@@ -62,6 +62,9 @@ def mappingKeyword(keyword):
       videocards = Videocard.objects.filter(videocard_chipset="RTX4060Ti")
     mainboards = Mainboard.objects.filter(mainboard_chipset="B760")
     memories = Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=32)
+  # 키워드 입력 예외 처리(지정한 키워드를 입력하지 않은 경우)
+  elif (keyword == "용도"): 
+    return("키워드를 제대로 입력하세요!")
   
   # 저장공간 설정
   if (keyword == "웹서핑용" or keyword == "영상시청용" or keyword == "사무용"):
@@ -118,17 +121,6 @@ def mappingKeyword(keyword):
   
   for power in powers:
     price += power.power_price
-  
-  # 예외 처리
-  if (keyword == "용도"):
-    cpus = Cpu.objects.filter(cpu_manufacturer="용도")
-    videocards = Videocard.objects.filter(videocard_manufacturer="용도")
-    mainboards = Mainboard.objects.filter(mainboard_manufacturer="용도")
-    memories = Memory.objects.filter(memory_manufacturer="용도")
-    storages = Storage.objects.filter(storage_manufacturer="용도")
-    comcases = Comcase.objects.filter(comcase_manufacturer="용도")
-    coolers = Cooler.objects.filter(cooler_manufacturer="용도")
-    powers = Cooler.objects.filter(cooler_manufacturer="용도")
   
   # 사양 출력(임시 테스트)
   print("\n" + keyword + " 컴퓨터 견적")
