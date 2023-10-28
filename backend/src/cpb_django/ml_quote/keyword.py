@@ -152,7 +152,6 @@ def mappingKeyword(keyword):
   
   return cpus, mainboards, memories, videocards, storages, comcases
     
-
 # 키워드 검색 함수
 def searchKeyword(keyword):
   # 예외 처리
