@@ -12,6 +12,7 @@ import Header from "./Component/Header.jsx";
 
 export default function Keyword() {
   const [keyword, setKeyword] = useState('');
+  const [quote, setQuote] = useState('');
 
   const searchKeyword = async () => {
     console.log(keyword);
@@ -21,8 +22,7 @@ export default function Keyword() {
         params: {
           keyword: keyword,
         }
-      });
-      console.log(response.data);
+      }).then((response) => setQuote(JSON.stringify(response.data)));
     } catch (error) {
       console.error(error);
     }
@@ -40,6 +40,11 @@ export default function Keyword() {
           }}/>
         </div>
         <span className="search-button" onClick={searchKeyword}>검색</span>
+        {/* 견적이 출력되는지 테스트 */}
+        <div>
+          <h2>사양 출력하기</h2>
+          <div>{quote}</div>
+        </div>
       </div>
     </div>
   )

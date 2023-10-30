@@ -85,72 +85,88 @@ def mappingKeyword(keyword):
     coolers = Cooler.objects.filter(cooler_manufacturer="3RSYS", cooler_cooling="수랭")
 
   # PC 부품 전력량 및 가격 계산
-  wattage = 0
-  price = 0
+  total_wattage = 0
+  total_price = 0
   
   for cpu in cpus:
-    wattage += cpu.cpu_wattage
-    price += cpu.cpu_price
+    total_wattage += cpu.cpu_wattage
+    total_price += cpu.cpu_price
   if (keyword != "웹서핑용" and keyword != "영상시청용" and keyword != "사무용"):
     for cooler in coolers:
-      wattage += cooler.cooler_wattage
-      price += cooler.cooler_price
+      total_wattage += cooler.cooler_wattage
+      total_price += cooler.cooler_price
   for mainboard in mainboards:
-    wattage += mainboard.mainboard_wattage
-    price += mainboard.mainboard_price
+    total_wattage += mainboard.mainboard_wattage
+    total_price += mainboard.mainboard_price
   for memory in memories:
-    wattage += memory.memory_wattage
-    price += memory.memory_price
+    total_wattage += memory.memory_wattage
+    total_price += memory.memory_price
   if (keyword != "웹서핑용" and keyword != "사무용"):
     for videocard in videocards:
-      wattage += videocard.videocard_wattage
-      price += videocard.videocard_price
+      total_wattage += videocard.videocard_wattage
+      total_price += videocard.videocard_price
   for storage in storages:
-    wattage += storage.storage_wattage
-    price += storage.storage_price
+    total_wattage += storage.storage_wattage
+    total_price += storage.storage_price
   for comcase in comcases:
-    price += comcase.comcase_price
+    total_price += comcase.comcase_price
 
   # 파워 설정 및 가격 계산
-  if (wattage < 300):
+  if (total_wattage < 300):
     powers = Power.objects.filter(power_formfactors="ATX", power_output=600)
-  elif (wattage >= 300 and wattage < 400):
+  elif (total_wattage >= 300 and total_wattage < 400):
     powers = Power.objects.filter(power_formfactors="ATX", power_output=700)
-  elif (wattage >= 400):
+  elif (total_wattage >= 400):
     powers = Power.objects.filter(power_formfactors="ATX", power_output=850)
   
   for power in powers:
-    price += power.power_price
+    total_price += power.power_price
   
-  # 사양 출력(임시 테스트)
-  print("\n" + keyword + " 컴퓨터 견적")
+  quote_list = []
+  quote_price = []
+  quote_image = []
+  
+  # 설정한 사양을 리스트에 집어넣기
   for cpu in cpus:
-    print("CPU: " + cpu.cpu_title)
+    quote_list.append(cpu.cpu_title)
+    quote_price.append(cpu.cpu_price)
+    quote_image.append(cpu.cpu_image)
   if (keyword != "웹서핑용" and keyword != "영상시청용" and keyword != "사무용"):
     for cooler in coolers:
-      print("쿨러: " + cooler.cooler_title)
+      quote_list.append(cooler.cooler_title)
+      quote_price.append(cooler.cooler_price)
+      quote_image.append(cooler.cooler_image)
   for mainboard in mainboards:
-    print("메인보드: " + mainboard.mainboard_title)
+    quote_list.append(mainboard.mainboard_title)
+    quote_price.append(mainboard.mainboard_price)
+    quote_image.append(mainboard.mainboard_image)
   for memory in memories:
-    print("메모리: " + memory.memory_title)
+    quote_list.append(memory.memory_title)
+    quote_price.append(memory.memory_price)
+    quote_image.append(memory.memory_image)
   if (keyword != "웹서핑용" and keyword != "사무용"):
     for videocard in videocards:
-      print("비디오카드: " + videocard.videocard_title)
+      quote_list.append(videocard.videocard_title)
+      quote_price.append(videocard.videocard_price)
+      quote_image.append(videocard.videocard_image)
   for storage in storages:
-    print("저장공간: " + storage.storage_title)
+    quote_list.append(storage.storage_title)
+    quote_price.append(storage.storage_price)
+    quote_image.append(storage.storage_image)
   for power in powers:
-    print("파워: " + power.power_title)
+    quote_list.append(power.power_title)
+    quote_price.append(power.power_price)
+    quote_image.append(power.power_image)
   for comcase in comcases:
-    print("케이스: " + comcase.comcase_title)
-  print("총 합계금액: " + str(price) + "원")
+    quote_list.append(comcase.comcase_title)
+    quote_price.append(comcase.comcase_price)
+    quote_image.append(comcase.comcase_image)
+
+  quote_total_wattage = [total_wattage]
+  quote_total_price = [total_price]
   
-  # 부품 반환
-  if(keyword == "웹서핑용" or keyword == "사무용"):
-    return cpus, mainboards, memories, storages, comcases
-  elif(keyword == "영상편집용"):
-    return cpus, mainboards, memories, videocards, storages, comcases
-  
-  return cpus, mainboards, memories, videocards, storages, comcases
+  # 설정한 사양을 반환하기
+  return quote_list, quote_price, quote_image, quote_total_wattage, quote_total_price
     
 # 키워드 검색 함수
 def searchKeyword(keyword):
@@ -191,6 +207,6 @@ def main(request):
     keyword = request.GET.get('keyword')
 
   usage_keyword = searchKeyword(keyword)
-  print(mappingKeyword(usage_keyword))
+  mappping_quote = mappingKeyword(usage_keyword)
 
-  return HttpResponse(json.dumps({'message': 'Success'}), content_type="application/json")
+  return HttpResponse(mappping_quote)
