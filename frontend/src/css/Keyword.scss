@@ -11,6 +11,7 @@ body {
   width: 1920px;
 }
 
+// 키워드 입력 창
 .keyword-body {
   position: absolute;
   display: inline-block;
@@ -37,7 +38,7 @@ body {
     padding: 9px;
     z-index: 1;
   }
-
+  
   .search-input {
     position: relative;
     width: calc(90%);
