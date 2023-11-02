@@ -42,7 +42,7 @@ export default function Keyword() {
         <span className="search-button" onClick={searchKeyword}>검색</span>
         {/* 견적이 출력되는지 확인 */}
         <div>
-          <h2>사양 출력하기</h2>
+          <h2>사양 출력</h2>
           <div>{quote}</div>
         </div>
       </div>
