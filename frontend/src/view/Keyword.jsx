@@ -14,13 +14,13 @@ export default function Keyword() {
   // 변수 선언 및 초기화
   const [keyword, setKeyword] = useState('');
   const [quote, setQuote] = useState('');
-
-  var count = 0;
-  var quote_title = [];
-  var quote_price = [];
-  var quote_image = [];
-  var quote_wattage = 0;
-  var quote_total_price = 0;
+  let quote_title = [];
+  let count = 0;
+  let quote_name = [];
+  let quote_price = [];
+  let quote_image = [];
+  let quote_wattage = 0;
+  let quote_total_price = 0;
 
   // 일치하는 키워드가 있는지 검색하기
   const searchKeyword = async () => {
@@ -45,24 +45,46 @@ export default function Keyword() {
 
   if (list_data.length === 20) {
     count = 6;
+    quote_title = ['CPU','메인보드','메모리','저장공간','파워','케이스'];
   } else if (list_data.length === 23) {
     count = 7;
+    quote_title = ['CPU','메인보드','메모리','그래픽카드','저장공간','파워','케이스'];
   } else if (list_data.length === 26) {
     count = 8;
+    quote_title = ['CPU','쿨러','메인보드','메모리','그래픽카드','저장공간','파워','케이스'];
   }
 
   // 견적 데이터를 부품 이름, 가격, 이미지 배열에 넣기
   // 전력량, 총 금액 넣기
-  quote_title = [count];
+  quote_name = [count];
   quote_price = [count];
   quote_image = [count];
   quote_wattage = list_data[list_data.length - 2];
   quote_total_price = list_data[list_data.length - 1];
 
-  for (var i = 0; i < 6; i++) {
-    quote_title[i] = list_data[i];
+  for (let i = 0; i < count; i++) {
+    quote_name[i] = list_data[i];
     quote_price[i] = list_data[i + count];
     quote_image[i] = list_data[i + (count * 2)];
+  }
+
+  const quote_result = (quote_name, quote_image, quote_price) => {
+    const result = [];
+
+    for (let i = 0; i < count; i++) {
+      result.push(
+        <div>
+          <div className="keyword-quote-title">{quote_title[i]}</div>
+          <div className="keyword-quote">
+            <div className="keyword-name">{quote_name[i]}</div>
+            <img src={process.env.PUBLIC_URL + quote_image[i]} className="keyword-image" alt="" />
+            <div className="keyword-price">{quote_price[i].replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원</div>
+          </div>
+        </div>
+      );
+    }
+
+    return result;
   }
 
   return (
@@ -77,14 +99,26 @@ export default function Keyword() {
           }}/>
         </div>
         <span className="search-button" onClick={searchKeyword}>검색</span>
-        {/* 견적이 출력되는지 확인 */}
-        <div>
-          <h2>사양 출력</h2>
-          <div>{quote_wattage}</div>
-          <div>{quote_total_price}</div>
-          <div>{quote_title[5]}</div>
-        </div>
       </div>
+      <div className="keyword-result-form">
+          <div className="keyword-title">PC 견적구성</div>
+          <div className="keyword-context">용도에 맞는 PC 견적 구성을 완료하였습니다!</div>
+          <div className="list-line"></div>
+          <div className="keyword-scroll">{quote_result(quote_name,quote_image,quote_price)}</div>
+          <div className="list-line"></div>
+          <div className="keyword-wattage">
+            <span>총 전력량</span>
+            <span className="right">{quote_wattage}W</span>
+          </div>
+          <div className="keyword-total-price">
+            <span>총 합계금액</span>
+            <span className="right">{quote_total_price.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원</span>
+          </div>
+          <div>
+            <button type="button" className="keyword-button">취소</button>
+            <button type="button" className="keyword-button">주문</button>
+          </div>
+        </div>
     </div>
   )
 }

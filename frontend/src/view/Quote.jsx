@@ -270,7 +270,6 @@ export default function Quote() {
                   <div className="list-line"></div>
                 </li>
               ))}
-
               {/* 쿨러 상품 */}
               {Cooler.map((coolerItem) => (
                 <li key={coolerItem.cooler_id} className={(btnActive === 'cooler' ? 'product' : 'hidden')}>
@@ -282,7 +281,6 @@ export default function Quote() {
                   <div className="list-line"></div>
                 </li>
               ))}
-
               {/* 메인보드 상품 */}
               {Mainboard.map((mainboardItem) => (
                 <li key={mainboardItem.mainboard_id} className={(btnActive === 'mainboard' ? 'product' : 'hidden')}>
@@ -294,7 +292,6 @@ export default function Quote() {
                   <div className="list-line"></div>
                 </li>
               ))}
-
               {/* 메모리 상품 */}
               {Memory.map((memoryItem) => (
                 <li key={memoryItem.memory_id} className={(btnActive === 'memory' ? 'product' : 'hidden')}>
@@ -306,7 +303,6 @@ export default function Quote() {
                   <div className="list-line"></div>
                 </li>
               ))}
-
               {/* 비디오카드 상품 */}
               {VideoCard.map((videocardItem) => (
                 <li key={videocardItem.videocard_id} className={(btnActive === 'videocard' ? 'product' : 'hidden')}>
@@ -318,7 +314,6 @@ export default function Quote() {
                   <div className="list-line"></div>
                 </li>
               ))}
-
               {/* 저장공간 상품 */}
               {Storage.map((storageItem) => (
                 <li key={storageItem.storage_id} className={(btnActive === 'storage' ? 'product' : 'hidden')}>
@@ -330,7 +325,6 @@ export default function Quote() {
                   <div className="list-line"></div>
                 </li>
               ))}
-
               {/* 파워 상품 */}
               {Power.map((powerItem) => (
                 <li key={powerItem.power_id} className={(btnActive === 'power' ? 'product' : 'hidden')}>
@@ -342,7 +336,6 @@ export default function Quote() {
                   <div className="list-line"></div>
                 </li>
               ))}
-
               {/* 케이스 상품 */}
               {ComCase.map((comcaseItem) => (
                 <li key={comcaseItem.comcase_id} className={(btnActive === 'comcase' ? 'product' : 'hidden')}>
