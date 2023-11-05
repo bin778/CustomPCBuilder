@@ -22,6 +22,9 @@ export default function Keyword() {
   let quote_wattage = 0;
   let quote_total_price = 0;
 
+  // 버튼 활성화(keyword면 키워드 견적창, search면 검색 창이 표시된다.)
+  const [btnActive, setBtnActive] = useState('search');
+
   // 일치하는 키워드가 있는지 검색하기
   const searchKeyword = async () => {
     console.log(keyword);
@@ -87,20 +90,35 @@ export default function Keyword() {
     return result;
   }
 
+  // 키워드 견적 버튼
+  const keywordButton = () => {
+    setBtnActive('keyword');
+  }
+
+  // 취소 버튼
+  const cancelButton = () => {
+    setBtnActive('search');
+  }
+
   return (
     <div className="keyword-layer">
       <Header />
       <div className="keyword-body">
-        <div>
-        <div className="search-title">원하는 용도를 입력하세요!</div>
-          <img src={SEARCH} className="search-image" alt="" />
-          <input type="text" placeholder="용도를 입력해주세요" id="keyword" className="search-input" value={keyword} onChange={e => {
-            setKeyword(e.target.value);
-          }}/>
+        <div className={btnActive === 'search' ? '' : 'hidden'}>
+          <div>
+          <div className="search-title">원하는 용도를 입력하세요!</div>
+            <img src={SEARCH} className="search-image" alt="" />
+            <input type="text" placeholder="용도를 입력해주세요" id="keyword" className="search-input" value={keyword} onChange={e => {
+              setKeyword(e.target.value);
+            }}/>
+          </div>
+          <span className="search-button" onClick={() => {
+            searchKeyword();
+            keywordButton();
+            }}>검색</span>
         </div>
-        <span className="search-button" onClick={searchKeyword}>검색</span>
       </div>
-      <div className="keyword-result-form">
+      <div className={btnActive === 'keyword' ? 'keyword-result-form' : 'hidden'}>
           <div className="keyword-title">PC 견적구성</div>
           <div className="keyword-context">용도에 맞는 PC 견적 구성을 완료하였습니다!</div>
           <div className="list-line"></div>
@@ -115,7 +133,7 @@ export default function Keyword() {
             <span className="right">{quote_total_price.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원</span>
           </div>
           <div>
-            <button type="button" className="keyword-button">취소</button>
+            <button type="button" className="keyword-button" onClick={cancelButton}>취소</button>
             <button type="button" className="keyword-button">주문</button>
           </div>
         </div>

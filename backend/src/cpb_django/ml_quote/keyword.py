@@ -15,22 +15,22 @@ from .models import Comcase
 hannanum = Hannanum()
 
 # 게임용 견적 키워드
-lol = hannanum.nouns("롤용 리그오브레전드용")
-fifa4 = hannanum.nouns("피파4용 피파용 피온용")
-pubg = hannanum.nouns("배그용 배틀그라운드용")
-gbroad = hannanum.nouns("게임방송용 스트리머용")
+lol = hannanum.nouns("롤 리그오브레전드")
+fifa4 = hannanum.nouns("피파4 피파 피온")
+pubg = hannanum.nouns("배그 배틀그라운드")
+gbroad = hannanum.nouns("게임방송 스트리머 스팀게임")
 
 # 가정용 견적 키워드
-web = hannanum.nouns("웹서핑용 인터넷검색용 가정용")
-vwatch = hannanum.nouns("영상시청용 인강용 인터넷강의용")
-office = hannanum.nouns("사무용 문서작업용")
+web = hannanum.nouns("웹서핑 인터넷검색 가정")
+vwatch = hannanum.nouns("영상시청 인강 인터넷강의")
+office = hannanum.nouns("사무 문서작업")
 
 # 작업용 견적 키워드
-coding = hannanum.nouns("개발용 개발자용 코딩용")
-vedit = hannanum.nouns("동영상편집용 영상편집용")
+coding = hannanum.nouns("개발 프로그래밍 코딩")
+vedit = hannanum.nouns("영상편집 영상작업")
 
 # 기타 견적 키워드
-slim = hannanum.nouns("슬림형 미니형")
+slim = hannanum.nouns("슬림 미니")
 noise = hannanum.nouns("저소음 무소음")
 
 # 키워드 매핑 함수
@@ -63,8 +63,8 @@ def mappingKeyword(keyword):
     mainboards = Mainboard.objects.filter(mainboard_chipset="B760")
     memories = Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=32)
   # 키워드 입력 예외 처리(지정한 키워드를 입력하지 않은 경우)
-  elif (keyword == "용도"): 
-    return("키워드를 제대로 입력하세요!")
+  elif (keyword == "용도"):
+    return "검색 결과 없음!"
   
   # 저장공간 설정
   if (keyword == "웹서핑용" or keyword == "영상시청용" or keyword == "사무용"):
@@ -174,30 +174,30 @@ def searchKeyword(keyword):
   usage = "용도"
 
   # 키워드 검색하기
-  if (keyword == lol[0] or keyword == lol[1]):
+  if (lol[0] in keyword or lol[1] in keyword):
     usage = "롤용"
-  elif (keyword == fifa4[0] or keyword == fifa4[1] or keyword == fifa4[2]):
+  elif (fifa4[0] in keyword or fifa4[1] in keyword or fifa4[2] in keyword):
     usage = "피파4용"
-  elif (keyword == pubg[0] or keyword == pubg[1]):
+  elif (pubg[0] in keyword or pubg[1] in keyword):
     usage = "배그용"
-  elif (keyword == gbroad[0] or keyword == gbroad[1]):
+  elif (gbroad[0] in keyword or gbroad[1] in keyword or gbroad[2] in keyword):
     usage = "게임방송용"
 
-  if (keyword == web[0] or keyword == web[1] or keyword == web[2]):
+  if (web[0] in keyword or web[1] in keyword or web[2] in keyword):
     usage = "웹서핑용"
-  elif (keyword == vwatch[0] or keyword == vwatch[1] or keyword == vwatch[2]):
+  elif (vwatch[0] in keyword or vwatch[1] in keyword or vwatch[2] in keyword):
     usage = "영상시청용"
-  elif (keyword == office[0] or keyword == office[1]):
+  elif (office[0] in keyword or office[1] in keyword):
     usage = "사무용"
 
-  if (keyword == coding[0] or keyword == coding[1] or keyword == coding[2]):
+  if (coding[0] in keyword or coding[1] in keyword or coding[2] in keyword):
     usage = "코딩용"
-  elif (keyword == vedit[0] or keyword == vedit[1]):
+  elif (vedit[0] in keyword or vedit[1] in keyword):
     usage = "영상편집용"
 
-  if (keyword == slim[0] or keyword == slim[1]):
+  if (slim[0] in keyword or slim[1] in keyword):
     usage = "슬림형"
-  elif (keyword == noise[0] or keyword == noise[1]):
+  elif (noise[0] in keyword or noise[1] in keyword):
     usage = "저소음"
   return usage
 
