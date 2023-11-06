@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from konlpy.tag import Hannanum
 import json
 
 from .models import Cpu
@@ -11,27 +10,6 @@ from .models import Videocard
 from .models import Storage
 from .models import Power
 from .models import Comcase
-
-hannanum = Hannanum()
-
-# 게임용 견적 키워드
-lol = hannanum.nouns("롤 리그오브레전드")
-fifa4 = hannanum.nouns("피파4 피파 피온")
-pubg = hannanum.nouns("배그 배틀그라운드")
-gbroad = hannanum.nouns("게임방송 스트리머 스팀게임")
-
-# 가정용 견적 키워드
-web = hannanum.nouns("웹서핑 인터넷검색 가정")
-vwatch = hannanum.nouns("영상시청 인강 인터넷강의")
-office = hannanum.nouns("사무 문서작업")
-
-# 작업용 견적 키워드
-coding = hannanum.nouns("개발 프로그래밍 코딩")
-vedit = hannanum.nouns("영상편집 영상작업")
-
-# 기타 견적 키워드
-slim = hannanum.nouns("슬림 미니")
-noise = hannanum.nouns("저소음 무소음")
 
 # 키워드 매핑 함수
 def mappingKeyword(keyword):
@@ -174,30 +152,30 @@ def searchKeyword(keyword):
   usage = "용도"
 
   # 키워드 검색하기
-  if (lol[0] in keyword or lol[1] in keyword):
+  if ("롤" in keyword or "리그오브레전드" in keyword or "LOL" in keyword):
     usage = "롤용"
-  elif (fifa4[0] in keyword or fifa4[1] in keyword or fifa4[2] in keyword):
+  elif ("피파" in keyword or "피온" in keyword or "피파" in keyword):
     usage = "피파4용"
-  elif (pubg[0] in keyword or pubg[1] in keyword):
+  elif ("배그" in keyword or "배틀그라운드" in keyword or "PUBG" in keyword):
     usage = "배그용"
-  elif (gbroad[0] in keyword or gbroad[1] in keyword or gbroad[2] in keyword):
+  elif ("게임방송" in keyword or "스트리머" in keyword or "BJ" in keyword):
     usage = "게임방송용"
 
-  if (web[0] in keyword or web[1] in keyword or web[2] in keyword):
+  if ("웹서핑" in keyword or "검색" in keyword or "인터넷" in keyword):
     usage = "웹서핑용"
-  elif (vwatch[0] in keyword or vwatch[1] in keyword or vwatch[2] in keyword):
+  elif ("인강" in keyword or "영상시청" in keyword or "강의" in keyword):
     usage = "영상시청용"
-  elif (office[0] in keyword or office[1] in keyword):
+  elif ("문서" in keyword or "사무" in keyword or "액셀" in keyword):
     usage = "사무용"
 
-  if (coding[0] in keyword or coding[1] in keyword or coding[2] in keyword):
+  if ("코딩" in keyword or "개발" in keyword or "프로그래" in keyword):
     usage = "코딩용"
-  elif (vedit[0] in keyword or vedit[1] in keyword):
+  elif ("영상편집" in keyword or "프리미어" in keyword or "영상작업" in keyword):
     usage = "영상편집용"
 
-  if (slim[0] in keyword or slim[1] in keyword):
+  if ("슬림" in keyword or "미니" in keyword):
     usage = "슬림형"
-  elif (noise[0] in keyword or noise[1] in keyword):
+  elif ("저소음" in keyword or "무소음" in keyword):
     usage = "저소음"
   return usage
 
