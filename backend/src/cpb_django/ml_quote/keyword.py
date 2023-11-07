@@ -42,7 +42,7 @@ def mappingKeyword(keyword):
     memories = Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=32)
   # 키워드 입력 예외 처리(지정한 키워드를 입력하지 않은 경우)
   elif (keyword == "용도"):
-    return "검색 결과 없음!"
+    return "exception"
   
   # 저장공간 설정
   if (keyword == "웹서핑용" or keyword == "영상시청용" or keyword == "사무용"):

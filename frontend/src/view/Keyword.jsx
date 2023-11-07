@@ -34,7 +34,17 @@ export default function Keyword() {
         params: {
           keyword: keyword,
         }
-      }).then((response) => setQuote(JSON.stringify(response.data)));
+      });
+      setQuote(JSON.stringify(response.data));
+      // 일치하는 키워드가 없을 때 처리
+      if (JSON.stringify(response.data) === "\"exception\"") {
+        setBtnActive('search');
+        alert("제대로 된 키워드를 입력해주세요!");
+        return;
+      } else {
+        setBtnActive('keyword');
+        return;
+      }
     } catch (error) {
       console.error(error);
     }
@@ -76,7 +86,7 @@ export default function Keyword() {
 
     for (let i = 0; i < count; i++) {
       result.push(
-        <div>
+        <div key={quote_name[i]}>
           <div className="keyword-quote-title">{quote_title[i]}</div>
           <div className="keyword-quote">
             <div className="keyword-name">{quote_name[i]}</div>
@@ -86,13 +96,7 @@ export default function Keyword() {
         </div>
       );
     }
-
     return result;
-  }
-
-  // 키워드 견적 버튼
-  const keywordButton = () => {
-    setBtnActive('keyword');
   }
 
   // 취소 버튼
@@ -112,10 +116,7 @@ export default function Keyword() {
               setKeyword(e.target.value);
             }}/>
           </div>
-          <span className="search-button" onClick={() => {
-            searchKeyword();
-            keywordButton();
-            }}>검색</span>
+          <span className="search-button" onClick={searchKeyword}>검색</span>
         </div>
       </div>
       <div className={btnActive === 'keyword' ? 'keyword-result-form' : 'hidden'}>
