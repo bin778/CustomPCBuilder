@@ -40,7 +40,7 @@ def mappingKeyword(keyword):
       videocards = Videocard.objects.filter(videocard_chipset="RTX4060Ti")
     mainboards = Mainboard.objects.filter(mainboard_chipset="B760")
     memories = Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=32)
-  # 키워드 입력 예외 처리(지정한 키워드를 입력하지 않은 경우)
+  # 키워드 입력 예외 처리(입력한 검색어에서 지정한 키워드가 없을 경우)
   elif (keyword == "용도"):
     return "exception"
   
