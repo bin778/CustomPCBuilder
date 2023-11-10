@@ -13,6 +13,7 @@ from .models import Comcase
 
 # 키워드 매핑 함수
 def mappingKeyword(keyword):
+
   # 사양 설정하기
   if (keyword == "피파4용" or keyword == "롤용" or keyword == "웹서핑용" or  keyword == "영상시청용" or  keyword == "사무용"):
     cpus = Cpu.objects.filter(cpu_manufacturer="인텔", cpu_core=4)
@@ -150,33 +151,44 @@ def mappingKeyword(keyword):
 def searchKeyword(keyword):
   # 예외 처리
   usage = "용도"
+  usage2 = []
 
   # 키워드 검색하기
   if ("롤" in keyword or "리그오브레전드" in keyword or "LOL" in keyword):
     usage = "롤용"
-  elif ("피파" in keyword or "피온" in keyword or "피파" in keyword):
+    usage2.append("롤용")
+  if ("피파" in keyword or "피온" in keyword or "피파" in keyword):
     usage = "피파4용"
-  elif ("배그" in keyword or "배틀그라운드" in keyword or "PUBG" in keyword):
+    usage2.append("피파4용")
+  if ("배그" in keyword or "배틀그라운드" in keyword or "PUBG" in keyword):
     usage = "배그용"
-  elif ("게임방송" in keyword or "스트리머" in keyword or "BJ" in keyword):
+    usage2.append("배그용")
+  if ("게임방송" in keyword or "스트리머" in keyword or "BJ" in keyword):
     usage = "게임방송용"
-
+    usage2.append("게임방송용")
   if ("웹서핑" in keyword or "검색" in keyword or "인터넷" in keyword):
     usage = "웹서핑용"
-  elif ("인강" in keyword or "영상시청" in keyword or "강의" in keyword):
+    usage2.append("웹서핑용")
+  if ("인강" in keyword or "영상시청" in keyword or "강의" in keyword):
     usage = "영상시청용"
-  elif ("문서" in keyword or "사무" in keyword or "액셀" in keyword):
+    usage2.append("영상시청용")
+  if ("문서" in keyword or "사무" in keyword or "액셀" in keyword):
     usage = "사무용"
-
+    usage2.append("사무용")
   if ("코딩" in keyword or "개발" in keyword or "프로그래" in keyword):
     usage = "코딩용"
-  elif ("영상편집" in keyword or "프리미어" in keyword or "영상작업" in keyword):
+    usage2.append("코딩용")
+  if ("영상편집" in keyword or "프리미어" in keyword or "영상작업" in keyword):
     usage = "영상편집용"
-
+    usage2.append("영상편집용")
   if ("슬림" in keyword or "미니" in keyword):
     usage = "슬림형"
-  elif ("저소음" in keyword or "무소음" in keyword):
+    usage2.append("슬림형")
+  if ("저소음" in keyword or "무소음" in keyword):
     usage = "저소음"
+    usage2.append("저소음")
+
+  print(usage2)
   return usage
 
 # 메인 함수
