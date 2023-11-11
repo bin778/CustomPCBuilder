@@ -145,7 +145,7 @@ def mappingKeyword(keyword):
   quote_total_price = [total_price]
   
   # 설정한 사양을 반환하기
-  return quote_list, quote_price, quote_image, quote_total_wattage, quote_total_price
+  return "test"
     
 # 키워드 검색 함수
 def searchKeyword(keyword):
