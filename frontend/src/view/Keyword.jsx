@@ -111,6 +111,7 @@ export default function Keyword() {
         <div className={btnActive === 'search' ? '' : 'hidden'}>
           <div>
           <div className="search-title">원하는 용도를 입력하세요!</div>
+          <div className="search-context">부품이 호환되지 않을 경우 적용되지 않을수도 있습니다.</div>
             <img src={SEARCH} className="search-image" alt="" />
             <input type="text" placeholder="용도를 입력해주세요" id="keyword" className="search-input" value={keyword} onChange={e => {
               setKeyword(e.target.value);

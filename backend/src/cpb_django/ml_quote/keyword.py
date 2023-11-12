@@ -22,9 +22,9 @@ def mappingKeyword(usage):
     # CPU, 그래픽카드 사양 설정하기
     if (keyword == "피파4용" or keyword == "롤용" or keyword == "웹서핑용" or keyword == "영상시청용" or  keyword == "사무용"):
       cpus.extend(Cpu.objects.filter(cpu_manufacturer="인텔", cpu_core=4))
-      if (keyword == "피파4용"):
+      if (keyword == "피파4용" or keyword == "롤용"):
         videocards.extend(Videocard.objects.filter(videocard_chipset="GTX1660 SUPER"))
-      elif (keyword == "롤용" or keyword == "영상시청용"):
+      elif (keyword == "영상시청용"):
         videocards.extend(Videocard.objects.filter(videocard_chipset="GTX1650"))
       memories.extend(Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=16))
     elif (keyword == "배그용"):
@@ -114,6 +114,38 @@ def mappingKeyword(usage):
     coolers_set = Cooler.objects.filter(cooler_manufacturer="3RSYS", cooler_cooling="수랭")
   else:
     coolers_set = None
+  
+  # 기타 설정
+  for keyword in usage:
+    if (keyword == "저소음"):
+      if (videocard_max == 12784 or videocard_max == 17117 or videocard_max == 22544):
+        coolers_set = Cooler.objects.filter(cooler_manufacturer="3RSYS", cooler_cooling="수랭")
+      elif (videocard_max == 7860): 
+        coolers_set = Cooler.objects.filter(cooler_manufacturer="쿨러마스터", cooler_cooling="공랭")
+    if (keyword == "슬림형"):
+      if (videocard_max != 31649 and videocard_max != 34727):
+        comcases_set = Comcase.objects.filter(comcase_manufacturer="3RSYS", comcase_size="미니타워")
+
+  # 색상 설정  
+  for keyword in usage:
+    if (keyword == "검정색"):
+      if (cpu_max == 13520):
+        comcases_set = Comcase.objects.filter(comcase_size="미니타워", comcase_color="black")
+      elif (cpu_max == 19474 or cpu_max == 28767 or cpu_max == 34742 or cpu_max == 39255):
+        comcases_set = Comcase.objects.filter(comcase_size="미들타워", comcase_color="black")
+      for keyword2 in usage:
+        if (keyword2 == "슬림형"):
+          if (videocard_max != 31649 and videocard_max != 34727):
+            comcases_set = Comcase.objects.filter(comcase_size="미니타워", comcase_color="black")
+    elif (keyword == "흰색"):
+      if (cpu_max == 13520):
+        comcases_set = Comcase.objects.filter(comcase_size="미니타워", comcase_color="white")
+      elif (cpu_max == 19474 or cpu_max == 28767 or cpu_max == 34742 or cpu_max == 39255):
+        comcases_set = Comcase.objects.filter(comcase_size="미들타워", comcase_color="white")
+      for keyword2 in usage:
+        if (keyword2 == "슬림형"):
+          if (videocard_max != 31649 and videocard_max != 34727):
+            comcases_set = Comcase.objects.filter(comcase_size="미니타워", comcase_color="white")
 
   # PC 부품 전력량 및 가격 계산
   total_wattage = 0
@@ -225,8 +257,12 @@ def searchKeyword(keyword):
     usage.append("영상편집용")
   if ("슬림" in keyword or "미니" in keyword):
     usage.append("슬림형")
-  if ("저소음" in keyword or "무소음" in keyword):
+  if ("저소음" in keyword or "무소음" in keyword or "소음이 적" in keyword):
     usage.append("저소음")
+  if ("검정색" in keyword or "검은색" in keyword):
+    usage.append("검정색")
+  if ("흰색" in keyword or "하얀색" in keyword):
+    usage.append("흰색")
 
   return usage
 

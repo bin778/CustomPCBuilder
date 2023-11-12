@@ -9,6 +9,7 @@ class Comcase(models.Model):
     comcase_size = models.CharField(max_length=20)
     comcase_formfactors = models.CharField(max_length=20)
     comcase_price = models.IntegerField()
+    comcase_color = models.CharField(max_length=20)
 
     class Meta:
         managed = False
