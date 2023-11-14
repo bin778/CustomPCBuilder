@@ -95,7 +95,7 @@ export default function Quote() {
 
   // 상품을 장바구니에 추가하기
   const onClickOrder = () => {
-    console.log("장바구니 추가");
+    console.log("상품 추가");
   }
 
   return (
