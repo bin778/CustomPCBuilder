@@ -118,4 +118,12 @@ router.get("/comcase", async (req, res) => {
   res.send({ result: comcase });
 })
 
+// /api/cart GET 데이터를 전달 받는다.
+router.get("/cart", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+
+  const comcase = await db.insertCart(req.query);
+  res.send({ result: comcase });
+})
+
 module.exports = router;

@@ -158,4 +158,11 @@ db.selectComCase = () => {
   })
 }
 
+// 장바구니 목록 추가하기
+db.insertCart = () => {
+  return new Promise(async (resolve, reject) => {
+    // MySQL 명령어 입력
+  })
+}
+
 module.exports = db;

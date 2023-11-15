@@ -26,6 +26,9 @@ export default function Quote() {
   let [Storage, setStorage] = useState([]);
   let [Power, setPower] = useState([]);
   let [ComCase, setComCase] = useState([]);
+
+  // 주문 목록 State
+  let [Cart, setCart] = useState([]);
   
   useEffect(() => {
     // CPU DB 목록 불러오기
@@ -94,8 +97,14 @@ export default function Quote() {
   }, []);
 
   // 상품을 장바구니에 추가하기
-  const onClickOrder = () => {
+  const onClickCart = () => {
     console.log("상품 추가");
+    axios.get("/api/cart").then((res) => {
+      const cartData = res.data.result;
+      setCart(cartData);
+    }).catch((error) => {
+      console.error('데이터를 가져오는 중 오류 발생: ', error);
+    });
   }
 
   return (
@@ -261,7 +270,7 @@ export default function Quote() {
             <ul>
               {/* CPU 상품 */}
               {CPU.map((cpuItem) => (
-                <li key={cpuItem.cpu_id} className={(btnActive === 'cpu' ? 'product' : 'hidden')} onClick={onClickOrder}>
+                <li key={cpuItem.cpu_id} className={(btnActive === 'cpu' ? 'product' : 'hidden')} onClick={onClickCart}>
                   <div className="list-line"></div>
                   <img src={process.env.PUBLIC_URL + cpuItem.cpu_image} className="product-image" alt="" />
                   <span className="product-name">{cpuItem.cpu_manufacturer} {cpuItem.cpu_title}</span>
