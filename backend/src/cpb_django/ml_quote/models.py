@@ -97,6 +97,8 @@ class Power(models.Model):
 class QuoteOrder(models.Model):
     quote_order_id = models.AutoField(primary_key=True)
     product_id = models.IntegerField()
+    product_title = models.CharField(max_length=100)
+    product_manufacturer = models.CharField(max_length=20)
     product_count = models.IntegerField()
     product_price = models.IntegerField()
 

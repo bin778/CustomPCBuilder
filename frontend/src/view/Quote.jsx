@@ -97,14 +97,17 @@ export default function Quote() {
   }, []);
 
   // 상품을 장바구니에 추가하기
-  const onClickCart = () => {
-    console.log("상품 추가");
-    axios.get("/api/cart").then((res) => {
-      const cartData = res.data.result;
+  const onClickCart = (id, title, manufacturer, price) => {
+    const params = {id, title, manufacturer, price};
+    
+    axios.get("/api/cart", { params }).then((res) => {
+      const cartData = res.data;
       setCart(cartData);
     }).catch((error) => {
       console.error('데이터를 가져오는 중 오류 발생: ', error);
     });
+
+    console.log(Cart);
   }
 
   return (
@@ -270,7 +273,7 @@ export default function Quote() {
             <ul>
               {/* CPU 상품 */}
               {CPU.map((cpuItem) => (
-                <li key={cpuItem.cpu_id} className={(btnActive === 'cpu' ? 'product' : 'hidden')} onClick={onClickCart}>
+                <li key={cpuItem.cpu_id} className={(btnActive === 'cpu' ? 'product' : 'hidden')} onClick={() => onClickCart(cpuItem.cpu_id, cpuItem.cpu_title, cpuItem.cpu_manufacturer, cpuItem.cpu_price)}>
                   <div className="list-line"></div>
                   <img src={process.env.PUBLIC_URL + cpuItem.cpu_image} className="product-image" alt="" />
                   <span className="product-name">{cpuItem.cpu_manufacturer} {cpuItem.cpu_title}</span>

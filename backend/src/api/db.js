@@ -159,9 +159,14 @@ db.selectComCase = () => {
 }
 
 // 장바구니 목록 추가하기
-db.insertCart = () => {
+db.insertCart = (id, title, manufacturer, price) => {
   return new Promise(async (resolve, reject) => {
-    // MySQL 명령어 입력
+    product_count = 1;
+    const sql = `insert into quote_order (product_id, product_title, product_manufacturer, product_count, product_price) values
+      ('${id}', '${title}', '${manufacturer}', '${product_count}', '${price * product_count}');`
+
+    const result = await queryFunc(sql);
+    resolve(result);
   })
 }
 
