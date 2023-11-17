@@ -163,7 +163,17 @@ db.insertCart = (id, title, manufacturer, price) => {
   return new Promise(async (resolve, reject) => {
     product_count = 1;
     const sql = `insert into quote_order (product_id, product_title, product_manufacturer, product_count, product_price) values
-      ('${id}', '${title}', '${manufacturer}', '${product_count}', '${price * product_count}');`
+      ('${id}', '${title}', '${manufacturer}', '${product_count}', '${price * product_count}');`;
+
+    const result = await queryFunc(sql);
+    resolve(result);
+  })
+}
+
+// 장바구니 목록 삭제하기
+db.deleteCart = (id) => {
+  return new Promise(async (resolve, reject) => {
+    const sql = `delete from quote_order where product_id='${id}';`;
 
     const result = await queryFunc(sql);
     resolve(result);
