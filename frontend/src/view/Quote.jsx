@@ -97,45 +97,8 @@ export default function Quote() {
   }, []);
 
   // 상품을 장바구니에 추가하기
-  const ProductComponent = ({ cpuItem }) => {
-    // 주문 목록 State
-    const [inCart, setInCart] = useState({});
-
-    const onClickHandler = () => {
-      if (inCart[cpuItem.cpu_id]) {
-        OnClickDeleteCart(cpuItem.cpu_id);
-        setInCart(prevState => ({
-          ...prevState,
-          [cpuItem.cpu_id]: false,
-        }));
-      } else {
-        onClickAddCart(
-          cpuItem.cpu_id,
-          cpuItem.cpu_title,
-          cpuItem.cpu_manufacturer,
-          cpuItem.cpu_price,
-        );
-        setInCart(prevState => ({
-          ...prevState,
-          [cpuItem.cpu_id]: true,
-        }));
-      }
-    };
-
-    return (
-      <li key={cpuItem.cpu_id} className={(btnActive === 'cpu' ? 'product' : 'hidden')} onClick={onClickHandler}>
-        <div className="list-line"></div>
-        <img src={process.env.PUBLIC_URL + cpuItem.cpu_image} className="product-image" alt="" />
-        <span className="product-name">{cpuItem.cpu_manufacturer} {cpuItem.cpu_title}</span>
-        <span className="product-spec">{cpuItem.cpu_core}코어 / {cpuItem.cpu_thread}쓰레드 / {cpuItem.cpu_clock}Ghz / {cpuItem.cpu_socket} / {cpuItem.cpu_wattage}W</span>
-        <span className="product-price">{cpuItem.cpu_price.toLocaleString('ko-KR')}원</span>
-        <div className="list-line"></div>
-      </li>
-    );
-  };
-
   const onClickAddCart = (id, title, manufacturer, price) => {
-    const data = {id, title, manufacturer, price};
+    const data = { id, title, manufacturer, price };
     
     axios.post("/api/addcart", data).then((res) => {
       const cartData = res.data;
@@ -156,6 +119,20 @@ export default function Quote() {
       console.error('데이터를 가져오는 중 오류 발생: ', error);
     });
   }
+
+  // 상품을 장바구니에 추가하기
+  const ProductComponent = ({ cpuItem }) => {
+    return (
+      <li key={cpuItem.cpu_id} className={(btnActive === 'cpu' ? 'product' : 'hidden')}>
+        <div className="list-line"></div>
+        <img src={process.env.PUBLIC_URL + cpuItem.cpu_image} className="product-image" alt="" />
+        <span className="product-name">{cpuItem.cpu_manufacturer} {cpuItem.cpu_title}</span>
+        <span className="product-spec">{cpuItem.cpu_core}코어 / {cpuItem.cpu_thread}쓰레드 / {cpuItem.cpu_clock}Ghz / {cpuItem.cpu_socket} / {cpuItem.cpu_wattage}W</span>
+        <span className="product-price">{cpuItem.cpu_price.toLocaleString('ko-KR')}원</span>
+        <div className="list-line"></div>
+      </li>
+    );
+  };
 
   return (
     <div className="quote-layer">
