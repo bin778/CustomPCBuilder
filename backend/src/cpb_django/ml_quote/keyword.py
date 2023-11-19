@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from konlpy.tag import Hannanum
 import json
 
 from .models import Cpu
@@ -10,6 +11,29 @@ from .models import Videocard
 from .models import Storage
 from .models import Power
 from .models import Comcase
+
+user_keyword = Hannanum()
+
+# 게임용 견적 키워드
+lol = user_keyword.morphs("롤 리그오브레전드")
+fifa = user_keyword.morphs("피파 피온")
+pubg = user_keyword.morphs("배그 배틀그라운드")
+bj = user_keyword.morphs("게임방송 겜방 스트리머")
+
+# 가정용 견적 키워드
+web = user_keyword.morphs("웹서핑 인터넷 검색")
+video = user_keyword.morphs("인강 영상시청 강의")
+
+# 작업용 견적 키워드
+office = user_keyword.morphs("사무 엑셀 문서")
+coding = user_keyword.morphs("코딩 프로그래 개발")
+premier = user_keyword.morphs("영상편집 프리미어 영상작업")
+
+# 기타 견적 키워드
+slim = user_keyword.morphs("슬림 미니")
+noise = user_keyword.morphs("저소음 무소음")
+black = user_keyword.morphs("검은색 검정색")
+white = user_keyword.morphs("하양색 흰색")
 
 # 키워드 매핑 함수
 def mappingKeyword(usage):
@@ -237,32 +261,32 @@ def searchKeyword(keyword):
   usage = []
 
   # 키워드 검색하기
-  if ("롤" in keyword or "리그오브레전드" in keyword or "LOL" in keyword):
-    usage.append("롤용")
-  if ("피파" in keyword or "피온" in keyword or "피파" in keyword):
-    usage.append("피파4용")
-  if ("배그" in keyword or "배틀그라운드" in keyword or "PUBG" in keyword):
-    usage.append("배그용")
-  if ("게임방송" in keyword or "스트리머" in keyword or "BJ" in keyword):
-    usage.append("게임방송용")
-  if ("웹서핑" in keyword or "검색" in keyword or "인터넷" in keyword):
-    usage.append("웹서핑용")
-  if ("인강" in keyword or "영상시청" in keyword or "강의" in keyword):
-    usage.append("영상시청용")
-  if ("문서" in keyword or "사무" in keyword or "액셀" in keyword):
-    usage.append("사무용")
-  if ("코딩" in keyword or "개발" in keyword or "프로그래" in keyword):
-    usage.append("코딩용")
-  if ("영상편집" in keyword or "프리미어" in keyword or "영상작업" in keyword):
-    usage.append("영상편집용")
-  if ("슬림" in keyword or "미니" in keyword):
-    usage.append("슬림형")
-  if ("저소음" in keyword or "무소음" in keyword or "소음이 적" in keyword):
-    usage.append("저소음")
-  if ("검정색" in keyword or "검은색" in keyword):
-    usage.append("검정색")
-  if ("흰색" in keyword or "하얀색" in keyword):
-    usage.append("흰색")
+  for i in lol:
+    if (i in keyword): usage.append("롤용")
+  for i in fifa:
+    if (i in keyword): usage.append("피파4용")
+  for i in pubg:
+    if (i in keyword): usage.append("배그용")
+  for i in bj:
+    if (i in keyword): usage.append("게임방송용")
+  for i in web:
+    if (i in keyword): usage.append("웹서핑용")
+  for i in video:
+    if (i in keyword): usage.append("영상시청용")
+  for i in office:
+    if (i in keyword): usage.append("사무용")
+  for i in coding:
+    if (i in keyword): usage.append("코딩용")
+  for i in premier:
+    if (i in keyword): usage.append("영상편집용")
+  for i in slim:
+    if (i in keyword): usage.append("슬림형")
+  for i in noise:
+    if (i in keyword): usage.append("저소음")
+  for i in black:
+    if (i in keyword): usage.append("검정색")
+  for i in white:
+    if (i in keyword): usage.append("흰색")
 
   return usage
 
