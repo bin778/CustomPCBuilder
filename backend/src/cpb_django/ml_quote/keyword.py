@@ -37,7 +37,7 @@ white = user_keyword.morphs("하양색 흰색")
 
 # 키워드 매핑 함수
 def mappingKeyword(usage):
-  # 부품 성능 비교를 위한 임시 저장
+  # 부품 성능 비교를 위한 임시 부품 Array
   cpus = []
   memories = []
   videocards = []
