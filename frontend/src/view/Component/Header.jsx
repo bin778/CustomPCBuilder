@@ -41,7 +41,6 @@ function Header() {
       {/* 메인 메뉴 */}
       <span className="main-menu" onClick={goToQuote}>온라인 견적</span>
       <span className="main-menu" onClick={goToKeyword}>맞춤 견적</span>
-      <span className="main-menu">질문 게시판</span>
       {/* 로그 아웃 메뉴 */}
       <span className="login-menu" onClick={goToAccountDelete}>회원 탈퇴</span>
       <span className="login-menu" onClick={goToLogin}>로그아웃</span>

@@ -120,7 +120,6 @@ export default function Quote() {
     });
   }
 
-  // 상품을 장바구니에 추가하기
   const ProductComponent = ({ cpuItem }) => {
     return (
       <li key={cpuItem.cpu_id} className={(btnActive === 'cpu' ? 'product' : 'hidden')}>
