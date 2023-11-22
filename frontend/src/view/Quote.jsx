@@ -121,6 +121,20 @@ export default function Quote() {
   }
 
   const ProductComponent = ({ cpuItem }) => {
+    const handleAddToCart = () => {
+      // 상품을 장바구니에 추가하는 함수 호출
+      onClickAddCart(
+        cpuItem.cpu_id,
+        cpuItem.cpu_title,
+        cpuItem.cpu_manufacturer,
+        cpuItem.cpu_price,
+      );
+    };
+
+    const handleDeleteFromCart = () => {
+      OnClickDeleteCart(cpuItem.cpu_id);
+    }
+
     return (
       <li key={cpuItem.cpu_id} className={(btnActive === 'cpu' ? 'product' : 'hidden')}>
         <div className="list-line"></div>
@@ -129,6 +143,8 @@ export default function Quote() {
         <span className="product-spec">{cpuItem.cpu_core}코어 / {cpuItem.cpu_thread}쓰레드 / {cpuItem.cpu_clock}Ghz / {cpuItem.cpu_socket} / {cpuItem.cpu_wattage}W</span>
         <span className="product-price">{cpuItem.cpu_price.toLocaleString('ko-KR')}원</span>
         <div className="list-line"></div>
+        <button onClick={handleAddToCart}>추가</button>
+        <button onClick={handleDeleteFromCart}>삭제</button>
       </li>
     );
   };
