@@ -118,7 +118,7 @@ router.get("/comcase", async (req, res) => {
   res.send({ result: comcase });
 })
 
-// /api/addcart GET 데이터를 전달 받는다.
+// /api/addcart POST 데이터를 전달 받는다.
 router.post("/addcart", async (req, res) => {
   const { id, title, manufacturer, price } = req.body;
 
@@ -126,12 +126,20 @@ router.post("/addcart", async (req, res) => {
   res.send({ result: cart });
 })
 
-// /api/deletecart GET 데이터를 전달 받는다.
+// /api/deletecart DELETE 데이터를 전달 받는다.
 router.delete("/deletecart/:id", async (req, res) => {
   const { id } = req.params;
 
   const cart = await db.deleteCart(id);
   res.send({ result: cart });
 })
+
+// /api/cart GET 데이터를 전달 받는다.
+router.get("/cart", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+
+  const cart = await db.selectCart(req.query);
+  res.send({ result: cart });
+});
 
 module.exports = router;

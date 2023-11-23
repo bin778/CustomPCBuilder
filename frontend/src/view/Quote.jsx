@@ -29,6 +29,7 @@ export default function Quote() {
 
   // 주문 목록 State
   let [Cart, setCart] = useState([]);
+  let [TotalPrice, setTotalPrice] = useState(0);
   
   useEffect(() => {
     // CPU DB 목록 불러오기
@@ -99,24 +100,32 @@ export default function Quote() {
   // 상품을 장바구니에 추가하기
   const onClickAddCart = (id, title, manufacturer, price) => {
     const data = { id, title, manufacturer, price };
-    
+  
     axios.post("/api/addcart", data).then((res) => {
-      const cartData = res.data;
-      setCart(cartData);
-      console.log("추가 완료");
+      axios.get("/api/cart").then((res) => {
+        const cartData = res.data.result;
+        setCart(cartData);
+        console.log(Cart);
+      }).catch((error) => {
+        console.error('장바구니 목록을 불러오는 중 오류 발생: ', error);
+      });
     }).catch((error) => {
-      console.error('데이터를 가져오는 중 오류 발생: ', error);
+      console.error('데이터를 추가하는 중 오류 발생: ', error);
     });
   }
 
   // 상품을 장바구니에 삭제하기
   const OnClickDeleteCart = (id) => {
     axios.delete(`/api/deletecart/${id}`).then((res) => {
-      const cartData = res.data;
-      setCart(cartData);
-      console.log("삭제 완료");
+      axios.get("/api/cart").then((res) => {
+        const cartData = res.data.result;
+        setCart(cartData);
+        console.log(Cart);
+      }).catch((error) => {
+        console.error('장바구니 목록을 불러오는 중 오류 발생: ', error);
+      });
     }).catch((error) => {
-      console.error('데이터를 가져오는 중 오류 발생: ', error);
+      console.error('데이터를 삭제하는 중 오류 발생: ', error);
     });
   }
 
@@ -170,6 +179,7 @@ export default function Quote() {
           </span>
           <span className="price">
             <img src={PRICE} className="bar-image" alt="" />
+            <span className="text-bar text-price">{TotalPrice}</span>
             <span className="text-bar">원</span>
           </span>
         </div>

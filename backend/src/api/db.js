@@ -163,7 +163,7 @@ db.insertCart = (id, title, manufacturer, price) => {
   return new Promise(async (resolve, reject) => {
     product_count = 1;
     const sql = `insert into quote_order (product_id, product_title, product_manufacturer, product_count, product_price) values
-      ('${id}', '${title}', '${manufacturer}', '${product_count}', '${price * product_count}');`;
+      ('${id}', '${title}', '${manufacturer}', '${product_count}', '${price}');`;
 
     const result = await queryFunc(sql);
     resolve(result);
@@ -174,6 +174,35 @@ db.insertCart = (id, title, manufacturer, price) => {
 db.deleteCart = (id) => {
   return new Promise(async (resolve, reject) => {
     const sql = `delete from quote_order where product_id='${id}';`;
+
+    const result = await queryFunc(sql);
+    resolve(result);
+  })
+}
+
+// 장바구니 목록 조회하기
+db.selectCart = () => {
+  return new Promise(async (resolve, reject) => {
+    const sql = `SELECT * FROM quote_order;`;
+    
+    const result = await queryFunc(sql);
+    resolve(result);
+  })
+};
+
+// 장바구니 상품 수량 증감
+db.addCount = (id) => {
+  return new Promise(async (resolve, reject) => {
+    const sql = `update set product_count = product_count + 1 where product_id='${id}'`;
+
+    const result = await queryFunc(sql);
+    resolve(result);
+  })
+}
+
+db.minusCount = (id) => {
+  return new Promise(async (resolve, reject) => {
+    const sql = `update set product_count = product_count - 1 where product_id='${id}'`;
 
     const result = await queryFunc(sql);
     resolve(result);
