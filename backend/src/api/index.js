@@ -142,4 +142,28 @@ router.get("/cart", async (req, res) => {
   res.send({ result: cart });
 });
 
+// /api/addcount PUT 데이터를 전달 받는다.
+router.put("/addcount/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const cart = await db.addCount(id);
+  res.send({ result: cart });
+})
+
+// /api/minuscount PUT 데이터를 전달 받는다.
+router.put("/minuscount/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const cart = await db.minusCount(id);
+  res.send({ result: cart });
+})
+
+// /api/totalprice GET 데이터를 전달 받는다.
+router.get("/totalprice", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+
+  const price = await db.selectTotalPriceCart(req.query);
+  res.send({ result: { total_price: price } });
+});
+
 module.exports = router;

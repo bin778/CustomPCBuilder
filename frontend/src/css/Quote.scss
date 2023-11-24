@@ -123,12 +123,13 @@ body {
     background-color: #660066;
     border-radius: 0 10px 0 0;
     .text-bar {
-      position: relative;
-      left: 250px;
+      position: absolute;
+      right: 10px;
     }
 
     .text-price {
-      left: 240px;
+      position: absolute;
+      right: 40px;
     }
   }
 
@@ -177,8 +178,8 @@ body {
     
     .product {
       position: relative;
-      cursor: pointer;
       .product-image {
+        margin: 12px 0;
         width: 80px;
         height: 80px;
       }
@@ -203,6 +204,26 @@ body {
         font-size: 0.9rem;
         color: #ff0000;
         margin-left: 5px;
+      }
+
+      .product-button {
+        position: relative;
+        display: inline-block;
+        top: 6px;
+        width: 90px;
+        height: 30px;
+        margin-left: 5px;
+        padding: 10px;
+        border: none;
+        background-color: #4BA59C;
+        border-radius: 5px;
+        line-height: 0px;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.0rem;
+        font-weight: bold;
+        color: #ffffff;
+        cursor: pointer;
       }
     }
   }

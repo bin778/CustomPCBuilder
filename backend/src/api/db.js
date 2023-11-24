@@ -193,7 +193,7 @@ db.selectCart = () => {
 // 장바구니 상품 수량 증감
 db.addCount = (id) => {
   return new Promise(async (resolve, reject) => {
-    const sql = `update set product_count = product_count + 1 where product_id='${id}'`;
+    const sql = `update quote_order set product_count = product_count + 1 where product_id='${id}'`;
 
     const result = await queryFunc(sql);
     resolve(result);
@@ -202,11 +202,21 @@ db.addCount = (id) => {
 
 db.minusCount = (id) => {
   return new Promise(async (resolve, reject) => {
-    const sql = `update set product_count = product_count - 1 where product_id='${id}'`;
+    const sql = `update quote_order set product_count = product_count - 1 where product_id='${id}'`;
 
     const result = await queryFunc(sql);
     resolve(result);
   })
 }
+
+// 장바구니 총액 조회
+db.selectTotalPriceCart = () => {
+  return new Promise(async (resolve, reject) => {
+    const sql = `SELECT SUM(product_count * product_price) AS total_price FROM quote_order`;
+
+    const result = await queryFunc(sql);
+    resolve(result);
+  })
+};
 
 module.exports = db;

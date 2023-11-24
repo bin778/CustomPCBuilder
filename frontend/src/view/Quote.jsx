@@ -29,7 +29,7 @@ export default function Quote() {
 
   // 주문 목록 State
   let [Cart, setCart] = useState([]);
-  let [TotalPrice, setTotalPrice] = useState(0);
+  let [TotalPrice, setTotalPrice] = useState([]);
   
   useEffect(() => {
     // CPU DB 목록 불러오기
@@ -95,35 +95,66 @@ export default function Quote() {
     }).catch((error) => {
       console.error('데이터를 가져오는 중 오류 발생: ', error);
     });
+
+    // fetch 함수 목록
+    fetchTotalPrice();
+    fetchCart();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // 장바구니 총 가격을 계산한다.
+  const fetchTotalPrice = () => {
+    axios.get("/api/totalprice").then((res) => {
+      const totalpriceData = res.data.result.total_price;
+      setTotalPrice(totalpriceData[0].total_price);
+    }).catch((error) => {
+      console.error('데이터를 가져오는 중 오류 발생: ', error);
+    });
+  }
+
+  // 장바구니 목록을 불러온다.
+  const fetchCart = () => {
+    axios.get("/api/cart").then((res) => {
+      const cartData = res.data.result;
+      setCart(cartData);
+      fetchTotalPrice();
+    }).catch((error) => {
+      console.error('장바구니 목록을 불러오는 중 오류 발생: ', error);
+    });
+  }
+
+  // 해당 상품 수량 추가하기
+  const OnClickAddCount = (id) => {
+    axios.put(`/api/addcount/${id}`).then((res) => {
+      fetchCart();
+    }).catch((error) => {
+      console.error('상품 개수를 추가하는 중 오류 발생: ', error);
+    });
+  }
 
   // 상품을 장바구니에 추가하기
   const onClickAddCart = (id, title, manufacturer, price) => {
-    const data = { id, title, manufacturer, price };
-  
-    axios.post("/api/addcart", data).then((res) => {
-      axios.get("/api/cart").then((res) => {
-        const cartData = res.data.result;
-        setCart(cartData);
-        console.log(Cart);
+    // 장바구니에 상품이 있는 지 확인
+    const existingCartItem = Cart.find(item => item.product_id === id);
+
+    if (existingCartItem) {
+      // 상품의 수량을 추가한다.
+      OnClickAddCount(id);
+    } else {
+      // 상품을 장바구니에 추가한다.
+      const data = { id, title, manufacturer, price };
+      axios.post("/api/addcart", data).then((res) => {
+        fetchCart();
       }).catch((error) => {
-        console.error('장바구니 목록을 불러오는 중 오류 발생: ', error);
+        console.error('데이터를 추가하는 중 오류 발생: ', error);
       });
-    }).catch((error) => {
-      console.error('데이터를 추가하는 중 오류 발생: ', error);
-    });
+    }
   }
 
   // 상품을 장바구니에 삭제하기
   const OnClickDeleteCart = (id) => {
     axios.delete(`/api/deletecart/${id}`).then((res) => {
-      axios.get("/api/cart").then((res) => {
-        const cartData = res.data.result;
-        setCart(cartData);
-        console.log(Cart);
-      }).catch((error) => {
-        console.error('장바구니 목록을 불러오는 중 오류 발생: ', error);
-      });
+      fetchCart();
     }).catch((error) => {
       console.error('데이터를 삭제하는 중 오류 발생: ', error);
     });
@@ -151,9 +182,9 @@ export default function Quote() {
         <span className="product-name">{cpuItem.cpu_manufacturer} {cpuItem.cpu_title}</span>
         <span className="product-spec">{cpuItem.cpu_core}코어 / {cpuItem.cpu_thread}쓰레드 / {cpuItem.cpu_clock}Ghz / {cpuItem.cpu_socket} / {cpuItem.cpu_wattage}W</span>
         <span className="product-price">{cpuItem.cpu_price.toLocaleString('ko-KR')}원</span>
+        <button className="product-button" onClick={handleAddToCart}>추가</button>
+        <button className="product-button" onClick={handleDeleteFromCart}>삭제</button>
         <div className="list-line"></div>
-        <button onClick={handleAddToCart}>추가</button>
-        <button onClick={handleDeleteFromCart}>삭제</button>
       </li>
     );
   };
@@ -179,7 +210,7 @@ export default function Quote() {
           </span>
           <span className="price">
             <img src={PRICE} className="bar-image" alt="" />
-            <span className="text-bar text-price">{TotalPrice}</span>
+            <span className="text-bar text-price">{Number(TotalPrice).toLocaleString('ko-KR')}</span>
             <span className="text-bar">원</span>
           </span>
         </div>
