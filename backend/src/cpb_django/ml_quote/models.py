@@ -107,6 +107,23 @@ class QuoteOrder(models.Model):
         db_table = 'quote_order'
 
 
+class QuoteSetting(models.Model):
+    quote_id = models.AutoField(primary_key=True)
+    quote_keyword = models.CharField(max_length=45)
+    cpu_title = models.CharField(max_length=100)
+    cooler_title = models.CharField(max_length=100)
+    mainboard_title = models.CharField(max_length=100)
+    memory_title = models.CharField(max_length=100)
+    videocard_title = models.CharField(max_length=100)
+    storage_title = models.CharField(max_length=100)
+    power_title = models.CharField(max_length=100)
+    comcase_title = models.CharField(max_length=100)
+
+    class Meta:
+        managed = False
+        db_table = 'quote_setting'
+
+
 class Storage(models.Model):
     storage_id = models.AutoField(primary_key=True)
     storage_title = models.CharField(max_length=100)
