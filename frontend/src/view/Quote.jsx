@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import axios from 'axios'
 
 // 이미지 파일 목록
-import COPY from "../images/copy.png";
 import COMPATIBLE from "../images/compatible.png";
 import WATTAGE from "../images/wattage.png";
 import PRICE from "../images/price.png";
+import LEFT from "../images/left.png";
+import RIGHT from "../images/right.png";
+import EXIT from "../images/exit.png";
 
 // SCSS 파일
 import "../css/Quote.scss"
@@ -132,14 +134,25 @@ export default function Quote() {
     });
   }
 
+  // 해당 상품 수량 삭제하기
+  const OnClickMinusCount = (count, id) => {
+    // 상품의 개수가 1개 이상일 때만 삭제 가능
+    if (count > 1) {
+      axios.put(`/api/minuscount/${id}`).then((res) => {
+        fetchCart();
+      }).catch((error) => {
+        console.error('상품 개수를 삭제하는 중 오류 발생: ', error);
+      })
+    }
+  }
+
   // 상품을 장바구니에 추가하기
   const onClickAddCart = (id, title, manufacturer, price) => {
     // 장바구니에 상품이 있는 지 확인
     const existingCartItem = Cart.find(item => item.product_id === id);
 
     if (existingCartItem) {
-      // 상품의 수량을 추가한다.
-      OnClickAddCount(id);
+      // 상품에 장바구니가 있으면 실행 X
     } else {
       // 상품을 장바구니에 추가한다.
       const data = { id, title, manufacturer, price };
@@ -158,6 +171,19 @@ export default function Quote() {
     }).catch((error) => {
       console.error('데이터를 삭제하는 중 오류 발생: ', error);
     });
+  }
+
+  // 모든 상품을 초기화하기
+  const OnClickReset = () => {
+    if(window.confirm("정말로 초기화하시겠습니까?")) {
+      axios.delete("/api/resetcart").then((res) => {
+        fetchCart();
+      }).catch((error) => {
+        console.error('데이터를 초기화하는 중 오류 발생: ', error);
+      });
+    } else {
+      return;
+    }
   }
 
   const ProductComponent = ({ cpuItem }) => {
@@ -193,11 +219,16 @@ export default function Quote() {
     <div className="quote-layer">
       <Header />
       <div className="quote-form">
-        <div>
-          <img src={COPY} className="copy" alt="" />
-          <input type="text" id="link" className="copy-link" />
-          <span className="quote-button">초기화</span>
-          <span className="quote-button">주문</span>
+        {/* 부품 메뉴 선택 */}
+        <div className="quote-menu">
+          <span className={"cart-menu left1" + (btnActive === 'cpu' ? ' active-menu' : '')} onClick={() => { setBtnActive('cpu'); }}>CPU</span>
+          <span className={"cart-menu" + (btnActive === 'cooler' ? ' active-menu' : '')} onClick={() => { setBtnActive('cooler'); }}>쿨러</span>
+          <span className={"cart-menu" + (btnActive === 'mainboard' ? ' active-menu' : '')} onClick={() => { setBtnActive('mainboard'); }}>메인보드</span>
+          <span className={"cart-menu right1" + (btnActive === 'memory' ? ' active-menu' : '')} onClick={() => { setBtnActive('memory'); }}>메모리</span>
+          <span className={"cart-menu bottom left2" + (btnActive === 'videocard' ? ' active-menu' : '')} onClick={() => { setBtnActive('videocard'); }}>비디오카드</span>
+          <span className={"cart-menu bottom" + (btnActive === 'storage' ? ' active-menu' : '')} onClick={() => { setBtnActive('storage'); }}>저장공간</span>
+          <span className={"cart-menu bottom" + (btnActive === 'power' ? ' active-menu' : '')} onClick={() => { setBtnActive('power'); }}>파워</span>
+          <span className={"cart-menu bottom right2" + (btnActive === 'comcase' ? ' active-menu' : '')} onClick={() => { setBtnActive('comcase'); }}>케이스</span>
         </div>
         <div>
           <span className="compatible">
@@ -434,41 +465,27 @@ export default function Quote() {
               ))}
             </ul>
           </span>
-          {/* 부품 메뉴 선택 */}
           <span className="cart-list">
-            <div>
-              <div className={"cart-catalog" + (btnActive === 'cpu' ? ' active-catalog' : '')} onClick={() => { setBtnActive('cpu'); }}>CPU</div>
-              <div className={"cart-order" + (btnActive === 'cpu' ? ' active-order' : ' hidden')}></div>
-            </div>
-            <div>
-              <div className={"cart-catalog" + (btnActive === 'cooler' ? ' active-catalog' : '')} onClick={() => { setBtnActive('cooler'); }}>쿨러</div>
-              <div className={"cart-order" + (btnActive === 'cooler' ? ' active-order' : ' hidden')}></div>
-            </div>
-            <div>
-              <div className={"cart-catalog" + (btnActive === 'mainboard' ? ' active-catalog' : '')} onClick={() => { setBtnActive('mainboard'); }}>메인보드</div>
-              <div className={"cart-order" + (btnActive === 'mainboard' ? ' active-order' : ' hidden')}></div>
-            </div>
-            <div>
-              <div className={"cart-catalog" + (btnActive === 'memory' ? ' active-catalog' : '')} onClick={() => { setBtnActive('memory'); }}>메모리</div>
-              <div className={"cart-order" + (btnActive === 'memory' ? ' active-order' : ' hidden')}></div>
-            </div>
-            <div>
-              <div className={"cart-catalog" + (btnActive === 'videocard' ? ' active-catalog' : '')} onClick={() => { setBtnActive('videocard'); }}>비디오카드</div>
-              <div className={"cart-order" + (btnActive === 'videocard' ? ' active-order' : ' hidden')}></div>
-            </div>
-            <div>
-              <div className={"cart-catalog" + (btnActive === 'storage' ? ' active-catalog' : '')} onClick={() => { setBtnActive('storage'); }}>저장공간</div>
-              <div className={"cart-order" + (btnActive === 'storage' ? ' active-order' : ' hidden')}></div>
-            </div>
-            <div>
-              <div className={"cart-catalog" + (btnActive === 'power' ? ' active-catalog' : '')} onClick={() => { setBtnActive('power'); }}>파워</div>
-              <div className={"cart-order" + (btnActive === 'power' ? ' active-order' : ' hidden')}></div>
-            </div>
-            <div>
-              <div className={"cart-catalog" + (btnActive === 'comcase' ? ' active-catalog' : '')} onClick={() => { setBtnActive('comcase'); }}>케이스</div>
-              <div className={"cart-order" + (btnActive === 'comcase' ? ' active-order' : ' hidden')}></div>
-            </div>
+            {/* 장바구니 목록 */}
+            {Cart.map((cartItem) => (
+              <li key={cartItem.quote_order_id} className="basket">
+                <span className="basket-title">{cartItem.product_manufacturer} {cartItem.product_title}</span>
+                <div>
+                  <img src={EXIT} className="basket-exit" onClick={() => OnClickDeleteCart(cartItem.product_id)} alt="" />
+                </div>
+                <div>
+                  <img src={LEFT} className="basket-left" onClick={() => OnClickMinusCount(cartItem.product_count, cartItem.product_id)} alt="" />
+                  <span className="basket-count">{cartItem.product_count}</span>
+                  <img src={RIGHT} className="basket-right" onClick={() => OnClickAddCount(cartItem.product_id)} alt="" />
+                </div>
+                <span className="basket-price">{cartItem.product_price.toLocaleString('ko-KR')}원</span>
+              </li>
+            ))}
           </span>
+        </div>
+        <div>
+          <span className="quote-button" onClick={OnClickReset}>초기화</span>
+          <span className="quote-button">주문</span>
         </div>
       </div>
     </div>

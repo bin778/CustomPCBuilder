@@ -166,4 +166,12 @@ router.get("/totalprice", async (req, res) => {
   res.send({ result: { total_price: price } });
 });
 
+// /api/resetcart DELETE 데이터를 전달 받는다.
+router.delete("/resetcart", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+
+  const cart = await db.resetCart();
+  res.send({ result: cart });
+});
+
 module.exports = router;

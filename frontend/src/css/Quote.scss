@@ -6,6 +6,14 @@ body {
   background-color: #f1f1f1;
 }
 
+// 이미지 드래그 방지하기
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+ }
+
 .quote-layer {
   margin: 0 auto;
   width: 1920px;
@@ -18,50 +26,66 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 930px;
-  height: 610px;
+  height: 690px;
   padding: 10px;
   background-color: #ffffff;
   border: none;
   border-radius: 15px;
   box-shadow: 5px 5px 5px 1px #dadce0;
 
-  // 링크 복사 버튼
-  .copy {
-    position: relative;
-    width: 16px;
-    padding: 9px;
-    border: black 1px solid;
-    background-color: #f1f1f1;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+  // 부품 메뉴 선택
+  .quote-menu {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
 
-  // 링크 복사 입력 폼
-  .copy-link {
-    position: relative;
-    bottom: 13px;
-    left: 2px;
-    width: 690px;
-    height: 23px;
-    padding: 5px;
-    border: black 1px solid;
-    background-color: #f1f1f1;
-    border-radius: 5px;
+    .cart-menu {
+      display: inline-block;
+      width: 25%;
+      line-height: 40px;
+      height: 40px;
+      background-color: #969696;
+      color: #ffffff;
+      border: none;
+      font-size: 1.2rem;
+      text-align: center;
+      cursor: pointer;
+    }
 
-    &:focus {
-      outline: none !important;
+    .bottom {
+      margin-bottom: 10px;
+    }
+
+    .left1 {
+      border-radius: 10px 0 0 0;
+    }
+
+    .left2 {
+      border-radius: 0 0 0 10px;
+    }
+
+    .right1 {
+      border-radius: 0 10px 0 0;
+    }
+
+    .right2 {
+      border-radius: 0 0 10px 0;
+    }
+
+    .active-menu {
+      background-color: #9C94D0;
     }
   }
 
-  // 버튼
+  // 초기화, 주문 버튼
   .quote-button {
     display: inline-block;
     position: relative;
     bottom: 7px;
-    left: 2px;
+    left: 740px;
     width: 70px;
     height: 18px;
     margin-left: 5px;
+    margin-top: 5px;
     padding: 10px;
     border: none;
     background-color: #4BA59C;
@@ -228,38 +252,64 @@ body {
     }
   }
 
-  // 장바구니 리스트
+  // 장바구니 목록
   .cart-list {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
+    list-style: none;
 
-    .cart-catalog, .cart-order {
-      width: 97%;
-      line-height: 40px;
-      padding-left: 3%;
-      height: 40px;
+    .basket {
+      position: relative;
+      height: 50px;
+      border: #9C94D0 2px solid;
       background-color: #ffffff;
-    }
+      margin: 10px 0;
 
-    .cart-catalog {
-      border: none;
-      margin-top: 15px;
-      font-size: 1.0rem;
-      cursor: pointer;
-    }
+      .basket-title {
+        position: absolute;
+        font-size: 1.0rem;
+        margin-left: 5px;
+      }
 
-    .cart-order {
-      border-top: 1px solid #dadce0;
-      margin-bottom: 15px;
-    }
+      .basket-exit {
+        position: absolute;
+        width: 20px;
+        top: 3px;
+        right: 5px;
+        cursor: pointer;
+      }
 
-    .active-catalog {
-      background-color: #9C94D0;
-      color: #ffffff;
-    }
+      .basket-left {
+        position: absolute;
+        width: 20px;
+        top: 27px;
+        right: 55px;
+        cursor: pointer;
+      }
 
-    .active-order {
-      border-bottom: 1px solid #9C94D0;
+      .basket-right {
+        position: absolute;
+        width: 20px;
+        top: 27px;
+        right: 5px;
+        cursor: pointer;
+      }
+
+      .basket-count {
+        position: absolute;
+        font-size: 1.0rem;
+        top: 29px;
+        right: 30px;
+      }
+
+      .basket-price {
+        position: absolute;
+        font-size: 1.2rem;
+        margin-left: 5px;
+        left: 0;
+        top: 20px;
+        color: #ff0000;
+      }
     }
   }
 
