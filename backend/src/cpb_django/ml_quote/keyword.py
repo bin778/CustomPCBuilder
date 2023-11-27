@@ -257,6 +257,7 @@ def mappingKeyword(usage):
   quote_total_price = [total_price]"""
   
   # 설정한 사양을 반환하기
+  # return quote_list, quote_price, quote_image, quote_total_wattage, quote_total_price
   return "테스트 중입니다."
     
 # 키워드 검색 함수
@@ -299,7 +300,7 @@ def main(request):
   # if request.method == 'GET':
   #  keyword = request.GET.get('keyword')
 
-  usage_keyword = searchKeyword("영상편집 사무 코딩 게임방송")
+  usage_keyword = searchKeyword("나는 영상편집 작업해야하는데 롤이나 배그도 심심하면 할 생각이고 엑셀 작업도 할거야!")
   mappping_quote = mappingKeyword(usage_keyword)
 
   return HttpResponse(mappping_quote)
