@@ -186,21 +186,18 @@ export default function Quote() {
     }
   }
 
-  const ProductComponent = ({ cpuItem }) => {
-    const handleAddToCart = () => {
-      // 상품을 장바구니에 추가하는 함수 호출
-      onClickAddCart(
-        cpuItem.cpu_id,
-        cpuItem.cpu_title,
-        cpuItem.cpu_manufacturer,
-        cpuItem.cpu_price,
-      );
-    };
+  // 상품을 장바구니에 추가하는 핸들러
+  const handleAddToCart = (id, title, manufacturer, price) => { 
+    onClickAddCart(id, title, manufacturer, price);
+  };
 
-    const handleDeleteFromCart = () => {
-      OnClickDeleteCart(cpuItem.cpu_id);
-    }
+  // 상품을 장바구니에 삭제하는 핸들러
+  const handleDeleteFromCart = (id) => {
+    OnClickDeleteCart(id);
+  }
 
+  // CPU 컴포넌트
+  const CpuComponent = ({ cpuItem }) => {
     return (
       <li key={cpuItem.cpu_id} className={(btnActive === 'cpu' ? 'product' : 'hidden')}>
         <div className="list-line"></div>
@@ -208,12 +205,124 @@ export default function Quote() {
         <span className="product-name">{cpuItem.cpu_manufacturer} {cpuItem.cpu_title}</span>
         <span className="product-spec">{cpuItem.cpu_core}코어 / {cpuItem.cpu_thread}쓰레드 / {cpuItem.cpu_clock}Ghz / {cpuItem.cpu_socket} / {cpuItem.cpu_wattage}W</span>
         <span className="product-price">{cpuItem.cpu_price.toLocaleString('ko-KR')}원</span>
-        <button className="product-button" onClick={handleAddToCart}>추가</button>
-        <button className="product-button" onClick={handleDeleteFromCart}>삭제</button>
+        <button className="product-button" onClick={() => handleAddToCart(cpuItem.cpu_id, cpuItem.cpu_title, cpuItem.cpu_manufacturer, cpuItem.cpu_price)}>추가</button>
+        <button className="product-button" onClick={() => handleDeleteFromCart(cpuItem.cpu_id)}>삭제</button>
         <div className="list-line"></div>
       </li>
     );
   };
+
+  // 쿨러 컴포넌트
+  const CoolerComponent = ({ coolerItem }) => {
+    return (
+      <li key={coolerItem.cooler_id} className={(btnActive === 'cooler' ? 'product' : 'hidden')}>
+        <div className="list-line"></div>
+        <img src={process.env.PUBLIC_URL + coolerItem.cooler_image} className="product-image" alt="" />
+        <span className="product-name">{coolerItem.cooler_manufacturer} {coolerItem.cooler_title}</span>
+        <span className="product-spec">{coolerItem.cooler_cooling} / {coolerItem.cooler_wattage}W</span>
+        <span className="product-price">{coolerItem.cooler_price.toLocaleString('ko-KR')}원</span>
+        <button className="product-button" onClick={() => handleAddToCart(coolerItem.cooler_id, coolerItem.cooler_title, coolerItem.cooler_manufacturer, coolerItem.cooler_price)}>추가</button>
+        <button className="product-button" onClick={() => handleDeleteFromCart(coolerItem.cooler_id)}>삭제</button>
+        <div className="list-line"></div>
+      </li>
+    );
+  };
+
+  // 메인보드 컴포넌트
+  const MainboardComponent = ({ mainboardItem }) => {
+    return (
+      <li key={mainboardItem.mainboard_id} className={(btnActive === 'mainboard' ? 'product' : 'hidden')}>
+        <div className="list-line"></div>
+        <img src={process.env.PUBLIC_URL + mainboardItem.mainboard_image} className="product-image" alt="" />
+        <span className="product-name">{mainboardItem.mainboard_manufacturer} {mainboardItem.mainboard_title}</span>
+        <span className="product-spec">{mainboardItem.mainboard_cpu} / {mainboardItem.mainboard_socket} / {mainboardItem.mainboard_chipset} / {mainboardItem.mainboard_formfactors} / {mainboardItem.mainboard_wattage}W</span>
+        <span className="product-price">{mainboardItem.mainboard_price.toLocaleString('ko-KR')}원</span>
+        <button className="product-button" onClick={() => handleAddToCart(mainboardItem.mainboard_id, mainboardItem.mainboard_title, mainboardItem.mainboard_manufacturer, mainboardItem.mainboard_price)}>추가</button>
+        <button className="product-button" onClick={() => handleDeleteFromCart(mainboardItem.mainboard_id)}>삭제</button>
+        <div className="list-line"></div>
+      </li>
+    );
+  };
+
+  // 메모리 컴포넌트
+  const MemoryComponent = ({ memoryItem }) => {
+    return (
+      <li key={memoryItem.memory_id} className={(btnActive === 'memory' ? 'product' : 'hidden')}>
+        <div className="list-line"></div>
+        <img src={process.env.PUBLIC_URL + memoryItem.memory_image} className="product-image" alt="" />
+        <span className="product-name">{memoryItem.memory_manufacturer} {memoryItem.memory_title}</span>
+        <span className="product-spec">{memoryItem.memory_capacity}GB / {memoryItem.memory_clock}Mhz / {memoryItem.memory_wattage}W</span>
+        <span className="product-price">{memoryItem.memory_price.toLocaleString('ko-KR')}원</span>
+        <div className="list-line"></div>
+        <button className="product-button" onClick={() => handleAddToCart(memoryItem.memory_id, memoryItem.memory_title, memoryItem.memory_manufacturer, memoryItem.memory_price)}>추가</button>
+        <button className="product-button" onClick={() => handleDeleteFromCart(memoryItem.memory_id)}>삭제</button>
+      </li>
+    );
+  };
+
+  // 비디오카드 컴포넌트
+  const VideocardComponent = ({ videocardItem }) => {
+    return (
+      <li key={videocardItem.videocard_id} className={(btnActive === 'videocard' ? 'product' : 'hidden')}>
+        <div className="list-line"></div>
+        <img src={process.env.PUBLIC_URL + videocardItem.videocard_image} className="product-image" alt="" />
+        <span className="product-name">{videocardItem.videocard_manufacturer} {videocardItem.videocard_title}</span>
+        <span className="product-spec">{videocardItem.videocard_chipset} / {videocardItem.videocard_capacity}GB / {videocardItem.videocard_clock}Mhz / {videocardItem.videocard_wattage}W</span>
+        <span className="product-price">{videocardItem.videocard_price.toLocaleString('ko-KR')}원</span>
+        <button className="product-button" onClick={() => handleAddToCart(videocardItem.videocard_id, videocardItem.videocard_title, videocardItem.videocard_manufacturer, videocardItem.videocard_price)}>추가</button>
+        <button className="product-button" onClick={() => handleDeleteFromCart(videocardItem.videocard_id)}>삭제</button>
+        <div className="list-line"></div>
+      </li>
+    );
+  };
+
+  // 저장공간 컴포넌트
+  const StorageComponent = ({ storageItem }) => {
+    return (
+      <li key={storageItem.storage_id} className={(btnActive === 'storage' ? 'product' : 'hidden')}>
+        <div className="list-line"></div>
+        <img src={process.env.PUBLIC_URL + storageItem.storage_image} className="product-image" alt="" />
+        <span className="product-name">{storageItem.storage_manufacturer} {storageItem.storage_title}</span>
+        <span className="product-spec">{storageItem.storage_device} / {storageItem.storage_capacity} / {storageItem.storage_wattage}W</span>
+        <span className="product-price">{storageItem.storage_price.toLocaleString('ko-KR')}원</span>
+        <button className="product-button" onClick={() => handleAddToCart(storageItem.storage_id, storageItem.storage_title, storageItem.storage_manufacturer, storageItem.storage_price)}>추가</button>
+        <button className="product-button" onClick={() => handleDeleteFromCart(storageItem.storage_id)}>삭제</button>
+        <div className="list-line"></div>
+      </li>
+    );
+  };
+
+  // 파워 컴포넌트
+  const PowerComponent = ({ powerItem }) => {
+    return (
+      <li key={powerItem.power_id} className={(btnActive === 'power' ? 'product' : 'hidden')}>
+        <div className="list-line"></div>
+        <img src={process.env.PUBLIC_URL + powerItem.power_image} className="product-image" alt="" />
+        <span className="product-name">{powerItem.power_manufacturer} {powerItem.power_title}</span>
+        <span className="product-spec">{powerItem.power_formfactors} / {powerItem.power_output}W</span>
+        <span className="product-price">{powerItem.power_price.toLocaleString('ko-KR')}원</span>
+        <button className="product-button" onClick={() => handleAddToCart(powerItem.power_id, powerItem.power_title, powerItem.power_manufacturer, powerItem.power_price)}>추가</button>
+        <button className="product-button" onClick={() => handleDeleteFromCart(powerItem.power_id)}>삭제</button>
+        <div className="list-line"></div>
+      </li>
+    );
+  };
+
+  // 케이스 컴포넌트
+  const ComcaseComponent = ({ comcaseItem }) => {
+    return (
+      <li key={comcaseItem.comcase_id} className={(btnActive === 'comcase' ? 'product' : 'hidden')}>
+        <div className="list-line"></div>
+        <img src={process.env.PUBLIC_URL + comcaseItem.comcase_image} className="product-image" alt="" />
+        <span className="product-name">{comcaseItem.comcase_manufacturer} {comcaseItem.comcase_title}</span>
+        <span className="product-spec">{comcaseItem.comcase_size} / {comcaseItem.comcase_formfactors}</span>
+        <span className="product-price">{comcaseItem.comcase_price.toLocaleString('ko-KR')}원</span>
+        <div className="list-line"></div>
+        <button className="product-button" onClick={() => handleAddToCart(comcaseItem.comcase_id, comcaseItem.comcase_title, comcaseItem.comcase_manufacturer, comcaseItem.comcase_price)}>추가</button>
+        <button className="product-button" onClick={() => handleDeleteFromCart(comcaseItem.comcase_id)}>삭제</button>
+      </li>
+    );
+  }
 
   return (
     <div className="quote-layer">
@@ -384,84 +493,35 @@ export default function Quote() {
             <ul>
               {/* CPU 상품 */}
               {CPU.map((cpuItem) => (
-                <ProductComponent key={cpuItem.cpu_id} cpuItem={cpuItem} />
+                <CpuComponent key={cpuItem.cpu_id} cpuItem={cpuItem} />
               ))}
               {/* 쿨러 상품 */}
               {Cooler.map((coolerItem) => (
-                <li key={coolerItem.cooler_id} className={(btnActive === 'cooler' ? 'product' : 'hidden')}>
-                  <div className="list-line"></div>
-                  <img src={process.env.PUBLIC_URL + coolerItem.cooler_image} className="product-image" alt="" />
-                  <span className="product-name">{coolerItem.cooler_manufacturer} {coolerItem.cooler_title}</span>
-                  <span className="product-spec">{coolerItem.cooler_cooling} / {coolerItem.cooler_wattage}W</span>
-                  <span className="product-price">{coolerItem.cooler_price.toLocaleString('ko-KR')}원</span>
-                  <div className="list-line"></div>
-                </li>
+                <CoolerComponent key={coolerItem.cooler_id} coolerItem={coolerItem} />
               ))}
               {/* 메인보드 상품 */}
               {Mainboard.map((mainboardItem) => (
-                <li key={mainboardItem.mainboard_id} className={(btnActive === 'mainboard' ? 'product' : 'hidden')}>
-                  <div className="list-line"></div>
-                  <img src={process.env.PUBLIC_URL + mainboardItem.mainboard_image} className="product-image" alt="" />
-                  <span className="product-name">{mainboardItem.mainboard_manufacturer} {mainboardItem.mainboard_title}</span>
-                  <span className="product-spec">{mainboardItem.mainboard_cpu} / {mainboardItem.mainboard_socket} / {mainboardItem.mainboard_chipset} / {mainboardItem.mainboard_formfactors} / {mainboardItem.mainboard_wattage}W</span>
-                  <span className="product-price">{mainboardItem.mainboard_price.toLocaleString('ko-KR')}원</span>
-                  <div className="list-line"></div>
-                </li>
+                <MainboardComponent key={mainboardItem.mainboard_id} mainboardItem={mainboardItem} />
               ))}
               {/* 메모리 상품 */}
               {Memory.map((memoryItem) => (
-                <li key={memoryItem.memory_id} className={(btnActive === 'memory' ? 'product' : 'hidden')}>
-                  <div className="list-line"></div>
-                  <img src={process.env.PUBLIC_URL + memoryItem.memory_image} className="product-image" alt="" />
-                  <span className="product-name">{memoryItem.memory_manufacturer} {memoryItem.memory_title}</span>
-                  <span className="product-spec">{memoryItem.memory_capacity}GB / {memoryItem.memory_clock}Mhz / {memoryItem.memory_wattage}W</span>
-                  <span className="product-price">{memoryItem.memory_price.toLocaleString('ko-KR')}원</span>
-                  <div className="list-line"></div>
-                </li>
+                <MemoryComponent key={memoryItem.memory_id} memoryItem={memoryItem} />
               ))}
               {/* 비디오카드 상품 */}
               {VideoCard.map((videocardItem) => (
-                <li key={videocardItem.videocard_id} className={(btnActive === 'videocard' ? 'product' : 'hidden')}>
-                  <div className="list-line"></div>
-                  <img src={process.env.PUBLIC_URL + videocardItem.videocard_image} className="product-image" alt="" />
-                  <span className="product-name">{videocardItem.videocard_manufacturer} {videocardItem.videocard_title}</span>
-                  <span className="product-spec">{videocardItem.videocard_chipset} / {videocardItem.videocard_capacity}GB / {videocardItem.videocard_clock}Mhz / {videocardItem.videocard_wattage}W</span>
-                  <span className="product-price">{videocardItem.videocard_price.toLocaleString('ko-KR')}원</span>
-                  <div className="list-line"></div>
-                </li>
+                <VideocardComponent key={videocardItem.videocard_id} videocardItem={videocardItem} />
               ))}
               {/* 저장공간 상품 */}
               {Storage.map((storageItem) => (
-                <li key={storageItem.storage_id} className={(btnActive === 'storage' ? 'product' : 'hidden')}>
-                  <div className="list-line"></div>
-                  <img src={process.env.PUBLIC_URL + storageItem.storage_image} className="product-image" alt="" />
-                  <span className="product-name">{storageItem.storage_manufacturer} {storageItem.storage_title}</span>
-                  <span className="product-spec">{storageItem.storage_device} / {storageItem.storage_capacity} / {storageItem.storage_wattage}W</span>
-                  <span className="product-price">{storageItem.storage_price.toLocaleString('ko-KR')}원</span>
-                  <div className="list-line"></div>
-                </li>
+                <StorageComponent key={storageItem.storage_id} storageItem={storageItem} />
               ))}
               {/* 파워 상품 */}
               {Power.map((powerItem) => (
-                <li key={powerItem.power_id} className={(btnActive === 'power' ? 'product' : 'hidden')}>
-                  <div className="list-line"></div>
-                  <img src={process.env.PUBLIC_URL + powerItem.power_image} className="product-image" alt="" />
-                  <span className="product-name">{powerItem.power_manufacturer} {powerItem.power_title}</span>
-                  <span className="product-spec">{powerItem.power_formfactors} / {powerItem.power_output}W</span>
-                  <span className="product-price">{powerItem.power_price.toLocaleString('ko-KR')}원</span>
-                  <div className="list-line"></div>
-                </li>
+                <PowerComponent key={powerItem.power_id} powerItem={powerItem} />
               ))}
               {/* 케이스 상품 */}
               {ComCase.map((comcaseItem) => (
-                <li key={comcaseItem.comcase_id} className={(btnActive === 'comcase' ? 'product' : 'hidden')}>
-                  <div className="list-line"></div>
-                  <img src={process.env.PUBLIC_URL + comcaseItem.comcase_image} className="product-image" alt="" />
-                  <span className="product-name">{comcaseItem.comcase_manufacturer} {comcaseItem.comcase_title}</span>
-                  <span className="product-spec">{comcaseItem.comcase_size} / {comcaseItem.comcase_formfactors}</span>
-                  <span className="product-price">{comcaseItem.comcase_price.toLocaleString('ko-KR')}원</span>
-                  <div className="list-line"></div>
-                </li>
+                <ComcaseComponent key={comcaseItem.comcase_id} comcaseItem={comcaseItem} />
               ))}
             </ul>
           </span>
