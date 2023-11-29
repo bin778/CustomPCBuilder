@@ -196,6 +196,82 @@ export default function Quote() {
     OnClickDeleteCart(id);
   }
 
+  // CPU 체크박스 필터 기능
+  const [amdChecked, setAmdChecked] = useState(false);
+  const [intelChecked, setIntelChecked] = useState(false);
+  const [core4Checked, setCore4Checked] = useState(false);
+  const [core6Checked, setCore6Checked] = useState(false);
+  const [core12Checked, setCore12Checked] = useState(false);
+  const [am4Checked, setAm4Checked] = useState(false);
+  const [am5Checked, setAm5Checked] = useState(false);
+  const [lga1700Checked, setLga1700Checked] = useState(false);
+
+  const filterCPU = (cpuList) => {
+    let filteredCPU = cpuList.filter(cpu => {
+      // 체크박스가 모두 해제되었을 때, 모든 상품을 반환
+      if (!amdChecked && !intelChecked && !core4Checked && !core6Checked && !core12Checked && !am4Checked && !am5Checked && !lga1700Checked)
+        return true;
+      
+      // CPU 제조사
+      if (amdChecked && cpu.cpu_manufacturer === 'AMD')
+        return true;
+      else if (intelChecked && cpu.cpu_manufacturer === '인텔')
+        return true;
+      
+      // CPU 코어 수
+      if (core4Checked && cpu.cpu_core === 4)
+        return true;
+      else if (core6Checked && cpu.cpu_core === 6)
+        return true;
+      else if (core12Checked && cpu.cpu_core === 12)
+        return true;
+
+      // CPU 소켓
+      if (am4Checked && cpu.cpu_socket === 'AM4')
+        return true;
+      else if (am5Checked && cpu.cpu_socket === 'AM5')
+        return true;
+      else if (lga1700Checked && cpu.cpu_socket === 'LGA1700')
+        return true;
+
+      return false;
+    });
+    return filteredCPU;
+  }
+
+  // CPU 체크박스 이벤트
+  const handleAmdCheckboxChange = (event) => {
+    setAmdChecked(event.target.checked);
+  };
+  
+  const handleIntelCheckboxChange = (event) => {
+    setIntelChecked(event.target.checked);
+  };
+
+  const handleCore4CheckboxChange = (event) => {
+    setCore4Checked(event.target.checked);
+  };
+
+  const handleCore6CheckboxChange = (event) => {
+    setCore6Checked(event.target.checked);
+  };
+
+  const handleCore12CheckboxChange = (event) => {
+    setCore12Checked(event.target.checked);
+  };
+
+  const handleAm4CheckboxChange = (event) => {
+    setAm4Checked(event.target.checked);
+  };
+
+  const handleAm5CheckboxChange = (event) => {
+    setAm5Checked(event.target.checked);
+  };
+
+  const handleLga1700CheckboxChange = (event) => {
+    setLga1700Checked(event.target.checked);
+  };
+
   // CPU 컴포넌트
   const CpuComponent = ({ cpuItem }) => {
     return (
@@ -210,6 +286,59 @@ export default function Quote() {
         <div className="list-line"></div>
       </li>
     );
+  };
+
+  // 쿨러 체크박스 필터 기능
+  const [rsys3Checked, setRsys3Checked] = useState(false);
+  const [nzxtChecked, setNzxtChecked] = useState(false);
+  const [coolermasterChecked, setCoolermasterChecked] = useState(false);
+  const [airChecked, setAirChecked] = useState(false);
+  const [waterChecked, setWaterChecked] = useState(false);
+
+  const filterCooler = (coolerList) => {
+    let filteredCooler = coolerList.filter(cooler => {
+      // 체크박스가 모두 해제되었을 때, 모든 상품을 반환
+      if (!rsys3Checked && !nzxtChecked && !coolermasterChecked && !airChecked && !waterChecked)
+        return true;
+      
+      // 쿨러 제조사
+      if (rsys3Checked && cooler.cooler_manufacturer === '3RSYS')
+        return true;
+      else if (nzxtChecked && cooler.cooler_manufacturer === 'NZXT')
+        return true;
+      else if (coolermasterChecked && cooler.cooler_manufacturer === '쿨러마스터')
+        return true;
+      
+      // 냉각 방식
+      if (airChecked && cooler.cooler_cooling === '공랭')
+        return true;
+      else if (waterChecked && cooler.cooler_cooling === '수랭')
+        return true;
+      
+      return false;
+    });
+    return filteredCooler;
+  }
+
+  // 쿨러 체크박스 이벤트
+  const handle3rsysCheckboxChange = (event) => {
+    setRsys3Checked(event.target.checked);
+  };
+
+  const handleNzxtCheckboxChange = (event) => {
+    setNzxtChecked(event.target.checked);
+  };
+
+  const handleCoolerMasterCheckboxChange = (event) => {
+    setCoolermasterChecked(event.target.checked);
+  };
+
+  const handleAirCheckboxChange = (event) => {
+    setAirChecked(event.target.checked);
+  };
+
+  const handleWaterCheckboxChange = (event) => {
+    setWaterChecked(event.target.checked);
   };
 
   // 쿨러 컴포넌트
@@ -360,31 +489,31 @@ export default function Quote() {
             <span className={(btnActive === 'cpu' ? '' : 'hidden')}>
               <div className="list-line"></div>
               <div className="option-title">제조사</div>
-              <div><input type="checkbox" id="cpu-amd"></input><span className="option-content">AMD</span></div>
-              <div><input type="checkbox" id="cpu-intel"></input><span className="option-content">인텔</span></div>
+              <div><input type="checkbox" id="cpu-amd" onChange={handleAmdCheckboxChange}></input><span className="option-content">AMD</span></div>
+              <div><input type="checkbox" id="cpu-intel" onChange={handleIntelCheckboxChange}></input><span className="option-content">인텔</span></div>
               <div className="list-line"></div>
               <div className="option-title">코어 수</div>
-              <div><input type="checkbox" id="cpu-4core"></input><span className="option-content">4</span></div>
-              <div><input type="checkbox" id="cpu-6core"></input><span className="option-content">6</span></div>
-              <div><input type="checkbox" id="cpu-12core"></input><span className="option-content">12</span></div>
+              <div><input type="checkbox" id="cpu-4core" onChange={handleCore4CheckboxChange}></input><span className="option-content">4</span></div>
+              <div><input type="checkbox" id="cpu-6core" onChange={handleCore6CheckboxChange}></input><span className="option-content">6</span></div>
+              <div><input type="checkbox" id="cpu-12core" onChange={handleCore12CheckboxChange}></input><span className="option-content">12</span></div>
               <div className="list-line"></div>
               <div className="option-title">소켓</div>
-              <div><input type="checkbox" id="cpu-am4"></input><span className="option-content">AM4</span></div>
-              <div><input type="checkbox" id="cpu-am5"></input><span className="option-content">AM5</span></div>
-              <div><input type="checkbox" id="cpu-lga1700"></input><span className="option-content">LGA1700</span></div>
+              <div><input type="checkbox" id="cpu-am4" onChange={handleAm4CheckboxChange}></input><span className="option-content">AM4</span></div>
+              <div><input type="checkbox" id="cpu-am5" onChange={handleAm5CheckboxChange}></input><span className="option-content">AM5</span></div>
+              <div><input type="checkbox" id="cpu-lga1700" onChange={handleLga1700CheckboxChange}></input><span className="option-content">LGA1700</span></div>
               <div className="list-line"></div>
             </span>
             {/* 쿨러 옵션 필터 */}
             <span className={(btnActive === 'cooler' ? '' : 'hidden')}>
               <div className="list-line"></div>
               <div className="option-title">제조사</div>
-              <div><input type="checkbox" id="cooler-3rsys"></input><span className="option-content">3RSYS</span></div>
-              <div><input type="checkbox" id="cooler-nzxt"></input><span className="option-content">NZXT</span></div>
-              <div><input type="checkbox" id="cooler-coolermaster"></input><span className="option-content">쿨러마스터</span></div>
+              <div><input type="checkbox" id="cooler-3rsys" onChange={handle3rsysCheckboxChange}></input><span className="option-content">3RSYS</span></div>
+              <div><input type="checkbox" id="cooler-nzxt" onChange={handleNzxtCheckboxChange}></input><span className="option-content">NZXT</span></div>
+              <div><input type="checkbox" id="cooler-coolermaster" onChange={handleCoolerMasterCheckboxChange}></input><span className="option-content">쿨러마스터</span></div>
               <div className="list-line"></div>
               <div className="option-title">냉각 방식</div>
-              <div><input type="checkbox" id="cooler-air"></input><span className="option-content">공랭</span></div>
-              <div><input type="checkbox" id="cooler-water"></input><span className="option-content">수랭</span></div>
+              <div><input type="checkbox" id="cooler-air" onChange={handleAirCheckboxChange}></input><span className="option-content">공랭</span></div>
+              <div><input type="checkbox" id="cooler-water" onChange={handleWaterCheckboxChange}></input><span className="option-content">수랭</span></div>
               <div className="list-line"></div>
             </span>
             {/* 메인보드 옵션 필터 */}
@@ -492,11 +621,11 @@ export default function Quote() {
           <span className="product-list">
             <ul>
               {/* CPU 상품 */}
-              {CPU.map((cpuItem) => (
+              {filterCPU(CPU).map((cpuItem) => (
                 <CpuComponent key={cpuItem.cpu_id} cpuItem={cpuItem} />
               ))}
               {/* 쿨러 상품 */}
-              {Cooler.map((coolerItem) => (
+              {filterCooler(Cooler).map((coolerItem) => (
                 <CoolerComponent key={coolerItem.cooler_id} coolerItem={coolerItem} />
               ))}
               {/* 메인보드 상품 */}
