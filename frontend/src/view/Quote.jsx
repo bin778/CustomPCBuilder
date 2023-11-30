@@ -357,6 +357,98 @@ export default function Quote() {
     );
   };
 
+  // 메인보드 체크박스 필터 기능
+  const [asrockChecked, setAsrockChecked] = useState(false);
+  const [asusChecked, setAsusChecked] = useState(false);
+  const [msiChecked, setMsiChecked] = useState(false);
+  const [amd2Checked, setAmd2Checked] = useState(false);
+  const [intel2Checked, setIntel2Checked] = useState(false);
+  const [am4_2Checked, setAm4_2Checked] = useState(false);
+  const [am5_2Checked, setAm5_2Checked] = useState(false);
+  const [lga1700_2Checked, setLga1700_2Checked] = useState(false);
+  const [atxChecked, setAtxChecked] = useState(false);
+  const [matxChecked, setMatxChecked] = useState(false);
+
+  const filterMainboard = (mainboardList) => {
+    let filteredMainboard = mainboardList.filter(mainboard => {
+      // 체크박스가 모두 해제되었을 때, 모든 상품을 반환
+      if (!asrockChecked && !asusChecked && !msiChecked && !amd2Checked && !intel2Checked && !am4_2Checked && !am5_2Checked && !lga1700_2Checked && !atxChecked && !matxChecked)
+        return true;
+
+      // 메인보드 제조사
+      if (asrockChecked && mainboard.mainboard_manufacturer === 'ASRock')
+        return true;
+      else if (asusChecked && mainboard.mainboard_manufacturer === 'ASUS')
+        return true;
+      else if (msiChecked && mainboard.mainboard_manufacturer === 'MSI')
+        return true;
+      
+      // 메인보드 CPU
+      if (amd2Checked && mainboard.mainboard_cpu === 'AMD')
+        return true;
+      else if (intel2Checked && mainboard.mainboard_cpu === '인텔')
+        return true;
+
+      // 메인보드 소켓
+      if (am4_2Checked && mainboard.mainboard_socket === 'AM4')
+        return true;
+      else if (am5_2Checked && mainboard.mainboard_socket === 'AM5')
+        return true;
+      else if (lga1700_2Checked && mainboard.mainboard_socket === 'LGA1700')
+        return true;
+      
+      // 메인보드 폼팩터
+      if (atxChecked && mainboard.mainboard_formfactors === 'ATX')
+        return true;
+      else if (matxChecked && mainboard.mainboard_formfactors === 'M-ATX')
+        return true;
+      
+      return false;
+    });
+    return filteredMainboard;
+  };
+
+  // 메인보드 체크박스 이벤트
+  const handleAsrockCheckboxChange = (event) => {
+    setAsrockChecked(event.target.checked);
+  };
+
+  const handleAsusCheckboxChange = (event) => {
+    setAsusChecked(event.target.checked);
+  };
+
+  const handleMsiCheckboxChange = (event) => {
+    setMsiChecked(event.target.checked);
+  };
+
+  const handleAmd2CheckboxChange = (event) => {
+    setAmd2Checked(event.target.checked);
+  };
+
+  const handleIntel2CheckboxChange = (event) => {
+    setIntel2Checked(event.target.checked);
+  };
+
+  const handleAm4_2CheckboxChange = (event) => {
+    setAm4_2Checked(event.target.checked);
+  };
+
+  const handleAm5_2CheckboxChange = (event) => {
+    setAm5_2Checked(event.target.checked);
+  };
+
+  const handleLga1700_2CheckboxChange = (event) => {
+    setLga1700_2Checked(event.target.checked);
+  };
+
+  const handleAtxCheckboxChange = (event) => {
+    setAtxChecked(event.target.checked);
+  };
+
+  const handleMatxCheckboxChange = (event) => {
+    setMatxChecked(event.target.checked);
+  };
+
   // 메인보드 컴포넌트
   const MainboardComponent = ({ mainboardItem }) => {
     return (
@@ -373,6 +465,59 @@ export default function Quote() {
     );
   };
 
+  // 메모리 체크박스 필터 기능
+  const [gskillChecked, setGskillChecked] = useState(false);
+  const [teamgroupChecked, setTeamgroupChecked] = useState(false);
+  const [samsungChecked, setSamsungChecked] = useState(false);
+  const [gb16Checked, setGb16Checked] = useState(false);
+  const [gb32Checked, setGb32Checked] = useState(false);
+
+  const filterMemory = (memoryList) => {
+    let filteredMemory = memoryList.filter(memory => {
+      // 체크박스가 모두 해제되었을 때, 모든 상품을 반환
+      if (!gskillChecked && !teamgroupChecked && !samsungChecked && !gb16Checked && !gb32Checked)
+        return true;
+
+      // 메모리 제조사
+      if (gskillChecked && memory.memory_manufacturer === 'G.SKILL')
+        return true;
+      else if (teamgroupChecked && memory.memory_manufacturer === 'TeamGroup')
+        return true;
+      else if (samsungChecked && memory.memory_manufacturer === '삼성전자')
+        return true;
+      
+      // 메모리 용량
+      if (gb16Checked && memory.memory_capacity === 16)
+        return true;
+      else if (gb32Checked && memory.memory_capacity === 32)
+        return true;
+
+      return false;
+    });
+    return filteredMemory;
+  };
+
+  // 메인보드 체크박스 이벤트
+  const handleGskillCheckboxChange = (event) => {
+    setGskillChecked(event.target.checked);
+  };
+
+  const handleTeamgroupCheckboxChange = (event) => {
+    setTeamgroupChecked(event.target.checked);
+  };
+
+  const handleSamsungCheckboxChange = (event) => {
+    setSamsungChecked(event.target.checked);
+  };
+
+  const handleGb16CheckboxChange = (event) => {
+    setGb16Checked(event.target.checked);
+  };
+
+  const handleGb32CheckboxChange = (event) => {
+    setGb32Checked(event.target.checked);
+  };
+
   // 메모리 컴포넌트
   const MemoryComponent = ({ memoryItem }) => {
     return (
@@ -382,11 +527,92 @@ export default function Quote() {
         <span className="product-name">{memoryItem.memory_manufacturer} {memoryItem.memory_title}</span>
         <span className="product-spec">{memoryItem.memory_capacity}GB / {memoryItem.memory_clock}Mhz / {memoryItem.memory_wattage}W</span>
         <span className="product-price">{memoryItem.memory_price.toLocaleString('ko-KR')}원</span>
-        <div className="list-line"></div>
         <button className="product-button" onClick={() => handleAddToCart(memoryItem.memory_id, memoryItem.memory_title, memoryItem.memory_manufacturer, memoryItem.memory_price)}>추가</button>
         <button className="product-button" onClick={() => handleDeleteFromCart(memoryItem.memory_id)}>삭제</button>
+        <div className="list-line"></div>
       </li>
     );
+  };
+
+  // 그래픽카드 체크박스 필터 기능
+  const [asus2Checked, setAsus2Checked] = useState(false);
+  const [maxsunChecked, setMaxsunChecked] = useState(false);
+  const [msi2Checked, setMsi2Checked] = useState(false);
+  const [zotacChecked, setZotacChecked] = useState(false);
+  const [vgb4Checked, setVgb4Checked] = useState(false);
+  const [vgb6Checked, setVgb6Checked] = useState(false);
+  const [vgb8Checked, setVgb8Checked] = useState(false);
+  const [vgb12Checked, setVgb12Checked] = useState(false);
+  const [vgb16Checked, setVgb16Checked] = useState(false);
+
+  const filterVideocard = (videocardList) => {
+    let filteredVideocard = videocardList.filter(videocard => {
+      // 체크박스가 모두 해제되었을 때, 모든 상품을 반환
+      if (!asus2Checked && !maxsunChecked && !msi2Checked && !zotacChecked && !vgb4Checked && !vgb6Checked && !vgb8Checked && !vgb12Checked && !vgb16Checked)
+        return true;
+      
+      // 그래픽카드 제조사
+      if (asus2Checked && videocard.videocard_manufacturer === 'ASUS')
+        return true;
+      else if (maxsunChecked && videocard.videocard_manufacturer === 'MAXSUN')
+        return true;
+      else if (msi2Checked && videocard.videocard_manufacturer === 'MSI')
+        return true;
+      else if (zotacChecked && videocard.videocard_manufacturer === 'ZOTAC')
+        return true;
+
+      // 그래픽카드 용량
+      if (vgb4Checked && videocard.videocard_capacity === 4)
+        return true;
+      if (vgb6Checked && videocard.videocard_capacity === 6)
+        return true;
+      if (vgb8Checked && videocard.videocard_capacity === 8)
+        return true;
+      if (vgb12Checked && videocard.videocard_capacity === 12)
+        return true;
+      if (vgb16Checked && videocard.videocard_capacity === 16)
+        return true;
+      
+      return false;
+    });
+    return filteredVideocard;
+  };
+
+  // 그래픽카드 체크박스 이벤트
+  const handleAsus2CheckboxChange = (event) => {
+    setAsus2Checked(event.target.checked);
+  };
+
+  const handleMaxsunCheckboxChange = (event) => {
+    setMaxsunChecked(event.target.checked);
+  };
+
+  const handleMsi2CheckboxChange = (event) => {
+    setMsi2Checked(event.target.checked);
+  };
+
+  const handleZotacCheckboxChange = (event) => {
+    setZotacChecked(event.target.checked);
+  };
+
+  const handleVgb4CheckboxChange = (event) => {
+    setVgb4Checked(event.target.checked);
+  };
+
+  const handleVgb6CheckboxChange = (event) => {
+    setVgb6Checked(event.target.checked);
+  };
+
+  const handleVgb8CheckboxChange = (event) => {
+    setVgb8Checked(event.target.checked);
+  };
+
+  const handleVgb12CheckboxChange = (event) => {
+    setVgb12Checked(event.target.checked);
+  };
+
+  const handleVgb16CheckboxChange = (event) => {
+    setVgb16Checked(event.target.checked);
   };
 
   // 비디오카드 컴포넌트
@@ -405,6 +631,52 @@ export default function Quote() {
     );
   };
 
+  // 저장공간 체크박스 필터 기능
+  const [samsung2Checked, setSamsung2Checked] = useState(false);
+  const [seagateChecked, setSeagateChecked] = useState(false);
+  const [hddChecked, setHddChecked] = useState(false);
+  const [ssdChecked, setSsdChecked] = useState(false);
+
+  const filterStorage = (storageList) => {
+    let filteredStorage = storageList.filter(storage => {
+      // 체크박스가 모두 해제되었을 때, 모든 상품을 반환
+      if (!samsung2Checked && !seagateChecked && !hddChecked && !ssdChecked)
+        return true;
+      
+      // 저장공간 제조사
+      if (samsung2Checked && storage.storage_manufacturer === '삼성전자')
+        return true;
+      else if (seagateChecked && storage.storage_manufacturer === '시게이트')
+        return true;
+      
+      // 저장공간 장치
+      if (hddChecked && storage.storage_device === 'HDD')
+        return true;
+      else if (ssdChecked && storage.storage_device === 'SSD')
+        return true;
+      
+      return false;
+    });
+    return filteredStorage;
+  };
+
+  // 저장공간 체크박스 이벤트
+  const handleSamsung2CheckboxChange = (event) => {
+    setSamsung2Checked(event.target.checked);
+  };
+
+  const handleSeagateCheckboxChange = (event) => {
+    setSeagateChecked(event.target.checked);
+  };
+
+  const handleHddCheckboxChange = (event) => {
+    setHddChecked(event.target.checked);
+  };
+
+  const handleSsdCheckboxChange = (event) => {
+    setSsdChecked(event.target.checked);
+  };
+
   // 저장공간 컴포넌트
   const StorageComponent = ({ storageItem }) => {
     return (
@@ -419,6 +691,89 @@ export default function Quote() {
         <div className="list-line"></div>
       </li>
     );
+  };
+
+  // 파워 체크박스 필터 기능
+  const [micronicsChecked, setMicronicsChecked] = useState(false);
+  const [zalmanChecked, setZalmanChecked] = useState(false);
+  const [coolermaster2Checked, setCoolermaster2Checked] = useState(false);
+  const [atx2Checked, setAtx2Checked] = useState(false);
+  const [matx2Checked, setMatx2Checked] = useState(false);
+  const [w600Checked, setW600Checked] = useState(false);
+  const [w700Checked, setW700Checked] = useState(false);
+  const [w850Checked, setW850Checked] = useState(false);
+  const [w1000Checked, setW1000Checked] = useState(false);
+
+  const filterPower = (powerList) => {
+    let filteredPower = powerList.filter(power => {
+      // 체크박스가 모두 해제되었을 때, 모든 상품을 반환
+      if (!micronicsChecked && !zalmanChecked && !coolermaster2Checked && !atx2Checked && !matx2Checked && !w600Checked && !w700Checked && !w850Checked && !w1000Checked)
+        return true;
+      
+      // 파워 제조사
+      if (micronicsChecked && power.power_manufacturer === '마이크로닉스')
+        return true;
+      else if (zalmanChecked && power.power_manufacturer === '잘만')
+        return true;
+      else if (coolermaster2Checked && power.power_manufacturer === '쿨러마스터')
+        return true;
+      
+      // 파워 폼팩터
+      if (atx2Checked && power.power_formfactors === 'ATX')
+        return true;
+      else if (matx2Checked && power.power_formfactors === 'M-ATX')
+        return true;
+      
+      // 파워 전력량
+      if (w600Checked && power.power_output === 600)
+        return true;
+      else if (w700Checked && power.power_output === 700)
+        return true;
+      else if (w850Checked && power.power_output === 850)
+        return true;
+      else if (w1000Checked && power.power_output === 1000)
+        return true;
+      
+      return false;
+    });
+    return filteredPower;
+  };
+
+  // 파워 체크박스 이벤트
+  const handleMicronicsCheckboxChange = (event) => {
+    setMicronicsChecked(event.target.checked);
+  };
+
+  const handleZalmanCheckboxChange = (event) => {
+    setZalmanChecked(event.target.checked);
+  };
+
+  const handleCoolermaster2CheckboxChange = (event) => {
+    setCoolermaster2Checked(event.target.checked);
+  };
+
+  const handleAtx2CheckboxChange = (event) => {
+    setAtx2Checked(event.target.checked);
+  };
+
+  const handleMatx2CheckboxChange = (event) => {
+    setMatx2Checked(event.target.checked);
+  };
+
+  const handleW600CheckboxChange = (event) => {
+    setW600Checked(event.target.checked);
+  };
+
+  const handleW700CheckboxChange = (event) => {
+    setW700Checked(event.target.checked);
+  };
+
+  const handleW850CheckboxChange = (event) => {
+    setW850Checked(event.target.checked);
+  };
+
+  const handleW1000CheckboxChange = (event) => {
+    setW1000Checked(event.target.checked);
   };
 
   // 파워 컴포넌트
@@ -437,6 +792,81 @@ export default function Quote() {
     );
   };
 
+  // 케이스 체크박스 필터 기능
+  const [rsys3_2Checked, setRsys3_2Checked] = useState(false);
+  const [micronics2Checked, setMicronics2Checked] = useState(false);
+  const [abkoChecked, setAbkoChecked] = useState(false);
+  const [miniChecked, setMiniChecked] = useState(false);
+  const [middleChecked, setMiddleChecked] = useState(false);
+  const [bigChecked, setBigChecked] = useState(false);
+  const [atx3Checked, setAtx3Checked] = useState(false);
+  const [matx3Checked, setMatx3Checked] = useState(false);
+
+  const filterComcase = (comcaseList) => {
+    let filteredComcase = comcaseList.filter(comcase => {
+      // 체크박스가 모두 해제되었을 때, 모든 상품을 반환
+      if (!rsys3_2Checked && !micronics2Checked && !abkoChecked && !miniChecked && !middleChecked && !bigChecked && !atx3Checked && !matx3Checked)
+        return true;
+      
+      // 케이스 제조사
+      if (rsys3_2Checked && comcase.comcase_manufacturer === '3RSYS')
+        return true;
+      else if (micronics2Checked && comcase.comcase_manufacturer === '마이크로닉스')
+        return true;
+      else if (abkoChecked && comcase.comcase_manufacturer === '앱코')
+        return true;
+      
+      // 케이스 크기
+      if (miniChecked && comcase.comcase_size === '미니타워')
+        return true;
+      else if (middleChecked && comcase.comcase_size === '미들타워')
+        return true;
+      else if (bigChecked && comcase.comcase_size === '빅타워')
+        return true;
+      
+      // 케이스 폼팩터
+      if (atx3Checked && comcase.comcase_formfactors === 'ATX')
+        return true;
+      else if (matx3Checked && comcase.comcase_formfactors === 'M-ATX')
+        return true;
+      return false;
+    });
+    return filteredComcase;
+  };
+
+  // 케이스 체크박스 이벤트
+  const handleRsys3_2CheckboxChange = (event) => {
+    setRsys3_2Checked(event.target.checked);
+  };
+
+  const handleMicronics2CheckboxChange = (event) => {
+    setMicronics2Checked(event.target.checked);
+  };
+
+  const handleAbkoCheckboxChange = (event) => {
+    setAbkoChecked(event.target.checked);
+  };
+
+  const handleMiniCheckboxChange = (event) => {
+    setMiniChecked(event.target.checked);
+  };
+
+  const handleMiddleCheckboxChange = (event) => {
+    setMiddleChecked(event.target.checked);
+  };
+
+  const handleBigCheckboxChange = (event) => {
+    setBigChecked(event.target.checked);
+  };
+
+  const handleAtx3CheckboxChange = (event) => {
+    setAtx3Checked(event.target.checked);
+  };
+
+  const handleMatx3CheckboxChange = (event) => {
+    setMatx3Checked(event.target.checked);
+  };
+
   // 케이스 컴포넌트
   const ComcaseComponent = ({ comcaseItem }) => {
     return (
@@ -445,10 +875,10 @@ export default function Quote() {
         <img src={process.env.PUBLIC_URL + comcaseItem.comcase_image} className="product-image" alt="" />
         <span className="product-name">{comcaseItem.comcase_manufacturer} {comcaseItem.comcase_title}</span>
         <span className="product-spec">{comcaseItem.comcase_size} / {comcaseItem.comcase_formfactors}</span>
-        <span className="product-price">{comcaseItem.comcase_price.toLocaleString('ko-KR')}원</span>
-        <div className="list-line"></div>
+        <span className="product-price">{comcaseItem.comcase_price.toLocaleString('ko-KR')}원</span> 
         <button className="product-button" onClick={() => handleAddToCart(comcaseItem.comcase_id, comcaseItem.comcase_title, comcaseItem.comcase_manufacturer, comcaseItem.comcase_price)}>추가</button>
         <button className="product-button" onClick={() => handleDeleteFromCart(comcaseItem.comcase_id)}>삭제</button>
+        <div className="list-line"></div>
       </li>
     );
   }
@@ -520,101 +950,101 @@ export default function Quote() {
             <span className={(btnActive === 'mainboard' ? '' : 'hidden')}>
               <div className="list-line"></div>
               <div className="option-title">제조사</div>
-              <div><input type="checkbox" id="mainboard-asrock"></input><span className="option-content">ASRock</span></div>
-              <div><input type="checkbox" id="mainboard-asus"></input><span className="option-content">ASUS</span></div>
-              <div><input type="checkbox" id="mainboard-msi"></input><span className="option-content">MSI</span></div> 
+              <div><input type="checkbox" id="mainboard-asrock" onChange={handleAsrockCheckboxChange}></input><span className="option-content">ASRock</span></div>
+              <div><input type="checkbox" id="mainboard-asus" onChange={handleAsusCheckboxChange}></input><span className="option-content">ASUS</span></div>
+              <div><input type="checkbox" id="mainboard-msi" onChange={handleMsiCheckboxChange}></input><span className="option-content">MSI</span></div> 
               <div className="list-line"></div>
               <div className="option-title">CPU</div>
-              <div><input type="checkbox" id="mainboard-amd"></input><span className="option-content">AMD</span></div>
-              <div><input type="checkbox" id="mainboard-intel"></input><span className="option-content">인텔</span></div>
+              <div><input type="checkbox" id="mainboard-amd" onChange={handleAmd2CheckboxChange}></input><span className="option-content">AMD</span></div>
+              <div><input type="checkbox" id="mainboard-intel" onChange={handleIntel2CheckboxChange}></input><span className="option-content">인텔</span></div>
               <div className="list-line"></div>
               <div className="option-title">소켓</div>
-              <div><input type="checkbox" id="mainboard-am4"></input><span className="option-content">AM4</span></div>
-              <div><input type="checkbox" id="mainboard-am5"></input><span className="option-content">AM5</span></div>
-              <div><input type="checkbox" id="mainboard-lga1700"></input><span className="option-content">LGA1700</span></div>
+              <div><input type="checkbox" id="mainboard-am4" onChange={handleAm4_2CheckboxChange}></input><span className="option-content">AM4</span></div>
+              <div><input type="checkbox" id="mainboard-am5" onChange={handleAm5_2CheckboxChange}></input><span className="option-content">AM5</span></div>
+              <div><input type="checkbox" id="mainboard-lga1700" onChange={handleLga1700_2CheckboxChange}></input><span className="option-content">LGA1700</span></div>
               <div className="list-line"></div>
               <div className="option-title">폼팩터</div>
-              <div><input type="checkbox" id="mainboard-atx"></input><span className="option-content">ATX</span></div>
-              <div><input type="checkbox" id="mainboard-matx"></input><span className="option-content">M-ATX</span></div>
+              <div><input type="checkbox" id="mainboard-atx" onChange={handleAtxCheckboxChange}></input><span className="option-content">ATX</span></div>
+              <div><input type="checkbox" id="mainboard-matx" onChange={handleMatxCheckboxChange}></input><span className="option-content">M-ATX</span></div>
               <div className="list-line"></div>
             </span>
             {/* 메모리 옵션 필터 */}
             <span className={(btnActive === 'memory' ? '' : 'hidden')}>
               <div className="list-line"></div>
               <div className="option-title">제조사</div>
-              <div><input type="checkbox" id="memory-gskill"></input><span className="option-content">G.SKILL</span></div>
-              <div><input type="checkbox" id="memory-teamgroup"></input><span className="option-content">TeamGroup</span></div>
-              <div><input type="checkbox" id="memory-samsung"></input><span className="option-content">삼성전자</span></div>
+              <div><input type="checkbox" id="memory-gskill" onChange={handleGskillCheckboxChange}></input><span className="option-content">G.SKILL</span></div>
+              <div><input type="checkbox" id="memory-teamgroup" onChange={handleTeamgroupCheckboxChange}></input><span className="option-content">TeamGroup</span></div>
+              <div><input type="checkbox" id="memory-samsung" onChange={handleSamsungCheckboxChange}></input><span className="option-content">삼성전자</span></div>
               <div className="list-line"></div>
               <div className="option-title">메모리용량</div>
-              <div><input type="checkbox" id="memory-16gb"></input><span className="option-content">16GB</span></div>
-              <div><input type="checkbox" id="memory-32gb"></input><span className="option-content">32GB</span></div>
+              <div><input type="checkbox" id="memory-16gb" onChange={handleGb16CheckboxChange}></input><span className="option-content">16GB</span></div>
+              <div><input type="checkbox" id="memory-32gb" onChange={handleGb32CheckboxChange}></input><span className="option-content">32GB</span></div>
               <div className="list-line"></div>
             </span>
             {/* 비디오카드 옵션 필터 */}
             <span className={(btnActive === 'videocard' ? '' : 'hidden')}>
               <div className="list-line"></div>
               <div className="option-title">제조사</div>
-              <div><input type="checkbox" id="videocard-asus"></input><span className="option-content">ASUS</span></div>
-              <div><input type="checkbox" id="videocard-maxsun"></input><span className="option-content">MAXSUN</span></div>
-              <div><input type="checkbox" id="videocard-msi"></input><span className="option-content">MSI</span></div>
-              <div><input type="checkbox" id="videocard-zotac"></input><span className="option-content">ZOTAC</span></div>
+              <div><input type="checkbox" id="videocard-asus" onChange={handleAsus2CheckboxChange}></input><span className="option-content">ASUS</span></div>
+              <div><input type="checkbox" id="videocard-maxsun" onChange={handleMaxsunCheckboxChange}></input><span className="option-content">MAXSUN</span></div>
+              <div><input type="checkbox" id="videocard-msi" onChange={handleMsi2CheckboxChange}></input><span className="option-content">MSI</span></div>
+              <div><input type="checkbox" id="videocard-zotac" onChange={handleZotacCheckboxChange}></input><span className="option-content">ZOTAC</span></div>
               <div className="list-line"></div>
               <div className="option-title">메모리용량</div>
-              <div><input type="checkbox" id="videocard-4gb"></input><span className="option-content">4GB</span></div>
-              <div><input type="checkbox" id="videocard-6gb"></input><span className="option-content">6GB</span></div>
-              <div><input type="checkbox" id="videocard-8gb"></input><span className="option-content">8GB</span></div>
-              <div><input type="checkbox" id="videocard-12gb"></input><span className="option-content">12GB</span></div>
-              <div><input type="checkbox" id="videocard-16gb"></input><span className="option-content">16GB</span></div>
+              <div><input type="checkbox" id="videocard-4gb" onChange={handleVgb4CheckboxChange}></input><span className="option-content">4GB</span></div>
+              <div><input type="checkbox" id="videocard-6gb" onChange={handleVgb6CheckboxChange}></input><span className="option-content">6GB</span></div>
+              <div><input type="checkbox" id="videocard-8gb" onChange={handleVgb8CheckboxChange}></input><span className="option-content">8GB</span></div>
+              <div><input type="checkbox" id="videocard-12gb" onChange={handleVgb12CheckboxChange}></input><span className="option-content">12GB</span></div>
+              <div><input type="checkbox" id="videocard-16gb" onChange={handleVgb16CheckboxChange}></input><span className="option-content">16GB</span></div>
               <div className="list-line"></div>
             </span>
             {/* 저장공간 옵션 필터 */}
             <span className={(btnActive === 'storage' ? '' : 'hidden')}>
               <div className="list-line"></div>
               <div className="option-title">제조사</div>
-              <div><input type="checkbox" id="storage-samsung"></input><span className="option-content">삼성전자</span></div>
-              <div><input type="checkbox" id="storage-seagate"></input><span className="option-content">시게이트</span></div>
+              <div><input type="checkbox" id="storage-samsung" onChange={handleSamsung2CheckboxChange}></input><span className="option-content">삼성전자</span></div>
+              <div><input type="checkbox" id="storage-seagate" onChange={handleSeagateCheckboxChange}></input><span className="option-content">시게이트</span></div>
               <div className="list-line"></div>
               <div className="option-title">장치</div>
-              <div><input type="checkbox" id="storage-hdd"></input><span className="option-content">HDD</span></div>
-              <div><input type="checkbox" id="storage-sdd"></input><span className="option-content">SSD</span></div>
+              <div><input type="checkbox" id="storage-hdd" onChange={handleHddCheckboxChange}></input><span className="option-content">HDD</span></div>
+              <div><input type="checkbox" id="storage-ssd" onChange={handleSsdCheckboxChange}></input><span className="option-content">SSD</span></div>
               <div className="list-line"></div>
             </span>
             {/* 파워 옵션 필터 */}
             <span className={(btnActive === 'power' ? '' : 'hidden')}>
               <div className="list-line"></div>
               <div className="option-title">제조사</div>
-              <div><input type="checkbox" id="power-micronics"></input><span className="option-content">마이크로닉스</span></div>
-              <div><input type="checkbox" id="power-zalman"></input><span className="option-content">잘만</span></div>
-              <div><input type="checkbox" id="power-coolermaster"></input><span className="option-content">쿨러마스터</span></div>
+              <div><input type="checkbox" id="power-micronics" onChange={handleMicronicsCheckboxChange}></input><span className="option-content">마이크로닉스</span></div>
+              <div><input type="checkbox" id="power-zalman" onChange={handleZalmanCheckboxChange}></input><span className="option-content">잘만</span></div>
+              <div><input type="checkbox" id="power-coolermaster" onChange={handleCoolermaster2CheckboxChange}></input><span className="option-content">쿨러마스터</span></div>
               <div className="list-line"></div>
               <div className="option-title">폼팩터</div>
-              <div><input type="checkbox" id="power-atx"></input><span className="option-content">ATX</span></div>
-              <div><input type="checkbox" id="power-matx"></input><span className="option-content">M-ATX</span></div>
+              <div><input type="checkbox" id="power-atx" onChange={handleAtx2CheckboxChange}></input><span className="option-content">ATX</span></div>
+              <div><input type="checkbox" id="power-matx" onChange={handleMatx2CheckboxChange}></input><span className="option-content">M-ATX</span></div>
               <div className="list-line"></div>
               <div className="option-title">정격출력</div>
-              <div><input type="checkbox" id="power-600w"></input><span className="option-content">600W</span></div>
-              <div><input type="checkbox" id="power-700w"></input><span className="option-content">700W</span></div>
-              <div><input type="checkbox" id="power-850w"></input><span className="option-content">850W</span></div>
-              <div><input type="checkbox" id="power-1000w"></input><span className="option-content">1000W</span></div>
+              <div><input type="checkbox" id="power-600w" onChange={handleW600CheckboxChange}></input><span className="option-content">600W</span></div>
+              <div><input type="checkbox" id="power-700w" onChange={handleW700CheckboxChange}></input><span className="option-content">700W</span></div>
+              <div><input type="checkbox" id="power-850w" onChange={handleW850CheckboxChange}></input><span className="option-content">850W</span></div>
+              <div><input type="checkbox" id="power-1000w" onChange={handleW1000CheckboxChange}></input><span className="option-content">1000W</span></div>
               <div className="list-line"></div>
             </span>
             {/* 케이스 옵션 필터 */}
             <span className={(btnActive === 'comcase' ? '' : 'hidden')}>
               <div className="list-line"></div>
               <div className="option-title">제조사</div>
-              <div><input type="checkbox" id="comcase-3rsys"></input><span className="option-content">3RSYS</span></div>
-              <div><input type="checkbox" id="comcase-micronics"></input><span className="option-content">마이크로닉스</span></div>
-              <div><input type="checkbox" id="comcase-abko"></input><span className="option-content">앱코</span></div>
+              <div><input type="checkbox" id="comcase-3rsys" onChange={handleRsys3_2CheckboxChange}></input><span className="option-content">3RSYS</span></div>
+              <div><input type="checkbox" id="comcase-micronics" onChange={handleMicronics2CheckboxChange}></input><span className="option-content">마이크로닉스</span></div>
+              <div><input type="checkbox" id="comcase-abko" onChange={handleAbkoCheckboxChange}></input><span className="option-content">앱코</span></div>
               <div className="list-line"></div>
               <div className="option-title">크기</div>
-              <div><input type="checkbox" id="comcase-mini"></input><span className="option-content">미니타워</span></div>
-              <div><input type="checkbox" id="comcase-middle"></input><span className="option-content">미들타워</span></div>
-              <div><input type="checkbox" id="comcase-big"></input><span className="option-content">빅타워</span></div>
+              <div><input type="checkbox" id="comcase-mini" onChange={handleMiniCheckboxChange}></input><span className="option-content">미니타워</span></div>
+              <div><input type="checkbox" id="comcase-middle" onChange={handleMiddleCheckboxChange}></input><span className="option-content">미들타워</span></div>
+              <div><input type="checkbox" id="comcase-big" onChange={handleBigCheckboxChange}></input><span className="option-content">빅타워</span></div>
               <div className="list-line"></div>
               <div className="option-title">폼팩터</div>
-              <div><input type="checkbox" id="comcase-atx"></input><span className="option-content">ATX</span></div>
-              <div><input type="checkbox" id="comcase-matx"></input><span className="option-content">M-ATX</span></div>
+              <div><input type="checkbox" id="comcase-atx" onChange={handleAtx3CheckboxChange}></input><span className="option-content">ATX</span></div>
+              <div><input type="checkbox" id="comcase-matx" onChange={handleMatx3CheckboxChange}></input><span className="option-content">M-ATX</span></div>
               <div className="list-line"></div>
             </span>
           </span>
@@ -629,27 +1059,27 @@ export default function Quote() {
                 <CoolerComponent key={coolerItem.cooler_id} coolerItem={coolerItem} />
               ))}
               {/* 메인보드 상품 */}
-              {Mainboard.map((mainboardItem) => (
+              {filterMainboard(Mainboard).map((mainboardItem) => (
                 <MainboardComponent key={mainboardItem.mainboard_id} mainboardItem={mainboardItem} />
               ))}
               {/* 메모리 상품 */}
-              {Memory.map((memoryItem) => (
+              {filterMemory(Memory).map((memoryItem) => (
                 <MemoryComponent key={memoryItem.memory_id} memoryItem={memoryItem} />
               ))}
               {/* 비디오카드 상품 */}
-              {VideoCard.map((videocardItem) => (
+              {filterVideocard(VideoCard).map((videocardItem) => (
                 <VideocardComponent key={videocardItem.videocard_id} videocardItem={videocardItem} />
               ))}
               {/* 저장공간 상품 */}
-              {Storage.map((storageItem) => (
+              {filterStorage(Storage).map((storageItem) => (
                 <StorageComponent key={storageItem.storage_id} storageItem={storageItem} />
               ))}
               {/* 파워 상품 */}
-              {Power.map((powerItem) => (
+              {filterPower(Power).map((powerItem) => (
                 <PowerComponent key={powerItem.power_id} powerItem={powerItem} />
               ))}
               {/* 케이스 상품 */}
-              {ComCase.map((comcaseItem) => (
+              {filterComcase(ComCase).map((comcaseItem) => (
                 <ComcaseComponent key={comcaseItem.comcase_id} comcaseItem={comcaseItem} />
               ))}
             </ul>
