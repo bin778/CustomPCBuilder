@@ -43,6 +43,13 @@ def mappingKeyword(usage):
   memories_capacity = []
   videocards_benchmark = []
 
+  # 반환할 배열
+  quote_list = []
+  quote_price = []
+  quote_image = []
+  quote_total_wattage = 0
+  quote_total_price = 0
+
   for keyword in usage:
     with connection.cursor() as cursor:
       # CPU 성능 비교를 위해 CPU 점수 설정하기
@@ -62,10 +69,6 @@ def mappingKeyword(usage):
       memories_rows = cursor.fetchall()
       for row in memories_rows:
         memories_capacity.append(row[4])
-  
-  print(cpus_benchmark)
-  print(videocards_benchmark)
-  print(memories_capacity)
 
   # CPU, 그래픽카드, 메모리 성능 비교하기
   try: # 입력한 키워드의 범위를 벗어난 경우 예외처리한다.
@@ -87,39 +90,57 @@ def mappingKeyword(usage):
   for memory in memories_capacity:
     if (memory > memory_max):
       memory_max = memory
-  
-  print(cpu_max)
-  print(videocard_max)
-  print(memory_max)
-  
-  # CPU, 메인보드 세팅
-  """if (cpu_max == 13520): 
-    cpus_set = Cpu.objects.filter(cpu_manufacturer="인텔", cpu_core=4)
-    mainboards_set = Mainboard.objects.filter(mainboard_chipset="H610")
-  elif (cpu_max == 19474): 
-    cpus_set = Cpu.objects.filter(cpu_manufacturer="인텔", cpu_core=6)
-    mainboards_set = Mainboard.objects.filter(mainboard_chipset="H610")
-  elif (cpu_max == 34742): 
-    cpus_set = Cpu.objects.filter(cpu_manufacturer="인텔", cpu_core=12)
-    mainboards_set = Mainboard.objects.filter(mainboard_chipset="B760")
-  elif (cpu_max == 28767): 
-    cpus_set = Cpu.objects.filter(cpu_manufacturer="AMD", cpu_core=6)
-    mainboards_set = Mainboard.objects.filter(mainboard_manufacturer="MSI", mainboard_chipset="A620")
-  elif (cpu_max == 39255): 
-    cpus_set = Cpu.objects.filter(cpu_manufacturer="AMD", cpu_core=12)
-    mainboards_set = Mainboard.objects.filter(mainboard_chipset="X570")"""
+
+  # CPU 세팅
+  with connection.cursor() as cursor:
+    cursor.execute("SELECT cpu_title, cpu_price, cpu_image, cpu_wattage FROM cpu where cpu_benchmark=%s", [cpu_max])
+    cpu_list = cursor.fetchall()
+  for list in cpu_list:
+    cpu_title = list[0]
+    quote_list.append(list[0])
+    quote_price.append(list[1])
+    quote_image.append(list[2])
+    quote_total_wattage += list[3]
+    quote_total_price += list[1]
+
+  # 메인보드 세팅
+  with connection.cursor() as cursor:
+    cursor.execute("SELECT mainboard_title, mainboard_price, mainboard_image, mainboard_wattage FROM cpu JOIN mainboard ON cpu.cpu_chipset = mainboard.mainboard_chipset WHERE cpu_title=%s ORDER BY mainboard_price ASC LIMIT 1", [cpu_title])
+    mainboard_list = cursor.fetchall()
+  for list in mainboard_list:
+    quote_list.append(list[0])
+    quote_price.append(list[1])
+    quote_image.append(list[2])
+    quote_total_wattage += list[3]
+    quote_total_price += list[1]
 
   # 그래픽카드 세팅
-  """if (videocard_max == 7860): videocards_set = Videocard.objects.filter(videocard_chipset="GTX1650")
-  elif (videocard_max == 12784): videocards_set = Videocard.objects.filter(videocard_chipset="GTX1660 SUPER")
-  elif (videocard_max == 17117): videocards_set = Videocard.objects.filter(videocard_chipset="RTX3060")
-  elif (videocard_max == 22544): videocards_set = Videocard.objects.filter(videocard_chipset="RTX4060Ti")
-  elif (videocard_max == 31649): videocards_set = Videocard.objects.filter(videocard_chipset="RTX4070Ti")
-  elif (videocard_max == 34727): videocards_set = Videocard.objects.filter(videocard_chipset="RTX4080")"""
+  with connection.cursor() as cursor:
+    cursor.execute("SELECT videocard_title, videocard_price, videocard_image, videocard_wattage FROM videocard where videocard_benchmark=%s", [videocard_max])
+    videocard_list = cursor.fetchall()
+  for list in videocard_list:
+    quote_list.append(list[0])
+    quote_price.append(list[1])
+    quote_image.append(list[2])
+    quote_total_wattage += list[3]
+    quote_total_price += list[1]
 
   # 메모리 세팅
-  """if (memory_max == 16): memoires_set = Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=16)
-  elif (memory_max == 32): memoires_set = Memory.objects.filter(memory_manufacturer="삼성전자", memory_capacity=32)"""
+  with connection.cursor() as cursor:
+    cursor.execute("SELECT memory_title, memory_price, memory_image, memory_wattage FROM memory where memory_capacity=%s ORDER BY memory_price ASC LIMIT 1", [memory_max])
+    memory_list = cursor.fetchall()
+  for list in memory_list:
+    quote_list.append(list[0])
+    quote_price.append(list[1])
+    quote_image.append(list[2])
+    quote_total_wattage += list[3]
+    quote_total_price += list[1]
+
+  print(quote_list)
+  print(quote_price)
+  print(quote_image)
+  print(quote_total_wattage)
+  print(quote_total_price)
 
   # 저장공간 설정
   """if (cpu_max == 13520):
@@ -257,8 +278,7 @@ def mappingKeyword(usage):
   quote_total_price = [total_price]"""
   
   # 설정한 사양을 반환하기
-  # return quote_list, quote_price, quote_image, quote_total_wattage, quote_total_price
-  return "테스트 중입니다."
+  return quote_list, quote_price, quote_image, quote_total_wattage, quote_total_price
     
 # 키워드 검색 함수
 def searchKeyword(keyword):

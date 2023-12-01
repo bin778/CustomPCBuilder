@@ -42,6 +42,7 @@ class Cpu(models.Model):
     cpu_wattage = models.IntegerField()
     cpu_price = models.IntegerField()
     cpu_benchmark = models.IntegerField()
+    cpu_chipset = models.CharField(max_length=20)
 
     class Meta:
         managed = False
