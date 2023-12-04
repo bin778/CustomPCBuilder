@@ -260,13 +260,15 @@ img {
 
     .basket {
       position: relative;
-      height: 50px;
+      height: 60px;
       border: #9C94D0 2px solid;
       background-color: #ffffff;
       margin: 10px 0;
 
       .basket-title {
         position: absolute;
+        width: 90%;
+        top: 2px;
         font-size: 1.0rem;
         margin-left: 5px;
       }
@@ -282,7 +284,7 @@ img {
       .basket-left {
         position: absolute;
         width: 20px;
-        top: 27px;
+        top: 35px;
         right: 55px;
         cursor: pointer;
       }
@@ -290,7 +292,7 @@ img {
       .basket-right {
         position: absolute;
         width: 20px;
-        top: 27px;
+        top: 35px;
         right: 5px;
         cursor: pointer;
       }
@@ -298,7 +300,7 @@ img {
       .basket-count {
         position: absolute;
         font-size: 1.0rem;
-        top: 29px;
+        top: 37px;
         right: 30px;
       }
 
@@ -307,7 +309,7 @@ img {
         font-size: 1.2rem;
         margin-left: 5px;
         left: 0;
-        top: 20px;
+        top: 33px;
         color: #ff0000;
       }
     }
