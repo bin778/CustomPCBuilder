@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.db import connection
 from konlpy.tag import Hannanum
+from enum import Enum
 import json
 
 user_keyword = Hannanum()
@@ -34,12 +35,40 @@ def mappingKeyword(usage):
   memories_capacity = []
   videocards_benchmark = []
 
-  # 반환할 배열
+  # 전력량 및 가격 계산
   quote_list = []
   quote_price = []
   quote_image = []
   total_wattage = 0
   total_price = 0
+
+  # 제품 Enum
+  class Product(Enum):
+    CPU = 1
+    Cooler = 2
+    Mainboard = 3
+    Memory = 4
+    Videocard = 5
+    Storage = 6
+    Case = 7
+    Power = 8
+
+  def AddList(product_name, product_list):
+    # 지역 변수가 아니라는 것을 선언
+    nonlocal total_wattage
+    nonlocal total_price
+
+    for list in product_list:
+      quote_list.append(list[0])
+      quote_price.append(list[1])
+      quote_image.append(list[2])
+      if (product_name != Product.Case.name and product_name != Product.Power.name):
+        total_wattage += list[3]
+      total_price += list[1]
+
+    # 타이틀 반환하기
+    if (product_name == Product.CPU.name or product_name == Product.Videocard.name):
+      return list[0]
 
   for keyword in usage:
     with connection.cursor() as cursor:
@@ -86,59 +115,32 @@ def mappingKeyword(usage):
   with connection.cursor() as cursor:
     cursor.execute("SELECT cpu_title, cpu_price, cpu_image, cpu_wattage FROM cpu where cpu_benchmark=%s", [cpu_max])
     cpu_list = cursor.fetchall()
-  for list in cpu_list:
-    cpu_title = list[0]
-    quote_list.append(list[0])
-    quote_price.append(list[1])
-    quote_image.append(list[2])
-    total_wattage += list[3]
-    total_price += list[1]
-
+  cpu_title = AddList(Product.CPU.name, cpu_list)
+  
   # 메인보드 세팅
   with connection.cursor() as cursor:
     cursor.execute("SELECT mainboard_title, mainboard_price, mainboard_image, mainboard_wattage FROM cpu JOIN mainboard ON cpu.cpu_chipset = mainboard.mainboard_chipset WHERE cpu_title=%s ORDER BY mainboard_price ASC LIMIT 1", [cpu_title])
     mainboard_list = cursor.fetchall()
-  for list in mainboard_list:
-    quote_list.append(list[0])
-    quote_price.append(list[1])
-    quote_image.append(list[2])
-    total_wattage += list[3]
-    total_price += list[1]
+  AddList(Product.Mainboard.name, mainboard_list)
 
   # 그래픽카드 세팅
   if (videocard_max != None):
     with connection.cursor() as cursor:
       cursor.execute("SELECT videocard_title, videocard_price, videocard_image, videocard_wattage FROM videocard where videocard_benchmark=%s", [videocard_max])
       videocard_list = cursor.fetchall()
-    for list in videocard_list:
-      videocard_title = list[0]
-      quote_list.append(list[0])
-      quote_price.append(list[1])
-      quote_image.append(list[2])
-      total_wattage += list[3]
-      total_price += list[1]
+    videocard_title = AddList(Product.Videocard.name, videocard_list)
 
   # 메모리 세팅
   with connection.cursor() as cursor:
     cursor.execute("SELECT memory_title, memory_price, memory_image, memory_wattage FROM memory where memory_capacity=%s ORDER BY memory_price ASC LIMIT 1", [memory_max])
     memory_list = cursor.fetchall()
-  for list in memory_list:
-    quote_list.append(list[0])
-    quote_price.append(list[1])
-    quote_image.append(list[2])
-    total_wattage += list[3]
-    total_price += list[1]
+  AddList(Product.Memory.name, memory_list)
 
   # 저장공간 설정
   with connection.cursor() as cursor:
     cursor.execute("SELECT storage_title, storage_price, storage_image, storage_wattage FROM cpu JOIN storage ON cpu.cpu_device = storage.storage_device WHERE cpu_title=%s ORDER BY storage_price ASC LIMIT 1", [cpu_title])
     storage_list = cursor.fetchall()
-  for list in storage_list:
-    quote_list.append(list[0])
-    quote_price.append(list[1])
-    quote_image.append(list[2])
-    total_wattage += list[3]
-    total_price += list[1]
+  AddList(Product.Storage.name, storage_list)
 
   # 케이스 설정
   if (videocard_max == None):
@@ -149,23 +151,14 @@ def mappingKeyword(usage):
     with connection.cursor() as cursor:
       cursor.execute("SELECT comcase_title, comcase_price, comcase_image FROM videocard JOIN comcase ON videocard.videocard_comcase_size = comcase.comcase_size WHERE videocard_title=%s ORDER BY comcase_price ASC LIMIT 1", [videocard_title])
       case_list = cursor.fetchall()
-  for list in case_list:
-    quote_list.append(list[0])
-    quote_price.append(list[1])
-    quote_image.append(list[2])
-    total_price += list[1]
+  AddList(Product.Case.name, case_list)
   
   # 쿨러 설정
   if (videocard_max != None):
     with connection.cursor() as cursor:
       cursor.execute("SELECT cooler_title, cooler_price, cooler_image, cooler_wattage FROM videocard JOIN cooler ON videocard.videocard_cooler_cooling = cooler.cooler_cooling WHERE videocard_title=%s ORDER BY cooler_price ASC LIMIT 1", [videocard_title])
       cooler_list = cursor.fetchall()
-    for list in cooler_list:
-      quote_list.append(list[0])
-      quote_price.append(list[1])
-      quote_image.append(list[2])
-      total_wattage += list[3]
-      total_price += list[1]
+    AddList(Product.Cooler.name, cooler_list)
   
   # 기타 설정
   """for keyword in usage:
@@ -212,11 +205,7 @@ def mappingKeyword(usage):
     with connection.cursor() as cursor:
       cursor.execute("SELECT power_title, power_price, power_image FROM power WHERE power_output=850 and power_formfactors=\"ATX\" ORDER BY power_price LIMIT 1;")
       power_list = cursor.fetchall()
-  for list in power_list:
-    quote_list.append(list[0])
-    quote_price.append(list[1])
-    quote_image.append(list[2])
-    total_price += list[1]
+  AddList(Product.Power.name, power_list)
 
   quote_total_wattage = []
   quote_total_price = []

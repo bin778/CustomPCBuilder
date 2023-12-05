@@ -58,13 +58,13 @@ export default function Keyword() {
 
   if (list_data.length === 20) {
     count = 6;
-    quote_title = ['CPU','메인보드','메모리','저장공간','파워','케이스'];
+    quote_title = ['CPU','메인보드','메모리','저장공간','케이스','파워'];
   } else if (list_data.length === 23) {
     count = 7;
-    quote_title = ['CPU','메인보드','메모리','그래픽카드','저장공간','파워','케이스'];
+    quote_title = ['CPU','메인보드','그래픽카드','메모리','저장공간','케이스','파워'];
   } else if (list_data.length === 26) {
     count = 8;
-    quote_title = ['CPU','쿨러','메인보드','메모리','그래픽카드','저장공간','파워','케이스'];
+    quote_title = ['CPU','메인보드','그래픽카드','메모리','저장공간','케이스','쿨러','파워'];
   }
 
   // 견적 데이터를 부품 이름, 가격, 이미지 배열에 넣기
