@@ -99,6 +99,24 @@ export default function Keyword() {
     return result;
   }
 
+  const guide_result = (quote_name) => {
+    const result = [];
+
+    for (let i = 0; i < count; i++) {
+      if (quote_title[i] === "CPU" || quote_title[i] === "그래픽카드" || quote_title[i] === "메모리") {
+        result.push(
+          <div key={quote_name[i]}>
+            <div className="guide-product">
+              <span>{quote_title[i]}: </span>
+              <span>{quote_name[i]}</span>
+            </div>
+          </div>
+        );
+      }
+    }
+    return result;
+  }
+
   // 취소 버튼
   const cancelButton = () => {
     setBtnActive('search');
@@ -136,7 +154,16 @@ export default function Keyword() {
           </div>
           <div>
             <button type="button" className="keyword-button" onClick={cancelButton}>취소</button>
-            <button type="button" className="keyword-button">주문</button>
+          </div>
+        </div>
+        <div className={btnActive === 'keyword' ? 'keyword-guide-form' : 'hidden'}>
+          <div className="guide-title">PC 상품설명</div>
+          <div className="guide-context">컴퓨터에 잘 모르는 고객들을 위해 상세하게 설명해줍니다!</div>
+          <div className="list-line"></div>
+          <div className="guide-explain">{guide_result(quote_name)}</div>
+          <div className="list-line"></div>
+          <div>
+            <button type="button" className="guide-button">주문</button>
           </div>
         </div>
     </div>

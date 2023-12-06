@@ -83,11 +83,10 @@ body {
 }
 
 // 키워드 견적 결과 폼
-.keyword-result-form {
+.keyword-result-form, .keyword-guide-form {
   position: absolute;
   font-family: Arial, Helvetica, sans-serif;
   top: 55%;
-  left: 50%;
   transform: translate(-50%, -50%);
   width: 300px;
   height: 520px;
@@ -96,7 +95,15 @@ body {
   border: none;
   border-radius: 15px;
   box-shadow: 5px 5px 5px 1px #dadce0;
+}
 
+.list-line {
+  border: 1px solid #000000;
+  margin: 5px auto;
+}
+
+.keyword-result-form {
+  left: 800px;
   .keyword-title {
     text-align: center;
     font-size: 1.3rem;
@@ -116,11 +123,6 @@ body {
     overflow-x: hidden;
     overflow-y: scroll;
     background-color: #f1f1f1;
-  }
-
-  .list-line {
-    border: 1px solid #000000;
-    margin: 5px auto;
   }
 
   .keyword-quote-title {
@@ -174,7 +176,61 @@ body {
   }
 
   .keyword-button {
-    width: calc(50% - 10px);
+    width: calc(100% - 5px);
+    height: 35px;
+    border: none;
+    background-color: #660066;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1.2rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    font-weight: bold;
+    margin: 10px 10px 0 0;
+    cursor: pointer;
+  }
+}
+
+.keyword-guide-form {
+  left: 1150px;
+  .guide-title {
+    text-align: center;
+    font-size: 1.3rem;
+    margin: 5px 0px;
+    font-weight: 600;
+  }
+
+  .guide-context {
+    text-align: center;
+    font-size: 1.1rem;
+    margin: 5px 0px;
+  }
+
+  .guide-explain {
+    display: inline-block;
+    width: 290px;
+    height: 350px;
+    padding: 5px;
+
+    .guide-product {
+      font-size: 1.0rem;
+      margin: 10px 0px;
+      font-weight: 600;
+    }
+  }
+
+  .guide-quote-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    background-color: #9C94D0;
+    color: #ffffff;
+  }
+
+  .guide-button {
+    width: calc(100% - 5px);
     height: 35px;
     border: none;
     background-color: #660066;
