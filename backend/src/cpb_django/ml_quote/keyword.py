@@ -39,6 +39,7 @@ def mappingKeyword(usage):
   quote_list = []
   quote_price = []
   quote_image = []
+  quote_explain = []
   total_wattage = 0
   total_price = 0
 
@@ -64,6 +65,8 @@ def mappingKeyword(usage):
       quote_image.append(list[2])
       if (product_name != Product.Case.name and product_name != Product.Power.name):
         total_wattage += list[3]
+      if (product_name == Product.CPU.name or product_name == Product.Videocard.name or product_name == Product.Memory.name):
+        quote_explain.append(list[4])
       total_price += list[1]
 
     # 타이틀 반환하기
@@ -113,7 +116,7 @@ def mappingKeyword(usage):
 
   # CPU 세팅
   with connection.cursor() as cursor:
-    cursor.execute("SELECT cpu_title, cpu_price, cpu_image, cpu_wattage FROM cpu where cpu_benchmark=%s", [cpu_max])
+    cursor.execute("SELECT cpu_title, cpu_price, cpu_image, cpu_wattage, cpu_explain FROM cpu where cpu_benchmark=%s", [cpu_max])
     cpu_list = cursor.fetchall()
   cpu_title = AddList(Product.CPU.name, cpu_list)
   
@@ -126,13 +129,13 @@ def mappingKeyword(usage):
   # 그래픽카드 세팅
   if (videocard_max != None):
     with connection.cursor() as cursor:
-      cursor.execute("SELECT videocard_title, videocard_price, videocard_image, videocard_wattage FROM videocard where videocard_benchmark=%s", [videocard_max])
+      cursor.execute("SELECT videocard_title, videocard_price, videocard_image, videocard_wattage, videocard_explain FROM videocard where videocard_benchmark=%s", [videocard_max])
       videocard_list = cursor.fetchall()
     videocard_title = AddList(Product.Videocard.name, videocard_list)
 
   # 메모리 세팅
   with connection.cursor() as cursor:
-    cursor.execute("SELECT memory_title, memory_price, memory_image, memory_wattage FROM memory where memory_capacity=%s ORDER BY memory_price ASC LIMIT 1", [memory_max])
+    cursor.execute("SELECT memory_title, memory_price, memory_image, memory_wattage, memory_explain FROM memory where memory_capacity=%s ORDER BY memory_price ASC LIMIT 1", [memory_max])
     memory_list = cursor.fetchall()
   AddList(Product.Memory.name, memory_list)
 
@@ -214,7 +217,7 @@ def mappingKeyword(usage):
   quote_total_price.append(total_price)
   
   # 설정한 사양을 반환하기
-  return quote_list, quote_price, quote_image, quote_total_wattage, quote_total_price
+  return quote_list, quote_price, quote_image, quote_explain, quote_total_wattage, quote_total_price
     
 # 키워드 검색 함수
 def searchKeyword(keyword):

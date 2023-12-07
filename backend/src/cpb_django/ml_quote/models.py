@@ -44,6 +44,7 @@ class Cpu(models.Model):
     cpu_benchmark = models.IntegerField()
     cpu_chipset = models.CharField(max_length=20)
     cpu_device = models.CharField(max_length=20)
+    cpu_explain = models.CharField(max_length=100)
 
     class Meta:
         managed = False
@@ -76,6 +77,7 @@ class Memory(models.Model):
     memory_clock = models.IntegerField()
     memory_wattage = models.IntegerField()
     memory_price = models.IntegerField()
+    memory_explain = models.IntegerField()
 
     class Meta:
         managed = False
@@ -166,6 +168,7 @@ class Videocard(models.Model):
     videocard_benchmark = models.IntegerField()
     videocard_comcase_size = models.CharField(max_length=20)
     videocard_cooler_cooling = models.CharField(max_length=20)
+    videocard_explain = models.CharField(max_length=100)
 
     class Meta:
         managed = False

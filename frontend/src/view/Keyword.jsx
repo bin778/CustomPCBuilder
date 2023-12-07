@@ -56,13 +56,13 @@ export default function Keyword() {
 
   const list_data = list_str.split(',');
 
-  if (list_data.length === 20) {
+  if (list_data.length === 22) {
     count = 6;
     quote_title = ['CPU','메인보드','메모리','저장공간','케이스','파워'];
-  } else if (list_data.length === 23) {
+  } else if (list_data.length === 26) {
     count = 7;
     quote_title = ['CPU','메인보드','그래픽카드','메모리','저장공간','케이스','파워'];
-  } else if (list_data.length === 26) {
+  } else if (list_data.length === 29) {
     count = 8;
     quote_title = ['CPU','메인보드','그래픽카드','메모리','저장공간','케이스','쿨러','파워'];
   }
@@ -74,6 +74,13 @@ export default function Keyword() {
   quote_image = [count];
   quote_wattage = list_data[list_data.length - 2];
   quote_total_price = list_data[list_data.length - 1];
+
+  // 설명 넣기
+  let quote_explain = [];
+  const explainLength = list_data.length - (count * 3) - 2;
+  for (let i = 0; i < explainLength; i++) {
+    quote_explain.push(list_data[(count * 3) + i]);
+  }
 
   for (let i = 0; i < count; i++) {
     quote_name[i] = list_data[i];
@@ -101,6 +108,7 @@ export default function Keyword() {
 
   const guide_result = (quote_name) => {
     const result = [];
+    let explain_count = 0;
 
     for (let i = 0; i < count; i++) {
       if (quote_title[i] === "CPU" || quote_title[i] === "그래픽카드" || quote_title[i] === "메모리") {
@@ -109,6 +117,7 @@ export default function Keyword() {
             <div className="guide-product">
               <span>{quote_title[i]}: </span>
               <span>{quote_name[i]}</span>
+              <div className="guide-product-explain">{quote_explain[explain_count++]}</div>
             </div>
           </div>
         );

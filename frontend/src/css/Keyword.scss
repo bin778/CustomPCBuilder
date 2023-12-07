@@ -207,10 +207,11 @@ body {
   }
 
   .guide-explain {
-    display: inline-block;
+    display: table-cell;
     width: 290px;
     height: 350px;
     padding: 5px;
+    vertical-align: middle;
 
     .guide-product {
       font-size: 1.0rem;
@@ -242,6 +243,12 @@ body {
     font-weight: bold;
     margin: 10px 10px 0 0;
     cursor: pointer;
+  }
+
+  .guide-product-explain {
+    font-size: 0.9rem;
+      margin: 5px 0px;
+      font-weight: 500;
   }
 }
 
