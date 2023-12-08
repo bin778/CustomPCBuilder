@@ -1,32 +1,29 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.db import connection
-from konlpy.tag import Hannanum
 from enum import Enum
 import json
 
-user_keyword = Hannanum()
-
 # 게임용 견적 키워드
-lol = user_keyword.morphs("롤 리그오브레전드")
-fifa = user_keyword.morphs("피파 피온")
-pubg = user_keyword.morphs("배그 배틀그라운드")
-bj = user_keyword.morphs("게임방송 겜방 스트리머")
+lol = ["롤","리그오브레전드","LOL"]
+fifa = ["피파","피온"]
+pubg = ["배그","배틀그라운드","PUBG"]
+bj = ["스트리머","게임방송","유튜버","BJ"]
 
 # 가정용 견적 키워드
-web = user_keyword.morphs("웹서핑 인터넷 검색")
-video = user_keyword.morphs("인강 영상시청 강의")
+web = ["웹서핑","인터넷","검색"]
+video = ["인강","영상시청","강의"]
 
 # 작업용 견적 키워드
-office = user_keyword.morphs("사무 엑셀 문서")
-coding = user_keyword.morphs("코딩 프로그래 개발")
-premier = user_keyword.morphs("영상편집 프리미어 영상작업")
+office = ["사무","액셀","문서"]
+coding = ["코딩","프로그래","개발"]
+premier = ["영상편집","영상작업","프리미어"]
 
 # 기타 견적 키워드
-slim = user_keyword.morphs("슬림 미니")
-noise = user_keyword.morphs("저소음 무소음")
-black = user_keyword.morphs("검은색 검정색")
-white = user_keyword.morphs("하양색 흰색")
+slim = ["슬림","미니","초소형"]
+noise = ["저소음","무소음"]
+black = ["검정색","검정색","블랙"]
+white = ["하양색","흰색","화이트"]
 
 # 키워드 매핑 함수
 def mappingKeyword(usage):
@@ -34,6 +31,13 @@ def mappingKeyword(usage):
   cpus_benchmark = []
   memories_capacity = []
   videocards_benchmark = []
+  cooling = "없음"
+
+  # 기호 Boolean
+  slim = False
+  noise = False
+  black = False
+  white = False
 
   # 전력량 및 가격 계산
   quote_list = []
@@ -58,6 +62,7 @@ def mappingKeyword(usage):
     # 지역 변수가 아니라는 것을 선언
     nonlocal total_wattage
     nonlocal total_price
+    nonlocal cooling
 
     for list in product_list:
       quote_list.append(list[0])
@@ -68,6 +73,8 @@ def mappingKeyword(usage):
       if (product_name == Product.CPU.name or product_name == Product.Videocard.name or product_name == Product.Memory.name):
         quote_explain.append(list[4])
       total_price += list[1]
+      if (product_name == Product.Videocard.name):
+        cooling = list[5]
 
     # 타이틀 반환하기
     if (product_name == Product.CPU.name or product_name == Product.Videocard.name):
@@ -92,6 +99,16 @@ def mappingKeyword(usage):
       memories_rows = cursor.fetchall()
       for row in memories_rows:
         memories_capacity.append(row[4])
+    
+    # 사용자 기호 용도
+    if (keyword == "슬림형"):
+      slim = True
+    elif (keyword == "저소음"):
+      noise = True
+    elif (keyword == "검정색"):
+      black = True
+    elif (keyword == "흰색"):
+      white = True
 
   # CPU, 그래픽카드, 메모리 성능 비교하기
   try: # 입력한 키워드의 범위를 벗어난 경우 예외처리한다.
@@ -129,7 +146,7 @@ def mappingKeyword(usage):
   # 그래픽카드 세팅
   if (videocard_max != None):
     with connection.cursor() as cursor:
-      cursor.execute("SELECT videocard_title, videocard_price, videocard_image, videocard_wattage, videocard_explain FROM videocard where videocard_benchmark=%s", [videocard_max])
+      cursor.execute("SELECT videocard_title, videocard_price, videocard_image, videocard_wattage, videocard_explain, videocard_cooler_cooling FROM videocard where videocard_benchmark=%s", [videocard_max])
       videocard_list = cursor.fetchall()
     videocard_title = AddList(Product.Videocard.name, videocard_list)
 
@@ -147,53 +164,52 @@ def mappingKeyword(usage):
 
   # 케이스 설정
   if (videocard_max == None):
-    with connection.cursor() as cursor:
-      cursor.execute("SELECT comcase_title, comcase_price, comcase_image FROM comcase WHERE comcase_size=\"미니타워\" ORDER BY comcase_price ASC LIMIT 1")
-      case_list = cursor.fetchall()
+    if (black == True or (black == False and white == False)):
+      with connection.cursor() as cursor:
+        cursor.execute("SELECT comcase_title, comcase_price, comcase_image FROM comcase WHERE comcase_size=\"미니타워\" and comcase_color=\"black\" ORDER BY comcase_price ASC LIMIT 1")
+        case_list = cursor.fetchall()
+    elif (white == True):
+      with connection.cursor() as cursor:
+        cursor.execute("SELECT comcase_title, comcase_price, comcase_image FROM comcase WHERE comcase_size=\"미니타워\" and comcase_color=\"white\" ORDER BY comcase_price ASC LIMIT 1")
+        case_list = cursor.fetchall()
   else:
-    with connection.cursor() as cursor:
-      cursor.execute("SELECT comcase_title, comcase_price, comcase_image FROM videocard JOIN comcase ON videocard.videocard_comcase_size = comcase.comcase_size WHERE videocard_title=%s ORDER BY comcase_price ASC LIMIT 1", [videocard_title])
-      case_list = cursor.fetchall()
+    if (((slim == True and black == True) or (slim == True and black == False and white == False)) and videocard_title != "GeForce RTX 4070 Ti"):
+      with connection.cursor() as cursor:
+        cursor.execute("SELECT comcase_title, comcase_price, comcase_image FROM comcase WHERE comcase_size=\"미니타워\" and comcase_color=\"black\" ORDER BY comcase_price ASC LIMIT 1")
+        case_list = cursor.fetchall()
+    elif ((slim == True and white == True) and videocard_title != "GeForce RTX 4070 Ti"):
+      with connection.cursor() as cursor:
+        cursor.execute("SELECT comcase_title, comcase_price, comcase_image FROM comcase WHERE comcase_size=\"미니타워\" and comcase_color=\"white\" ORDER BY comcase_price ASC LIMIT 1")
+        case_list = cursor.fetchall()
+    elif (black == True):
+      with connection.cursor() as cursor:
+        cursor.execute("SELECT comcase_title, comcase_price, comcase_image FROM videocard JOIN comcase ON videocard.videocard_comcase_size = comcase.comcase_size WHERE videocard_title=%s and comcase_color=\"black\" ORDER BY comcase_price ASC LIMIT 1", [videocard_title])
+        case_list = cursor.fetchall()
+    elif (white == True):
+      with connection.cursor() as cursor:
+        cursor.execute("SELECT comcase_title, comcase_price, comcase_image FROM videocard JOIN comcase ON videocard.videocard_comcase_size = comcase.comcase_size WHERE videocard_title=%s and comcase_color=\"white\" ORDER BY comcase_price ASC LIMIT 1", [videocard_title])
+        case_list = cursor.fetchall()
+    else:
+      with connection.cursor() as cursor:
+        cursor.execute("SELECT comcase_title, comcase_price, comcase_image FROM videocard JOIN comcase ON videocard.videocard_comcase_size = comcase.comcase_size WHERE videocard_title=%s ORDER BY comcase_price ASC LIMIT 1", [videocard_title])
+        case_list = cursor.fetchall()
   AddList(Product.Case.name, case_list)
   
   # 쿨러 설정
   if (videocard_max != None):
-    with connection.cursor() as cursor:
-      cursor.execute("SELECT cooler_title, cooler_price, cooler_image, cooler_wattage FROM videocard JOIN cooler ON videocard.videocard_cooler_cooling = cooler.cooler_cooling WHERE videocard_title=%s ORDER BY cooler_price ASC LIMIT 1", [videocard_title])
-      cooler_list = cursor.fetchall()
+    if (cooling == "없음" and noise == True):
+      with connection.cursor() as cursor:
+        cursor.execute("SELECT cooler_title, cooler_price, cooler_image, cooler_wattage FROM cooler WHERE cooler_cooling=\"공랭\" ORDER BY cooler_price ASC LIMIT 1")
+        cooler_list = cursor.fetchall()
+    elif (cooling == "공랭" and noise == True):
+      with connection.cursor() as cursor:
+        cursor.execute("SELECT cooler_title, cooler_price, cooler_image, cooler_wattage FROM cooler WHERE cooler_cooling=\"수랭\" ORDER BY cooler_price ASC LIMIT 1")
+        cooler_list = cursor.fetchall()
+    else:
+      with connection.cursor() as cursor:
+        cursor.execute("SELECT cooler_title, cooler_price, cooler_image, cooler_wattage FROM videocard JOIN cooler ON videocard.videocard_cooler_cooling = cooler.cooler_cooling WHERE videocard_title=%s ORDER BY cooler_price ASC LIMIT 1", [videocard_title])
+        cooler_list = cursor.fetchall()
     AddList(Product.Cooler.name, cooler_list)
-  
-  # 기타 설정
-  """for keyword in usage:
-    if (keyword == "저소음"):
-      if (videocard_max == 12784 or videocard_max == 17117 or videocard_max == 22544):
-        coolers_set = Cooler.objects.filter(cooler_manufacturer="3RSYS", cooler_cooling="수랭")
-      elif (videocard_max == 7860): 
-        coolers_set = Cooler.objects.filter(cooler_manufacturer="쿨러마스터", cooler_cooling="공랭")
-    if (keyword == "슬림형"):
-      if (videocard_max != 31649 and videocard_max != 34727):
-        comcases_set = Comcase.objects.filter(comcase_manufacturer="3RSYS", comcase_size="미니타워")"""
-
-  # 색상 설정  
-  """for keyword in usage:
-    if (keyword == "검정색"):
-      if (cpu_max == 13520):
-        comcases_set = Comcase.objects.filter(comcase_size="미니타워", comcase_color="black")
-      elif (cpu_max == 19474 or cpu_max == 28767 or cpu_max == 34742 or cpu_max == 39255):
-        comcases_set = Comcase.objects.filter(comcase_size="미들타워", comcase_color="black")
-      for keyword2 in usage:
-        if (keyword2 == "슬림형"):
-          if (videocard_max != 31649 and videocard_max != 34727):
-            comcases_set = Comcase.objects.filter(comcase_size="미니타워", comcase_color="black")
-    elif (keyword == "흰색"):
-      if (cpu_max == 13520):
-        comcases_set = Comcase.objects.filter(comcase_size="미니타워", comcase_color="white")
-      elif (cpu_max == 19474 or cpu_max == 28767 or cpu_max == 34742 or cpu_max == 39255):
-        comcases_set = Comcase.objects.filter(comcase_size="미들타워", comcase_color="white")
-      for keyword2 in usage:
-        if (keyword2 == "슬림형"):
-          if (videocard_max != 31649 and videocard_max != 34727):
-            comcases_set = Comcase.objects.filter(comcase_size="미니타워", comcase_color="white")"""
 
   # 파워 설정
   if (total_wattage < 300):
