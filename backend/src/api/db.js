@@ -159,11 +159,11 @@ db.selectComCase = () => {
 }
 
 // 장바구니 목록 추가하기
-db.insertCart = (id, title, manufacturer, price) => {
+db.insertCart = (id, title, manufacturer, price, wattage) => {
   return new Promise(async (resolve, reject) => {
     product_count = 1;
-    const sql = `insert into quote_order (product_id, product_title, product_manufacturer, product_count, product_price) values
-      ('${id}', '${title}', '${manufacturer}', '${product_count}', '${price}');`;
+    const sql = `insert into quote_order (product_id, product_title, product_manufacturer, product_count, product_price, product_wattage) values
+      ('${id}', '${title}', '${manufacturer}', '${product_count}', '${price}', '${wattage}');`;
 
     const result = await queryFunc(sql);
     resolve(result);
@@ -224,6 +224,16 @@ db.selectTotalPriceCart = () => {
 db.resetCart = () => {
   return new Promise(async (resolve, reject) => {
     const sql = `DELETE FROM quote_order;`;
+
+    const result = await queryFunc(sql);
+    resolve(result);
+  })
+};
+
+// 장바구니 총 전력량 조회
+db.selectTotalWattage = () => {
+  return new Promise(async (resolve, reject) => {
+    const sql = `SELECT SUM(product_wattage) AS total_wattage FROM quote_order`;
 
     const result = await queryFunc(sql);
     resolve(result);

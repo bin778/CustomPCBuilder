@@ -120,9 +120,9 @@ router.get("/comcase", async (req, res) => {
 
 // /api/addcart POST 데이터를 전달 받는다.
 router.post("/addcart", async (req, res) => {
-  const { id, title, manufacturer, price } = req.body;
+  const { id, title, manufacturer, price, wattage } = req.body;
 
-  const cart = await db.insertCart(id, title, manufacturer, price);
+  const cart = await db.insertCart(id, title, manufacturer, price, wattage);
   res.send({ result: cart });
 })
 
@@ -172,6 +172,14 @@ router.delete("/resetcart", async (req, res) => {
 
   const cart = await db.resetCart();
   res.send({ result: cart });
+});
+
+// /api/totalwattage GET 데이터를 전달받는다.
+router.get("/totalwattage", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+
+  const wattage = await db.selectTotalWattage(req.query);
+  res.send({ result: { total_wattage: wattage } });
 });
 
 module.exports = router;
