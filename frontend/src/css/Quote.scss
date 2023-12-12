@@ -134,16 +134,6 @@ img {
     }
   }
 
-  // 호환성이 맞지 않을 경우
-  .incompatible {
-    background-color: #ff0000;
-    border-radius: 10px 0 0 0;
-    .text-bar {
-      position: absolute;
-      left: 35px;
-    }
-  }
-
   // 전력량 바
   .wattage {
     background-color: #2c87c3;
@@ -155,6 +145,16 @@ img {
     .text-wattage {
       position: absolute;
       right: 20px;
+    }
+  }
+
+  // 호환성이 맞지 않을 경우, 전력량이 초과될 경우
+  .incompatible, .over-wattage {
+    background-color: #ff0000;
+    border-radius: 10px 0 0 0;
+    .text-bar {
+      position: absolute;
+      left: 35px;
     }
   }
 
