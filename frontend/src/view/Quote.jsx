@@ -32,7 +32,11 @@ export default function Quote() {
   // 주문 목록 State
   let [Cart, setCart] = useState([]);
   let [TotalPrice, setTotalPrice] = useState([]);
-  let [TotalWattage, setTotalWattage] = useState([]);
+  let [TotalWattage, setTotalWattage] = useState(0);
+  let [Output, setOutput] = useState(0);
+
+  // 호환성 및 전력량 체크
+  let [CheckWattage, setCheckWattage] = useState(false);
   
   useEffect(() => {
     // CPU DB 목록 불러오기
@@ -102,9 +106,13 @@ export default function Quote() {
     // fetch 함수 목록
     fetchTotalPrice();
     fetchTotalWattage();
+    fetchOutput();
     fetchCart();
+
+    // 호환성 체크
+    fetchCheckWattage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [TotalWattage, Output]);
 
   // 장바구니 총 가격을 계산한다.
   const fetchTotalPrice = () => {
@@ -126,6 +134,25 @@ export default function Quote() {
     });
   }
 
+  // 장바구니 총 출력량을 계산한다.
+  const fetchOutput = () => {
+    axios.get("/api/totaloutput").then((res) => {
+      const totaloutputeData = res.data.result.total_output;
+      setOutput(totaloutputeData[0].total_output);
+    }).catch((error) => {
+      console.error('데이터를 가져오는 중 오류 발생: ', error);
+    });
+  }
+
+  // 전력량 호환성 체크
+  const fetchCheckWattage = () => {
+    if (Number(Output) === 0 || Number(Output) >= Number(TotalWattage)) {
+      setCheckWattage(true);
+    } else {
+      setCheckWattage(false);
+    }
+  }
+
   // 장바구니 목록을 불러온다.
   const fetchCart = () => {
     axios.get("/api/cart").then((res) => {
@@ -133,6 +160,8 @@ export default function Quote() {
       setCart(cartData);
       fetchTotalPrice();
       fetchTotalWattage();
+      fetchOutput();
+      fetchCheckWattage();
     }).catch((error) => {
       console.error('장바구니 목록을 불러오는 중 오류 발생: ', error);
     });
@@ -160,7 +189,7 @@ export default function Quote() {
   }
 
   // 상품을 장바구니에 추가하기
-  const onClickAddCart = (id, title, manufacturer, price, wattage) => {
+  const onClickAddCart = (id, title, manufacturer, price, wattage, output) => {
     // 장바구니에 상품이 있는 지 확인
     const existingCartItem = Cart.find(item => item.product_id === id);
 
@@ -168,7 +197,7 @@ export default function Quote() {
       // 상품에 장바구니가 있으면 실행 X
     } else {
       // 상품을 장바구니에 추가한다.
-      const data = { id, title, manufacturer, price, wattage };
+      const data = { id, title, manufacturer, price, wattage, output };
       axios.post("/api/addcart", data).then((res) => {
         fetchCart();
       }).catch((error) => {
@@ -200,8 +229,8 @@ export default function Quote() {
   }
 
   // 상품을 장바구니에 추가하는 핸들러
-  const handleAddToCart = (id, title, manufacturer, price, wattage) => { 
-    onClickAddCart(id, title, manufacturer, price, wattage);
+  const handleAddToCart = (id, title, manufacturer, price, wattage, output) => { 
+    onClickAddCart(id, title, manufacturer, price, wattage, output);
   };
 
   // 상품을 장바구니에 삭제하는 핸들러
@@ -294,7 +323,7 @@ export default function Quote() {
         <span className="product-name">{cpuItem.cpu_manufacturer} {cpuItem.cpu_title}</span>
         <span className="product-spec">{cpuItem.cpu_core}코어 / {cpuItem.cpu_thread}쓰레드 / {cpuItem.cpu_clock}Ghz / {cpuItem.cpu_socket} / {cpuItem.cpu_wattage}W</span>
         <span className="product-price">{cpuItem.cpu_price.toLocaleString('ko-KR')}원</span>
-        <button className="product-button" onClick={() => handleAddToCart(cpuItem.cpu_id, cpuItem.cpu_title, cpuItem.cpu_manufacturer, cpuItem.cpu_price, cpuItem.cpu_wattage)}>추가</button>
+        <button className="product-button" onClick={() => handleAddToCart(cpuItem.cpu_id, cpuItem.cpu_title, cpuItem.cpu_manufacturer, cpuItem.cpu_price, cpuItem.cpu_wattage, 0)}>추가</button>
         <button className="product-button" onClick={() => handleDeleteFromCart(cpuItem.cpu_id)}>삭제</button>
         <div className="list-line"></div>
       </li>
@@ -363,7 +392,7 @@ export default function Quote() {
         <span className="product-name">{coolerItem.cooler_manufacturer} {coolerItem.cooler_title}</span>
         <span className="product-spec">{coolerItem.cooler_cooling} / {coolerItem.cooler_wattage}W</span>
         <span className="product-price">{coolerItem.cooler_price.toLocaleString('ko-KR')}원</span>
-        <button className="product-button" onClick={() => handleAddToCart(coolerItem.cooler_id, coolerItem.cooler_title, coolerItem.cooler_manufacturer, coolerItem.cooler_price, coolerItem.cooler_wattage)}>추가</button>
+        <button className="product-button" onClick={() => handleAddToCart(coolerItem.cooler_id, coolerItem.cooler_title, coolerItem.cooler_manufacturer, coolerItem.cooler_price, coolerItem.cooler_wattage, 0)}>추가</button>
         <button className="product-button" onClick={() => handleDeleteFromCart(coolerItem.cooler_id)}>삭제</button>
         <div className="list-line"></div>
       </li>
@@ -471,7 +500,7 @@ export default function Quote() {
         <span className="product-name">{mainboardItem.mainboard_manufacturer} {mainboardItem.mainboard_title}</span>
         <span className="product-spec">{mainboardItem.mainboard_cpu} / {mainboardItem.mainboard_socket} / {mainboardItem.mainboard_chipset} / {mainboardItem.mainboard_formfactors} / {mainboardItem.mainboard_wattage}W</span>
         <span className="product-price">{mainboardItem.mainboard_price.toLocaleString('ko-KR')}원</span>
-        <button className="product-button" onClick={() => handleAddToCart(mainboardItem.mainboard_id, mainboardItem.mainboard_title, mainboardItem.mainboard_manufacturer, mainboardItem.mainboard_price, mainboardItem.mainboard_wattage)}>추가</button>
+        <button className="product-button" onClick={() => handleAddToCart(mainboardItem.mainboard_id, mainboardItem.mainboard_title, mainboardItem.mainboard_manufacturer, mainboardItem.mainboard_price, mainboardItem.mainboard_wattage, 0)}>추가</button>
         <button className="product-button" onClick={() => handleDeleteFromCart(mainboardItem.mainboard_id)}>삭제</button>
         <div className="list-line"></div>
       </li>
@@ -540,7 +569,7 @@ export default function Quote() {
         <span className="product-name">{memoryItem.memory_manufacturer} {memoryItem.memory_title}</span>
         <span className="product-spec">{memoryItem.memory_capacity}GB / {memoryItem.memory_clock}Mhz / {memoryItem.memory_wattage}W</span>
         <span className="product-price">{memoryItem.memory_price.toLocaleString('ko-KR')}원</span>
-        <button className="product-button" onClick={() => handleAddToCart(memoryItem.memory_id, memoryItem.memory_title, memoryItem.memory_manufacturer, memoryItem.memory_price, memoryItem.memory_wattage)}>추가</button>
+        <button className="product-button" onClick={() => handleAddToCart(memoryItem.memory_id, memoryItem.memory_title, memoryItem.memory_manufacturer, memoryItem.memory_price, memoryItem.memory_wattage, 0)}>추가</button>
         <button className="product-button" onClick={() => handleDeleteFromCart(memoryItem.memory_id)}>삭제</button>
         <div className="list-line"></div>
       </li>
@@ -637,7 +666,7 @@ export default function Quote() {
         <span className="product-name">{videocardItem.videocard_manufacturer} {videocardItem.videocard_title}</span>
         <span className="product-spec">{videocardItem.videocard_chipset} / {videocardItem.videocard_capacity}GB / {videocardItem.videocard_clock}Mhz / {videocardItem.videocard_wattage}W</span>
         <span className="product-price">{videocardItem.videocard_price.toLocaleString('ko-KR')}원</span>
-        <button className="product-button" onClick={() => handleAddToCart(videocardItem.videocard_id, videocardItem.videocard_title, videocardItem.videocard_manufacturer, videocardItem.videocard_price, videocardItem.videocard_wattage)}>추가</button>
+        <button className="product-button" onClick={() => handleAddToCart(videocardItem.videocard_id, videocardItem.videocard_title, videocardItem.videocard_manufacturer, videocardItem.videocard_price, videocardItem.videocard_wattage, 0)}>추가</button>
         <button className="product-button" onClick={() => handleDeleteFromCart(videocardItem.videocard_id)}>삭제</button>
         <div className="list-line"></div>
       </li>
@@ -699,7 +728,7 @@ export default function Quote() {
         <span className="product-name">{storageItem.storage_manufacturer} {storageItem.storage_title}</span>
         <span className="product-spec">{storageItem.storage_device} / {storageItem.storage_capacity} / {storageItem.storage_wattage}W</span>
         <span className="product-price">{storageItem.storage_price.toLocaleString('ko-KR')}원</span>
-        <button className="product-button" onClick={() => handleAddToCart(storageItem.storage_id, storageItem.storage_title, storageItem.storage_manufacturer, storageItem.storage_price, storageItem.storage_wattage)}>추가</button>
+        <button className="product-button" onClick={() => handleAddToCart(storageItem.storage_id, storageItem.storage_title, storageItem.storage_manufacturer, storageItem.storage_price, storageItem.storage_wattage, 0)}>추가</button>
         <button className="product-button" onClick={() => handleDeleteFromCart(storageItem.storage_id)}>삭제</button>
         <div className="list-line"></div>
       </li>
@@ -798,7 +827,7 @@ export default function Quote() {
         <span className="product-name">{powerItem.power_manufacturer} {powerItem.power_title}</span>
         <span className="product-spec">{powerItem.power_formfactors} / {powerItem.power_output}W</span>
         <span className="product-price">{powerItem.power_price.toLocaleString('ko-KR')}원</span>
-        <button className="product-button" onClick={() => handleAddToCart(powerItem.power_id, powerItem.power_title, powerItem.power_manufacturer, powerItem.power_price, 0)}>추가</button>
+        <button className="product-button" onClick={() => handleAddToCart(powerItem.power_id, powerItem.power_title, powerItem.power_manufacturer, powerItem.power_price, 0, powerItem.power_output)}>추가</button>
         <button className="product-button" onClick={() => handleDeleteFromCart(powerItem.power_id)}>삭제</button>
         <div className="list-line"></div>
       </li>
@@ -889,7 +918,7 @@ export default function Quote() {
         <span className="product-name">{comcaseItem.comcase_manufacturer} {comcaseItem.comcase_title}</span>
         <span className="product-spec">{comcaseItem.comcase_size} / {comcaseItem.comcase_formfactors}</span>
         <span className="product-price">{comcaseItem.comcase_price.toLocaleString('ko-KR')}원</span> 
-        <button className="product-button" onClick={() => handleAddToCart(comcaseItem.comcase_id, comcaseItem.comcase_title, comcaseItem.comcase_manufacturer, comcaseItem.comcase_price, 0)}>추가</button>
+        <button className="product-button" onClick={() => handleAddToCart(comcaseItem.comcase_id, comcaseItem.comcase_title, comcaseItem.comcase_manufacturer, comcaseItem.comcase_price, 0, 0)}>추가</button>
         <button className="product-button" onClick={() => handleDeleteFromCart(comcaseItem.comcase_id)}>삭제</button>
         <div className="list-line"></div>
       </li>
@@ -916,7 +945,7 @@ export default function Quote() {
             <img src={COMPATIBLE} className="bar-image" alt="" />
             <span className="text-bar">호환성</span>
           </span>
-          <span className="wattage">
+          <span className={(CheckWattage === true ? 'wattage' : 'over-wattage')}>
             <img src={WATTAGE} className="bar-image" alt="" />
             <span className="text-bar">전력량</span>
             <span className="text-wattage">{Number(TotalWattage)} W</span>

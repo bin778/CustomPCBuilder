@@ -159,11 +159,11 @@ db.selectComCase = () => {
 }
 
 // 장바구니 목록 추가하기
-db.insertCart = (id, title, manufacturer, price, wattage) => {
+db.insertCart = (id, title, manufacturer, price, wattage, output) => {
   return new Promise(async (resolve, reject) => {
     product_count = 1;
-    const sql = `insert into quote_order (product_id, product_title, product_manufacturer, product_count, product_price, product_wattage) values
-      ('${id}', '${title}', '${manufacturer}', '${product_count}', '${price}', '${wattage}');`;
+    const sql = `insert into quote_order (product_id, product_title, product_manufacturer, product_count, product_price, product_wattage, product_output) values
+      ('${id}', '${title}', '${manufacturer}', '${product_count}', '${price}', '${wattage}', '${output}');`;
 
     const result = await queryFunc(sql);
     resolve(result);
@@ -233,7 +233,17 @@ db.resetCart = () => {
 // 장바구니 총 전력량 조회
 db.selectTotalWattage = () => {
   return new Promise(async (resolve, reject) => {
-    const sql = `SELECT SUM(product_wattage) AS total_wattage FROM quote_order`;
+    const sql = `SELECT SUM(product_count * product_wattage) AS total_wattage FROM quote_order`;
+
+    const result = await queryFunc(sql);
+    resolve(result);
+  })
+};
+
+// 장바구니 총 출력량 조회
+db.selectTotalOutput = () => {
+  return new Promise(async (resolve, reject) => {
+    const sql = `SELECT SUM(product_output) AS total_output FROM quote_order`;
 
     const result = await queryFunc(sql);
     resolve(result);
