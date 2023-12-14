@@ -100,7 +100,7 @@ img {
   }
 
   // 바
-  .compatible, .wattage, .price, .over-wattage {
+  .compatible, .wattage, .price, .over-wattage, .incompatible {
     display: inline-block;
     position: relative;
     bottom: 3px;
@@ -148,8 +148,8 @@ img {
     }
   }
 
-  // 전력량이 초과될 경우
-  .over-wattage {
+  // 전력량이 초과될 경우, 호환되지 않는 부품일 경우
+  .over-wattage, .incompatible {
     background-color: #ff0000;
     .text-bar {
       position: absolute;
