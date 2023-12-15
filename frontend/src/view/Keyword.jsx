@@ -3,6 +3,9 @@ import axios from 'axios'
 
 // 이미지 파일 목록
 import SEARCH from "../images/search.png";
+import CPU from "../images/cpu.png";
+import GPU from "../images/gpu.png";
+import MEMORY from "../images/memory.png";
 
 // SCSS 파일
 import "../css/Keyword.scss"
@@ -19,6 +22,7 @@ export default function Keyword() {
   let quote_name = [];
   let quote_price = [];
   let quote_image = [];
+  let guide_image = [];
   let quote_wattage = 0;
   let quote_total_price = 0;
 
@@ -59,12 +63,15 @@ export default function Keyword() {
   if (list_data.length === 22) {
     count = 6;
     quote_title = ['CPU','메인보드','메모리','저장공간','케이스','파워'];
+    guide_image = [CPU, MEMORY]
   } else if (list_data.length === 26) {
     count = 7;
     quote_title = ['CPU','메인보드','그래픽카드','메모리','저장공간','케이스','파워'];
+    guide_image = [CPU, GPU, MEMORY]
   } else if (list_data.length === 29) {
     count = 8;
     quote_title = ['CPU','메인보드','그래픽카드','메모리','저장공간','케이스','쿨러','파워'];
+    guide_image = [CPU, GPU, MEMORY]
   }
 
   // 견적 데이터를 부품 이름, 가격, 이미지 배열에 넣기
@@ -115,6 +122,9 @@ export default function Keyword() {
         result.push(
           <div key={quote_name[i]}>
             <div className="guide-product">
+              <div>
+                <img src={guide_image[explain_count]} className="guide-image" alt="" />
+              </div>
               <span>{quote_title[i]}: </span>
               <span>{quote_name[i]}</span>
               <div className="guide-product-explain">{quote_explain[explain_count++]}</div>
