@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from 'axios'
 
 // 이미지 파일 목록
-import COMPATIBLE from "../images/compatible.png";
+import TITLE from "../images/title.png";
 import WATTAGE from "../images/wattage.png";
 import PRICE from "../images/price.png";
 import LEFT from "../images/left.png";
@@ -35,7 +35,7 @@ export default function Quote() {
   let [TotalWattage, setTotalWattage] = useState(0);
   let [Output, setOutput] = useState(0);
 
-  // 호환성 및 전력량 체크
+  // 전력량 체크
   let [CheckWattage, setCheckWattage] = useState(false);
   
   useEffect(() => {
@@ -941,9 +941,9 @@ export default function Quote() {
           <span className={"cart-menu bottom right2" + (btnActive === 'comcase' ? ' active-menu' : '')} onClick={() => { setBtnActive('comcase'); }}>케이스</span>
         </div>
         <div>
-          <span className="compatible">
-            <img src={COMPATIBLE} className="bar-image" alt="" />
-            <span className="text-bar">호환성</span>
+          <span className="quote-title">
+            <img src={TITLE} className="bar-image" alt="" />
+            <span className="text-bar">PC견적 선택</span>
           </span>
           <span className={(CheckWattage === true ? 'wattage' : 'over-wattage')}>
             <img src={WATTAGE} className="bar-image" alt="" />

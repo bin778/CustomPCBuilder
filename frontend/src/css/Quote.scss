@@ -100,7 +100,7 @@ img {
   }
 
   // 바
-  .compatible, .wattage, .price, .over-wattage, .incompatible {
+  .quote-title, .wattage, .price, .over-wattage {
     display: inline-block;
     position: relative;
     bottom: 3px;
@@ -124,8 +124,8 @@ img {
     filter: invert(100%);
   }
 
-  // 호환성 바
-  .compatible, .incompatible {
+  // 안내 바
+  .quote-title {
     border-radius: 10px 0 0 0;
     .text-bar {
       position: absolute;
@@ -133,8 +133,8 @@ img {
     }
   }
 
-  .compatible {
-    background-color: #00b16a;
+  .quote-title {
+    background-color: #2c87c3;
   }
 
   // 전력량 바
@@ -151,11 +151,11 @@ img {
   }
 
   .wattage {
-    background-color: #2c87c3;
+    background-color: #00b16a;
   }
 
   // 전력량이 초과될 경우, 호환되지 않는 부품일 경우
-  .over-wattage, .incompatible {
+  .over-wattage {
     background-color: #ff0000;
   }
 
