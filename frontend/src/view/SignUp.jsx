@@ -66,10 +66,11 @@ export default function SignUp() {
   };
 
   const onChangeBirth = (e) => {
+    const birthRegExp = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
     const currentBirth = e.target.value;
     setBirth(currentBirth);
 
-    if (currentBirth.length !== 8) {
+    if (!birthRegExp.test(currentBirth)) {
       setIsBirth(false);
     } else {
       setIsBirth(true);

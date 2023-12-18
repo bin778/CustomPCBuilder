@@ -943,7 +943,7 @@ export default function Quote() {
         <div>
           <span className="quote-title">
             <img src={TITLE} className="bar-image" alt="" />
-            <span className="text-bar">PC견적 선택</span>
+            <span className="text-bar">PC견적</span>
           </span>
           <span className={(CheckWattage === true ? 'wattage' : 'over-wattage')}>
             <img src={WATTAGE} className="bar-image" alt="" />
