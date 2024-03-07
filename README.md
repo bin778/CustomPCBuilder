@@ -24,3 +24,12 @@
 
 ## 멤버
 * 최영빈(개인 졸업 프로젝트)
+
+## 화면 구성
+| 로그인 화면 | 회원가입 |
+| :----------------------: | :----------------------: |
+| ![login](https://github.com/bin778/CustomPCBuilder/assets/31675860/9ee0151d-55d5-415a-9139-8315595af384) | ![signup](https://github.com/bin778/CustomPCBuilder/assets/31675860/41766af4-fe22-4af5-aa58-9b5e0f9b47e7) |
+| 메인 화면 | 회원탈퇴 |
+| ![main](https://github.com/bin778/CustomPCBuilder/assets/31675860/f3dbd853-5059-4e34-9319-e86538a58ff5) | ![accountdelete](https://github.com/bin778/CustomPCBuilder/assets/31675860/c209ddea-88c5-440b-b4ab-b4a2f0a890d7) |
+| 온라인 견적 | 맞춤 견적 |
+| ![quote](https://github.com/bin778/CustomPCBuilder/assets/31675860/367b94ba-3fd3-4598-9586-ccae90fc4628) | ![keyword](https://github.com/bin778/CustomPCBuilder/assets/31675860/dd0b4c0f-8139-4792-9078-8de95b4c77c4) |
