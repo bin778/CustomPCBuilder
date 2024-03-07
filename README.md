@@ -1,5 +1,5 @@
 <div>
-<h1>💻CustomPCBuilder</h1>
+<h1>CustomPCBuilder(개인 졸업작품)</h1>
 </div>
 
 ## 프로젝트 소개
@@ -12,7 +12,7 @@
 * 이러한 사용자들을 위해 컴퓨터 부품에 대해 알지 못하더라도 원하는 키워드를 입력하면 원하는 용도와 가격으로 컴퓨터 견적을 맞출 수 있는 CustomPCBuilder라는 웹 사이트를 제작하였습니다.
 
 ## 개발 기간
-* 2023.08.01~2023.12.15
+* 2023.08~2023.12
 
 ## 개발 환경
 #### Front-End
@@ -21,9 +21,6 @@
 #### Back-End
 
 <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=white"> <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
-
-## 멤버
-* 최영빈(개인 졸업 프로젝트)
 
 ## 화면 구성
 | 로그인 화면 | 회원가입 |
