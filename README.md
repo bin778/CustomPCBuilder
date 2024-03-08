@@ -23,25 +23,23 @@
 <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"> <img src="https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=white"> <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
 
 ## 화면 구성
-| 로그인 화면 | 회원가입 |
+| 로그인 화면 | 메인 화면 |
 | :----------------------: | :----------------------: |
-| ![login](https://github.com/bin778/CustomPCBuilder/assets/31675860/9ee0151d-55d5-415a-9139-8315595af384) | ![signup](https://github.com/bin778/CustomPCBuilder/assets/31675860/41766af4-fe22-4af5-aa58-9b5e0f9b47e7) |
-| 메인 화면 | 회원탈퇴 |
-| ![main](https://github.com/bin778/CustomPCBuilder/assets/31675860/f3dbd853-5059-4e34-9319-e86538a58ff5) | ![accountdelete](https://github.com/bin778/CustomPCBuilder/assets/31675860/c209ddea-88c5-440b-b4ab-b4a2f0a890d7) |
+| ![login](https://github.com/bin778/CustomPCBuilder/assets/31675860/9ee0151d-55d5-415a-9139-8315595af384) | ![main](https://github.com/bin778/CustomPCBuilder/assets/31675860/f3dbd853-5059-4e34-9319-e86538a58ff5) |
 | 온라인 견적 | 맞춤 견적 |
 | ![quote](https://github.com/bin778/CustomPCBuilder/assets/31675860/367b94ba-3fd3-4598-9586-ccae90fc4628) | ![keyword](https://github.com/bin778/CustomPCBuilder/assets/31675860/dd0b4c0f-8139-4792-9078-8de95b4c77c4) |
 
 ## 기능 소개
-### 로그인 & 회원가입 기능
+### ⭐ 로그인 & 회원가입 기능
 * 회원가입할 때 정규표현식을 사용하여 이메일이나 비밀번호, 생년월일 등 형식에 맞게 입력하도록 유효성 검사합니다.
 * 회원가입에 성공하면 회원 정보는 회원 DB에 저장됩니다.
 * 로그인을 해야 메인 페이지로 접근 가능합니다.
 
-### 온라인 견적
+### ⭐ 온라인 견적
 * 각 컴퓨터 부품을 사용자가 직접 원하는 상품으로 선택할 수 있습니다.
 * 상품을 선택하면 수량을 조절해서 가격이나 전력량의 합을 계산합니다.
 * 선택한 파워의 출력량이 각 부품의 총 전력량보다 작을 경우 빨강색으로 경고 표시가 나오도록 하였습니다.
 
-### 맞춤 견적
+### ⭐ 맞춤 견적
 * 사용자가 직접 키워드를 입력해서 키워드가 Django 서버에 전송하여 맞는 부품을 찾아내어 원하는 견적을 사용자에게 보여줍니다.
 * 만약 키워드가 2개 이상 감지될 경우, 두 개의 용도 키워드 중 더 높은 점수를 가진 부품으로 설정하여 견적에 반영됩니다.
