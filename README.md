@@ -47,12 +47,6 @@
 * 사용자가 직접 키워드를 입력해서 키워드가 Django 서버에 전송하여 맞는 부품을 찾아내어 원하는 견적을 사용자에게 보여줌
 * 만약 키워드가 2개 이상 감지될 경우, 두 개의 용도 키워드 중 더 높은 점수를 가진 부품으로 설정하여 견적에 반영
 
-## 실행 장면
-### 온라인 견적
-![quote](https://github.com/bin778/CustomPCBuilder/assets/31675860/9bb1a105-7c5b-4f9b-b6d8-5c7d1029245d)
-### 키워드 견적
-![keyword](https://github.com/bin778/CustomPCBuilder/assets/31675860/e68c1934-77e7-4cbc-be1a-d0854c3ef6ad)
-
 ## 디렉터리 구성
 ```bash
 📦CustomPCBuilder
