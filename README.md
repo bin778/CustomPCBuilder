@@ -34,14 +34,13 @@
 
 <img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white">
 
-## 화면 구성
+## 기능 소개
 | 로그인 화면 | 메인 화면 |
 | :----------------------: | :----------------------: |
 | ![login](https://github.com/bin778/CustomPCBuilder/assets/31675860/9ee0151d-55d5-415a-9139-8315595af384) | ![main](https://github.com/bin778/CustomPCBuilder/assets/31675860/f3dbd853-5059-4e34-9319-e86538a58ff5) |
 | 온라인 견적 | 맞춤 견적 |
 | ![quote](https://github.com/bin778/CustomPCBuilder/assets/31675860/367b94ba-3fd3-4598-9586-ccae90fc4628) | ![keyword](https://github.com/bin778/CustomPCBuilder/assets/31675860/dd0b4c0f-8139-4792-9078-8de95b4c77c4) |
 
-## 기능 소개
 ### ⭐ 로그인 & 회원가입 기능
 * 회원가입할 때 정규표현식을 사용하여 이메일이나 비밀번호, 생년월일 등 형식에 맞게 입력하도록 유효성 검사합니다.
 * 회원가입에 성공하면 회원 정보는 회원 DB에 저장합니다.
