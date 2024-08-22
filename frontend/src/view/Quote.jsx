@@ -321,7 +321,7 @@ export default function Quote() {
         <div className="list-line"></div>
         <img src={process.env.PUBLIC_URL + cpuItem.cpu_image} className="product-image" alt="" />
         <span className="product-name">{cpuItem.cpu_manufacturer} {cpuItem.cpu_title}</span>
-        <span className="product-spec">{cpuItem.cpu_core}코어 / {cpuItem.cpu_thread}쓰레드 / {cpuItem.cpu_clock}Ghz / {cpuItem.cpu_socket} / {cpuItem.cpu_wattage}W</span>
+        <span className="product-spec">{cpuItem.cpu_core}코어 / {cpuItem.cpu_thread}쓰레드 / {cpuItem.cpu_clock / 10}Ghz / {cpuItem.cpu_socket} / {cpuItem.cpu_wattage}W</span>
         <span className="product-price">{cpuItem.cpu_price.toLocaleString('ko-KR')}원</span>
         <button className="product-button" onClick={() => handleAddToCart(cpuItem.cpu_id, cpuItem.cpu_title, cpuItem.cpu_manufacturer, cpuItem.cpu_price, cpuItem.cpu_wattage, 0)}>추가</button>
         <button className="product-button" onClick={() => handleDeleteFromCart(cpuItem.cpu_id)}>삭제</button>

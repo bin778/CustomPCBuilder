@@ -12,12 +12,12 @@ const conn = {  // mysql 접속 설정
 
 const db = {};
 
-const queryFunc = (sql) => {
+const queryFunc = (sql, params) => {
   return new Promise((resolve, reject) => {
     const connection = mysql.createConnection(conn);
     connection.connect();
 
-    connection.query(sql, (err, results) => {
+    connection.execute(sql, params, (err, results) => {  // execute로 변경
       if (err) {
         console.trace(err);
         reject(err);
@@ -34,10 +34,8 @@ db.findUser = (params) => {
   return new Promise(async (resolve) => {
     const { id, pw } = params;
 
-    const sql = 
-      " select * from user_info where " +
-      ` user_id = "${id}" and user_password="${pw}"; `;
-    const result = await queryFunc(sql);
+    const sql = "SELECT * FROM user_info WHERE user_id = ? AND user_password = ?";
+    const result = await queryFunc(sql, [id, pw]);
     resolve(result);
   });
 }
