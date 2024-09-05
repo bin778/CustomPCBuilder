@@ -6,8 +6,8 @@ import axios from 'axios'
 import "../css/Login.scss"
 
 export default function Login() {
-  let [id, setId] = useState('');
-  let [pw, setPw] = useState('');
+  const [id, setId] = useState('');
+  const [pw, setPw] = useState('');
   const navigate = useNavigate();
 
   const onClickLogin = (e) => {

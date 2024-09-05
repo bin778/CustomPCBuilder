@@ -6,9 +6,9 @@ import axios from 'axios'
 import "../css/AccountDelete.scss"
 
 export default function AccountDelete() {
-  let [id, setId] = useState('');
-  let [name, setName] = useState('');
-  let [pw, setPw] = useState('');
+  const [id, setId] = useState('');
+  const [name, setName] = useState('');
+  const [pw, setPw] = useState('');
   const navigate = useNavigate();
 
   const onClickDelete = (e) => {

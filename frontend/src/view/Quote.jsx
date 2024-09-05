@@ -17,26 +17,26 @@ import Header from "./Component/Header.jsx";
 
 export default function Quote() {
   // 온라인 견적 버튼 활성화
-  let [btnActive, setBtnActive] = useState('cpu');
+  const [btnActive, setBtnActive] = useState('cpu');
 
   // 부품 목록 State
-  let [CPU, setCPU] = useState([]);
-  let [Cooler, setCooler] = useState([]);
-  let [Mainboard, setMainboard] = useState([]);
-  let [Memory, setMemory] = useState([]);
-  let [VideoCard, setVideoCard] = useState([]);
-  let [Storage, setStorage] = useState([]);
-  let [Power, setPower] = useState([]);
-  let [ComCase, setComCase] = useState([]);
+  const [CPU, setCPU] = useState([]);
+  const [Cooler, setCooler] = useState([]);
+  const [Mainboard, setMainboard] = useState([]);
+  const [Memory, setMemory] = useState([]);
+  const [VideoCard, setVideoCard] = useState([]);
+  const [Storage, setStorage] = useState([]);
+  const [Power, setPower] = useState([]);
+  const [ComCase, setComCase] = useState([]);
 
   // 주문 목록 State
-  let [Cart, setCart] = useState([]);
-  let [TotalPrice, setTotalPrice] = useState([]);
-  let [TotalWattage, setTotalWattage] = useState(0);
-  let [Output, setOutput] = useState(0);
+  const [Cart, setCart] = useState([]);
+  const [TotalPrice, setTotalPrice] = useState([]);
+  const [TotalWattage, setTotalWattage] = useState(0);
+  const [Output, setOutput] = useState(0);
 
   // 전력량 체크
-  let [CheckWattage, setCheckWattage] = useState(false);
+  const [CheckWattage, setCheckWattage] = useState(false);
   
   useEffect(() => {
     // CPU DB 목록 불러오기
